@@ -3,6 +3,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes.prediction_routes import router
+from app.db.mongodb import db
 
 # Create uploads folder if it doesn't exist
 UPLOAD_FOLDER = "uploads"
@@ -36,3 +37,14 @@ def home():
 @app.get("/health", tags=["Health"])
 def health():
     return {"status": "healthy"}
+
+@app.get("/test-db")
+def test_db():
+    try:
+        collections = db.list_collection_names()
+        return {
+            "message": "MongoDB connected successfully",
+            "collections": collections
+        }
+    except Exception as e:
+        return {"error": str(e)}
