@@ -1,50 +1,78 @@
 # app/main.py
+
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes.prediction_routes import router
+
+# Routers
+from app.routes.prediction_routes import router as prediction_router
+from app.routes.auth_routes import router as auth_router
+
+# Database
 from app.db.mongodb import db
+
 
 # Create uploads folder if it doesn't exist
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+
 # Initialize FastAPI app
 app = FastAPI(
     title="AyurPulse Skin Detection API",
     version="1.0",
-    description="API for skin disease detection using deep learning"
+    description="AI-powered dermatology and Ayurvedic recommendation system"
 )
 
-# CORS settings (allow all origins for now; restrict in production as needed)
+
+# CORS settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # TODO: Replace "*" with allowed frontend domains in production
+    allow_origins=["*"],  # ⚠ Change in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include API router
-app.include_router(router, prefix="/api", tags=["Prediction"])
 
-# Root endpoint
+# ---------------- ROUTES ---------------- #
+
+# Prediction API
+app.include_router(
+    prediction_router,
+    prefix="/api",
+    tags=["Prediction"]
+)
+
+# Authentication API
+app.include_router(
+    auth_router,
+    prefix="/auth",
+    tags=["Authentication"]
+)
+
+
+# ---------------- HEALTH ENDPOINTS ---------------- #
+
 @app.get("/", tags=["Health"])
 def home():
     return {"message": "AyurPulse API is running"}
 
-# Health check endpoint
+
 @app.get("/health", tags=["Health"])
 def health():
     return {"status": "healthy"}
 
-@app.get("/test-db")
+
+@app.get("/test-db", tags=["Database"])
 def test_db():
     try:
         collections = db.list_collection_names()
+
         return {
             "message": "MongoDB connected successfully",
             "collections": collections
         }
+
     except Exception as e:
         return {"error": str(e)}
