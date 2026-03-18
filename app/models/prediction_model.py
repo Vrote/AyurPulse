@@ -1,55 +1,59 @@
-# app/models/prediction_model.py
 import torch
 import torch.nn as nn
 from torchvision import models
-from pathlib import Path
+from app.config.settings import settings
 
-# Device configuration
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Number of classes in the model
-num_classes = 5
-
-# Project root path
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-# Default model path
-MODEL_PATH = BASE_DIR / "saved_models" / "face_skin_disease_model.pth"
+# Singleton — model is loaded once when the app starts
+_model = None
+_device = None
 
 
-def load_model(model_path: Path = MODEL_PATH):
+def get_device() -> torch.device:
+    """Return CUDA if available, else CPU."""
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+def load_model() -> tuple[nn.Module, torch.device]:
     """
-    Load the pretrained EfficientNet model for skin disease classification.
-    Args:
-        model_path (Path): Path to the .pth model file.
+    Load the trained EfficientNet-B2 model from disk.
+    Uses a singleton so the model is only loaded once.
+
     Returns:
-        model: PyTorch model ready for inference.
+        Tuple of (model, device).
+
     Raises:
-        FileNotFoundError: If the model file does not exist.
-        RuntimeError: If model weights cannot be loaded.
+        FileNotFoundError: If the .pth file does not exist.
+        RuntimeError: If the weights cannot be loaded into the architecture.
     """
-    if not model_path.exists():
-        raise FileNotFoundError(f"Model file not found at {model_path}")
+    global _model, _device
 
+    if _model is not None:
+        return _model, _device
+
+    _device = get_device()
+
+    # Rebuild the same architecture used during training
+    model = models.efficientnet_b2(weights=None)
+    model.classifier[1] = nn.Linear(
+        model.classifier[1].in_features,
+        settings.NUM_CLASSES
+    )
+
+    # Load saved weights
     try:
-        # Initialize EfficientNet-B2 model
-        model = models.efficientnet_b2(weights=None)
-
-        # Replace classifier with number of classes
-        model.classifier[1] = nn.Linear(
-            model.classifier[1].in_features,
-            num_classes
-        )
-
-        # Load trained weights
-        state_dict = torch.load(model_path, map_location=device)
+        state_dict = torch.load(settings.MODEL_PATH, map_location=_device)
         model.load_state_dict(state_dict)
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"Model file not found at '{settings.MODEL_PATH}'. "
+            "Please place skin_disease_model.pth in the saved_models/ folder."
+        )
+    except RuntimeError as e:
+        raise RuntimeError(f"Failed to load model weights: {e}")
 
-        # Move to device and set evaluation mode
-        model.to(device)
-        model.eval()
+    model = model.to(_device)
+    model.eval()
 
-        return model
-
-    except Exception as e:
-        raise RuntimeError(f"Failed to load model: {e}")
+    _model = model
+    print(f"[AyurPulse] Model loaded on {_device}")
+    return _model, _device

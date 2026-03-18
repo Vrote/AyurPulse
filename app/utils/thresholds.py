@@ -1,19 +1,19 @@
-# app/utils/thresholds.py
-from typing import List
+from app.config.settings import settings
 
-# List of classes predicted by the model
-class_names: List[str] = ['acne', 'blackheads', 'dark spots', 'pores', 'wrinkles']
+# Class names — must match the order used during model training
+CLASS_NAMES = ["acne", "blackheads", "dark spots", "pores", "wrinkles"]
 
-# Confidence thresholds
-# Diseases other than wrinkles
-disease_threshold: float = 88.0
+# Per-class thresholds
+# Wrinkles require higher confidence because the model is stricter for age-related features
+THRESHOLDS = {
+    "acne":       settings.DISEASE_THRESHOLD,
+    "blackheads": settings.DISEASE_THRESHOLD,
+    "dark spots": settings.DISEASE_THRESHOLD,
+    "pores":      settings.DISEASE_THRESHOLD,
+    "wrinkles":   settings.WRINKLE_THRESHOLD,
+}
 
-# Wrinkle-specific threshold
-wrinkle_threshold: float = 96.0
 
-"""
-Usage:
-- If predicted probability >= threshold, the class is considered detected.
-- disease_threshold applies to all classes except 'wrinkles'.
-- wrinkle_threshold applies only to 'wrinkles'.
-"""
+def get_threshold(class_name: str) -> float:
+    """Return confidence threshold for a given class name."""
+    return THRESHOLDS.get(class_name, settings.DISEASE_THRESHOLD)
