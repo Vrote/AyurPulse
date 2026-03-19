@@ -1,0 +1,607 @@
+{
+  "meta": {
+    "version": "2.0",
+    "description": "AyurPulse Ayurvedic 7-day treatment plans. Version 2 — Prakriti-driven. Each condition has 3 dosha variants. 15 total plan combinations.",
+    "total_plans": 15,
+    "conditions": ["acne", "blackheads", "dark_spots", "pores", "wrinkles"],
+    "dosha_variants": ["pitta_dominant", "kapha_dominant", "vata_dominant"],
+    "how_plan_is_selected": "plans[condition][dominant_dosha_from_prakriti_assessment]",
+    "upgrade_from_v1": "v1 had one plan per condition. v2 has 3 dosha-specific plans per condition = truly personalized."
+  },
+
+  "plans": {
+
+    "acne": {
+
+      "pitta_dominant": {
+        "plan_id": "ACNE_PITTA",
+        "title": "7-Day Pitta-Acne Plan — Cooling & Anti-Inflammatory",
+        "overview": "Your Prakriti is Pitta dominant. Your acne is caused by excess internal heat and inflammation — not just surface bacteria. This plan cools Pitta from inside and outside simultaneously.",
+        "dosha_focus": "pitta",
+        "days": [
+          {
+            "day": 1, "theme": "Internal cooling begins",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Drink 1 glass rose water + 5 drops lemon on empty stomach — cools Pitta immediately", "Apply fresh aloe vera gel all over face — leave 20 min", "Wash with besan + rose water face wash (cold water only)", "Apply sandalwood + rose water paste on active pimples as spot treatment"],
+              "ingredients": ["rose water", "lemon juice", "aloe vera gel", "besan", "sandalwood powder"]
+            },
+            "diet": {
+              "breakfast": "Moong dal cheela with mint chutney — light and cooling",
+              "lunch": "Brown rice + palak dal + cucumber raita — no spice",
+              "dinner": "Light moong dal khichdi with pinch turmeric",
+              "drinks": ["coriander seed water throughout day", "coconut water afternoon"],
+              "avoid": ["red chili", "fried food", "coffee", "alcohol", "mango", "tamarind"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Steam face with neem water 5 min — opens pores", "Apply turmeric + sandalwood + rose water mask — leave 20 min", "Rinse with cold water", "Apply aloe vera gel as night moisturizer"],
+              "ingredients": ["neem leaves", "turmeric powder", "sandalwood powder", "rose water", "aloe vera gel"]
+            },
+            "yoga": "Sheetali Pranayama — 10 rounds. Inhale through rolled tongue, exhale through nose. Directly cools Pitta.",
+            "tip": "Pitta acne is always heat-driven. Every cold water rinse, every cooling food, every Sheetali breath directly reduces your acne trigger."
+          },
+          {
+            "day": 2, "theme": "Blood purification",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Drink amla juice — 30ml diluted in water (highest Vitamin C, cools blood)", "Apply chilled cucumber slices on inflamed pimples 10 min", "Besan face wash with cold water", "Apply 2 drops tea tree oil diluted in aloe vera on spots only"],
+              "ingredients": ["amla juice", "cucumber", "besan", "tea tree oil", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Fresh papaya + 10 soaked almonds",
+              "lunch": "Roti + any green vegetable + dal — no tomato today",
+              "dinner": "Vegetable soup — no spice, add coriander leaves",
+              "drinks": ["manjistha herbal tea morning", "fennel seed water evening"],
+              "avoid": ["tomato", "vinegar", "pickles", "sour curd", "citrus fruits except amla"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Apply multani mitti + rose water mask on T-zone", "Leave 15 min — remove before fully dry", "Cold water rinse", "Apply aloe vera"],
+              "ingredients": ["multani mitti", "rose water", "aloe vera gel"]
+            },
+            "yoga": "Sitali Pranayama 5 min + Moon salutation 5 rounds — both cool Pitta fire.",
+            "tip": "Manjistha is the number one Ayurvedic blood purifier for Pitta acne. Drink as tea daily this week."
+          },
+          {
+            "day": 3, "theme": "Deep cleanse",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Oil pulling with coconut oil 10 min — removes heat toxins", "Neem + tulsi paste on face — leave 15 min", "Cold water rinse", "Rose water toner on cotton pad"],
+              "ingredients": ["coconut oil", "neem leaves", "tulsi leaves", "rose water"]
+            },
+            "diet": {
+              "breakfast": "Oats with coconut milk + saffron strands",
+              "lunch": "Brown rice + dal + steamed vegetables — minimal oil",
+              "dinner": "Moong dal soup + 1 roti",
+              "drinks": ["neem tea morning", "coriander water afternoon", "warm water with 1 tsp triphala before bed"],
+              "avoid": ["non-vegetarian today", "egg", "all spicy food", "cold drinks"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Apply besan + turmeric + raw milk mask", "Leave 20 min", "Cold water rinse", "Sandalwood powder + rose water spot treatment"],
+              "ingredients": ["besan", "turmeric powder", "raw milk", "sandalwood powder", "rose water"]
+            },
+            "yoga": "Bhujangasana 5 rounds + Kapalbhati 5 min — improves blood circulation, reduces heat accumulation.",
+            "tip": "Drink minimum 10 glasses of water today. For Pitta, water is medicine — it dilutes and cools excess heat."
+          },
+          {
+            "day": 4, "theme": "Rest and repair",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Warm water with 1 tsp honey + rose water", "Gentle coconut oil massage on face 3 min", "Besan face wash", "Aloe vera gel moisturizer"],
+              "ingredients": ["honey", "rose water", "coconut oil", "besan", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Banana + soaked oats with coconut milk",
+              "lunch": "Dal tadka (cumin only, no red chili) + roti + boiled vegetables",
+              "dinner": "Light vegetable khichdi + warm glass milk",
+              "drinks": ["rose petal sherbet afternoon", "coconut water morning"],
+              "avoid": ["all spicy food", "fermented food", "processed snacks"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Apply chilled green tea toner using cotton pad", "Honey + cinnamon spot treatment on pimples only (1:4 ratio)", "Leave honey overnight — do not rinse"],
+              "ingredients": ["green tea", "honey", "cinnamon powder"]
+            },
+            "yoga": "Legs up the wall pose 10 min — reduces stress hormones that trigger Pitta acne.",
+            "tip": "Sleep before 10:30 PM. Pitta is most active 10 PM to 2 AM — late sleep directly worsens Pitta acne."
+          },
+          {
+            "day": 5, "theme": "Brightening and healing",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Amla + mint juice drink", "Raw potato juice on acne marks — leave 20 min", "Besan face wash", "Sandalwood + milk paste on marks"],
+              "ingredients": ["amla juice", "mint", "raw potato", "besan", "sandalwood powder", "milk"]
+            },
+            "diet": {
+              "breakfast": "Fresh fruit bowl — papaya, apple, pomegranate",
+              "lunch": "Brown rice + lauki sabzi + dal",
+              "dinner": "Clear vegetable soup + roti",
+              "drinks": ["coriander mint detox water", "warm water with triphala before bed"],
+              "avoid": ["chips", "biscuits", "maida", "street food", "aerated drinks"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Neem steam 5 min", "Multani mitti + neem powder + rose water mask", "Cold water rinse", "Rose water toner"],
+              "ingredients": ["neem leaves", "multani mitti", "neem powder", "rose water"]
+            },
+            "yoga": "Anulom Vilom 10 min — directly balances Pitta and calms inflammation.",
+            "tip": "Apply sunscreen SPF 30+ every morning without fail. UV rays are the biggest Pitta acne aggravator."
+          },
+          {
+            "day": 6, "theme": "Nourish and strengthen",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Warm water + honey + lemon (5 drops only)", "Fresh neem leaf paste on face — leave 20 min", "Cold water rinse", "2 drops lavender oil in aloe vera as moisturizer"],
+              "ingredients": ["honey", "lemon juice", "neem leaves", "lavender oil", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Vegetable upma + coconut chutney",
+              "lunch": "Full thali — roti + 2 non-spicy sabzis + dal + raita",
+              "dinner": "Masoor dal soup + rice",
+              "drinks": ["neem tea", "coconut water"],
+              "avoid": ["sour curd at night", "heavy desserts", "soda"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Warm 2 tbsp sesame oil + pinch turmeric", "Massage face 5 min upward strokes", "Leave 15 min", "Mild face wash", "Aloe vera gel"],
+              "ingredients": ["sesame oil", "turmeric powder", "aloe vera gel"]
+            },
+            "yoga": "Sheetali + Bhramari Pranayama 5 min each — most effective pranayama combination for Pitta skin.",
+            "tip": "Add 2 drops tea tree oil to your regular face wash permanently — ongoing antibacterial protection."
+          },
+          {
+            "day": 7, "theme": "Permanent routine setup",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Permanent morning drink: coriander seed water OR amla juice", "Permanent face wash: besan + rose water", "Permanent moisturizer: aloe vera gel", "Sunscreen every day without exception"],
+              "ingredients": ["coriander seeds", "amla juice", "besan", "rose water", "aloe vera gel", "sunscreen"]
+            },
+            "diet": {
+              "breakfast": "Any balanced cooling breakfast", "lunch": "Balanced meal — minimize spice permanently",
+              "dinner": "Light dinner before 8 PM always",
+              "drinks": ["coriander water every morning permanently", "triphala before bed weekly"],
+              "avoid": ["permanent avoidance: spicy food, fried food, alcohol, coffee excess, late night eating"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Weekly Sunday mask: turmeric + sandalwood + aloe vera", "Daily night: aloe vera gel", "Spot treatment: sandalwood paste on marks"],
+              "ingredients": ["turmeric powder", "sandalwood powder", "aloe vera gel"]
+            },
+            "yoga": "Sheetali Pranayama 5 min every morning permanently — your daily Pitta cooling practice.",
+            "tip": "Results show in 3-4 weeks. Continue: no spicy food + coriander water morning + aloe vera daily."
+          }
+        ],
+        "weekly_summary": {
+          "key_ingredients": ["aloe vera gel", "sandalwood powder", "neem leaves", "rose water", "turmeric powder", "coconut oil", "amla juice"],
+          "key_diet_changes": ["no spicy food", "no fried food", "coriander water daily", "coconut water daily", "triphala weekly"],
+          "expected_results": "Redness reduces by Day 3. New breakouts reduce by Day 4-5. Existing acne heals by Day 6-7.",
+          "continue_after_7_days": "Coriander water every morning. No spicy food. Aloe vera daily. Sheetali pranayama daily."
+        }
+      },
+
+      "kapha_dominant": {
+        "plan_id": "ACNE_KAPHA",
+        "title": "7-Day Kapha-Acne Plan — Detox & Deep Cleanse",
+        "overview": "Your Prakriti is Kapha dominant. Your acne is caused by excess oil and toxin buildup blocking follicles — not heat. This plan detoxifies, reduces oil production, and stimulates circulation.",
+        "dosha_focus": "kapha",
+        "days": [
+          {
+            "day": 1, "theme": "Detox activation",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Drink warm water + 1 tsp honey + ginger juice 5 drops — activates detox", "Oil pulling with sesame oil 10 min", "Apply neem + turmeric + besan scrub paste — gently exfoliate", "Cold water rinse — closes pores"],
+              "ingredients": ["honey", "ginger", "sesame oil", "neem leaves", "turmeric powder", "besan"]
+            },
+            "diet": {
+              "breakfast": "Sprouts salad + ginger lemon tea (no milk)", "lunch": "Jowar roti + methi sabzi + moong dal", "dinner": "Light vegetable soup with black pepper and ginger",
+              "drinks": ["ginger lemon warm water throughout day", "barley water afternoon"],
+              "avoid": ["dairy products today", "sugar", "fried food", "cold drinks", "ice cream"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Steam face 8 min with neem water", "Multani mitti + neem powder + apple cider vinegar mask — leave 20 min", "Lukewarm then cold water rinse", "Rose water toner"],
+              "ingredients": ["neem leaves", "multani mitti", "neem powder", "apple cider vinegar", "rose water"]
+            },
+            "yoga": "Kapalbhati Pranayama 10 min — best practice for Kapha detox. Do daily all week.",
+            "tip": "Kapha acne is oil and toxin driven. Sweating through yoga is medicine — it clears pores naturally."
+          },
+          {
+            "day": 2, "theme": "Oil control",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Triphala water on empty stomach", "Besan + lemon (3 drops) + turmeric face wash", "Apply witch hazel toner on oily areas", "Aloe vera gel moisturizer (oil free)"],
+              "ingredients": ["triphala powder", "besan", "lemon juice", "turmeric powder", "witch hazel", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Ragi porridge with warm water", "lunch": "Brown rice + bitter gourd sabzi + dal", "dinner": "Moong dal soup",
+              "drinks": ["fenugreek seed water morning", "green tea afternoon"],
+              "avoid": ["cheese", "paneer", "butter", "sweets", "white rice", "maida"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Activated charcoal + aloe vera mask on T-zone only", "Leave 15 min — rinse thoroughly", "Ice cube wrapped in cloth on nose and chin 2 min", "Witch hazel toner"],
+              "ingredients": ["activated charcoal powder", "aloe vera gel", "ice", "witch hazel"]
+            },
+            "yoga": "Surya Namaskar 10 rounds — generates heat that melts Kapha and opens pores through sweat.",
+            "tip": "Wash face maximum twice daily. Over-washing signals more oil production in Kapha skin."
+          },
+          {
+            "day": 3, "theme": "Deep pore cleanse",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Neem + tulsi herbal tea drink", "Neem leaf paste on face — leave 20 min", "Cold water rinse", "2 drops tea tree oil diluted in aloe vera"],
+              "ingredients": ["neem leaves", "tulsi leaves", "tea tree oil", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Besan cheela + mint chutney", "lunch": "Mixed grain khichdi", "dinner": "Clear broth + moong dal",
+              "drinks": ["moringa tea", "warm water throughout"],
+              "avoid": ["all dairy", "rice today", "maida", "sugar"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Egg white + lemon juice peel mask on T-zone", "Leave until dry — 20 min — peel gently", "Rose water rinse", "Witch hazel toner"],
+              "ingredients": ["egg white", "lemon juice", "rose water", "witch hazel"]
+            },
+            "yoga": "Bhastrika Pranayama 5 min + Kapalbhati 10 min — generates internal heat to burn Kapha toxins.",
+            "tip": "Bitter gourd (karela) juice 3 times this week — reduces excess oil from inside the body."
+          },
+          {
+            "day": 4, "theme": "Herbal antibacterial",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Aloe vera juice with warm water", "Turmeric + besan + yogurt face wash (yogurt reduces for oily — use minimal)", "Rose water toner", "Oil-free aloe vera moisturizer"],
+              "ingredients": ["aloe vera juice", "turmeric powder", "besan", "plain yogurt", "rose water", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Idli + sambar (light)", "lunch": "Roti + palak sabzi + dal", "dinner": "Barley soup + vegetables",
+              "drinks": ["barley water", "ginger tulsi tea"],
+              "avoid": ["outside food", "chips", "biscuits", "non-veg"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Tomato juice + honey on pimple areas", "Leave 15 min", "Cold water rinse", "Multani mitti spot mask on large pimples overnight"],
+              "ingredients": ["fresh tomato juice", "honey", "multani mitti"]
+            },
+            "yoga": "Trikonasana + Kapalbhati combo — stimulates liver detox which directly clears Kapha skin.",
+            "tip": "Clean your mobile screen daily — it presses against your cheek and transfers bacteria to Kapha skin."
+          },
+          {
+            "day": 5, "theme": "Exfoliation and brightening",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Warm lemon honey water drink", "Rice flour + besan + rose water gentle scrub — 2 min circular motion", "Cold water rinse", "Rose water toner + aloe vera"],
+              "ingredients": ["lemon juice", "honey", "rice flour", "besan", "rose water", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Vegetable oats + black pepper", "lunch": "Brown rice + drumstick sambar", "dinner": "Masoor dal soup",
+              "drinks": ["amla juice", "warm jeera water"],
+              "avoid": ["cold food", "stale food", "alcohol", "excess sugar"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Neem powder + multani mitti + rose water full face mask", "Leave 20 min", "Cold water rinse", "Aloe vera gel"],
+              "ingredients": ["neem powder", "multani mitti", "rose water", "aloe vera gel"]
+            },
+            "yoga": "Matsyasana + Kapalbhati — thyroid stimulation through fish pose balances Kapha skin hormones.",
+            "tip": "Apply neem oil 2 drops diluted in aloe vera on stubborn pimples — strongest antibacterial for Kapha acne."
+          },
+          {
+            "day": 6, "theme": "Calming and balancing",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Moringa + warm water drink", "Besan face wash", "Witch hazel toner", "Light oil-free aloe vera moisturizer"],
+              "ingredients": ["moringa powder", "besan", "witch hazel", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Poha with mustard seeds + lemon", "lunch": "Full balanced meal — minimal oil, no fried", "dinner": "Light moong soup + roti",
+              "drinks": ["green tea", "fennel water"],
+              "avoid": ["oily food", "fast food", "salty snacks", "excess dairy"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Sandalwood + turmeric + rose water paste on acne marks", "Leave 20 min", "Cold water rinse", "Aloe vera"],
+              "ingredients": ["sandalwood powder", "turmeric powder", "rose water", "aloe vera gel"]
+            },
+            "yoga": "Anulom Vilom 15 min — balances Kapha and Pitta together.",
+            "tip": "Tie hair back at night — hair oil and products touch your face while sleeping and worsen Kapha acne."
+          },
+          {
+            "day": 7, "theme": "Daily Kapha routine set",
+            "morning": {
+              "time": "6:00 AM",
+              "routine": ["Permanent Kapha morning drink: warm ginger lemon water", "Permanent face wash: besan + neem powder + rose water", "Permanent toner: witch hazel", "Permanent moisturizer: aloe vera gel"],
+              "ingredients": ["ginger", "lemon juice", "besan", "neem powder", "rose water", "witch hazel", "aloe vera gel"]
+            },
+            "diet": {
+              "breakfast": "Upma or poha", "lunch": "Balanced meal, low oil", "dinner": "Light soup + roti",
+              "drinks": ["ginger lemon water every morning permanently", "green tea daily"],
+              "avoid": ["permanently: excess dairy, sugar, fried food, cold drinks"]
+            },
+            "evening": {
+              "time": "7:00 PM",
+              "routine": ["Weekly Sunday: multani mitti + neem mask", "Daily night: witch hazel toner + aloe vera", "Spot treatment: tea tree oil diluted on active pimples"],
+              "ingredients": ["multani mitti", "neem powder", "witch hazel", "aloe vera gel", "tea tree oil"]
+            },
+            "yoga": "Kapalbhati 10 min every morning — your permanent Kapha daily practice.",
+            "tip": "Kapha acne needs more effort than Pitta — consistency with Kapalbhati, no dairy, and weekly clay mask shows results in 3 weeks."
+          }
+        ],
+        "weekly_summary": {
+          "key_ingredients": ["neem leaves", "multani mitti", "besan", "aloe vera gel", "witch hazel", "turmeric powder", "activated charcoal powder"],
+          "key_diet_changes": ["reduce dairy and sugar", "warm water only", "bitter gourd juice 3x", "ginger daily", "barley water"],
+          "expected_results": "Oil reduces by Day 2-3. Pores appear smaller by Day 4. Acne reduces significantly by Day 5-6.",
+          "continue_after_7_days": "Daily Kapalbhati. Weekly clay mask. No excess dairy. Ginger lemon water every morning."
+        }
+      },
+
+      "vata_dominant": {
+        "plan_id": "ACNE_VATA",
+        "title": "7-Day Vata-Acne Plan — Nourish While Healing",
+        "overview": "Your Prakriti is Vata dominant. Your acne is caused by irregular digestion and stress — not oil or heat. Vata acne appears as small, painful, dry pimples often around jaw and chin. This plan balances Vata while healing acne gently.",
+        "dosha_focus": "vata",
+        "days": [
+          { "day": 1, "theme": "Gentle cleanse + nourish",
+            "morning": { "time": "6:00 AM", "routine": ["Warm water with honey + ginger — regulates Vata digestion", "Warm sesame oil face massage 3 min — Vata needs oil nourishment", "Besan face wash with WARM (not cold) water", "Aloe vera gel moisturizer — non-comedogenic nourishment"], "ingredients": ["honey", "ginger", "sesame oil", "besan", "aloe vera gel"] },
+            "diet": { "breakfast": "Warm oatmeal with milk, dates, almonds", "lunch": "Khichdi with ghee — grounding for Vata", "dinner": "Warm moong dal soup + roti", "drinks": ["warm water throughout — never cold", "warm milk with turmeric at night"], "avoid": ["cold food", "raw salads", "cold drinks", "irregular meal times"] },
+            "evening": { "time": "7:00 PM", "routine": ["Turmeric + honey + aloe vera mask — gentle, no harsh clay", "Leave 20 min", "Warm water rinse", "Sesame oil 2 drops mixed with aloe vera as night moisturizer"], "ingredients": ["turmeric powder", "honey", "aloe vera gel", "sesame oil"] },
+            "yoga": "Anulom Vilom 10 min + gentle Shavasana — calms Vata nervous system that drives stress acne.",
+            "tip": "Vata acne is stress and irregular routine driven. Consistent meal times and sleep schedule is treatment itself." },
+          { "day": 2, "theme": "Stress and digestion",
+            "morning": { "time": "6:00 AM", "routine": ["Ashwagandha + warm milk drink — reduces cortisol", "Neem + honey paste (honey counteracts drying effect of neem for Vata)", "Warm water rinse", "Aloe vera + 2 drops lavender oil moisturizer"], "ingredients": ["ashwagandha powder", "milk", "neem leaves", "honey", "aloe vera gel", "lavender oil"] },
+            "diet": { "breakfast": "Soaked almonds + dates + warm milk", "lunch": "Dal + ghee roti + cooked vegetables", "dinner": "Warm vegetable soup", "drinks": ["fennel water", "warm coriander water"], "avoid": ["skipping meals", "eating late", "raw food", "cold food"] },
+            "evening": { "time": "7:00 PM", "routine": ["Almond oil warm massage on face 5 min", "Leave 15 min", "Mild besan wash", "Honey spot treatment on pimples"], "ingredients": ["almond oil", "besan", "honey"] },
+            "yoga": "Bhramari Pranayama 10 min — best for Vata anxiety that triggers chin and jaw acne.",
+            "tip": "Eat at exact same times daily — 7AM, 1PM, 7PM. Vata is regulated by routine. Irregular eating = Vata acne spike." },
+          { "day": 3, "theme": "Internal balance",
+            "morning": { "time": "6:00 AM", "routine": ["Triphala water — gentle Vata-safe internal cleanser", "Oil pulling with sesame oil 10 min", "Turmeric + aloe vera face mask", "Warm water rinse + aloe vera"], "ingredients": ["triphala powder", "sesame oil", "turmeric powder", "aloe vera gel"] },
+            "diet": { "breakfast": "Warm semolina porridge with ghee and saffron", "lunch": "Brown rice + dal makhani + vegetables", "dinner": "Sweet potato soup + roti", "drinks": ["saffron warm milk", "warm water"], "avoid": ["all raw salads", "cold drinks", "skipping meals"] },
+            "evening": { "time": "7:00 PM", "routine": ["Sandalwood + milk cream + honey mask", "Leave 20 min", "Warm water rinse", "Sesame oil or almond oil night treatment"], "ingredients": ["sandalwood powder", "milk cream", "honey", "sesame oil"] },
+            "yoga": "Paschimottanasana + Anulom Vilom — regulates digestion and calms Vata acne root cause.",
+            "tip": "Avoid screens 1 hour before sleep. Blue light aggravates Vata causing night-time cortisol and acne." },
+          { "day": 4, "theme": "Rest and rebuild",
+            "morning": { "time": "6:00 AM", "routine": ["Warm ginger honey water", "Aloe vera gel full face application", "Leave 20 min — no face wash today", "Apply diluted tea tree oil on spots only"], "ingredients": ["ginger", "honey", "aloe vera gel", "tea tree oil"] },
+            "diet": { "breakfast": "Banana + warm milk", "lunch": "Khichdi with ghee + steamed vegetables", "dinner": "Light dal + roti + warm glass milk", "drinks": ["warm water + 1 tsp brahmi powder at night", "coconut water afternoon"], "avoid": ["all spicy food", "coffee", "stress eating"] },
+            "evening": { "time": "7:00 PM", "routine": ["Warm sesame oil full face massage 5 min", "Leave overnight", "Do not wash in evening — wash next morning"], "ingredients": ["sesame oil"] },
+            "yoga": "Yoga Nidra or deep relaxation 20 min — Vata acne responds dramatically to deep rest.",
+            "tip": "Vata skin is dry underneath even when acne is present. Never skip moisturizer — dry Vata skin worsens acne." },
+          { "day": 5, "theme": "Healing marks",
+            "morning": { "time": "6:00 AM", "routine": ["Amla juice + warm water", "Raw potato juice on acne marks — 20 min", "Besan face wash warm water", "Aloe vera moisturizer"], "ingredients": ["amla juice", "raw potato", "besan", "aloe vera gel"] },
+            "diet": { "breakfast": "Ragi porridge with warm milk", "lunch": "Full balanced meal with ghee", "dinner": "Dal + vegetable + roti", "drinks": ["triphala before bed", "warm coriander water"], "avoid": ["all processed food", "cold drinks", "irregular meals"] },
+            "evening": { "time": "7:00 PM", "routine": ["Turmeric + honey + sesame oil mask", "Leave 20 min warm water rinse", "Almond oil on acne marks overnight"], "ingredients": ["turmeric powder", "honey", "sesame oil", "almond oil"] },
+            "yoga": "Kapalbhati 5 min + Anulom Vilom 10 min — mild Kapalbhati helps without aggravating Vata.",
+            "tip": "Apply almond oil on acne marks every night — fades Vata acne scars faster than any other ingredient." },
+          { "day": 6, "theme": "Strengthen skin barrier",
+            "morning": { "time": "6:00 AM", "routine": ["Saffron + warm milk drink", "Besan + honey + milk face pack", "Warm water rinse", "Sesame oil + aloe vera moisturizer blend"], "ingredients": ["saffron", "milk", "besan", "honey", "sesame oil", "aloe vera gel"] },
+            "diet": { "breakfast": "Oats + soaked nuts + warm milk", "lunch": "Roti + dal makhani + vegetables", "dinner": "Warm vegetable soup + roti", "drinks": ["ashwagandha milk at bedtime", "warm fennel water"], "avoid": ["cold food", "excess raw food", "alcohol", "late dinner"] },
+            "evening": { "time": "7:00 PM", "routine": ["Warm almond oil massage 5 min", "Leave overnight", "Weekly exfoliation: rice flour + honey paste 2 min"], "ingredients": ["almond oil", "rice flour", "honey"] },
+            "yoga": "Anulom Vilom 15 min + Shavasana — most important practice for Vata acne management.",
+            "tip": "Ashwagandha before bed for 21 days reduces cortisol significantly — directly reduces stress-driven Vata acne." },
+          { "day": 7, "theme": "Vata daily routine",
+            "morning": { "time": "6:00 AM", "routine": ["Permanent: warm water with honey and ginger every morning", "Permanent face wash: besan + warm water", "Permanent moisturizer: aloe vera + sesame oil blend", "Sunscreen"], "ingredients": ["honey", "ginger", "besan", "aloe vera gel", "sesame oil", "sunscreen"] },
+            "diet": { "breakfast": "Warm, nourishing breakfast always", "lunch": "Balanced with ghee", "dinner": "Light, warm, early", "drinks": ["warm water always — never cold permanently", "ashwagandha milk 3x per week"], "avoid": ["cold food permanently", "irregular meals", "stress eating"] },
+            "evening": { "time": "7:00 PM", "routine": ["Permanent night: sesame oil or almond oil on face", "Weekly: turmeric honey mask", "Spot treatment: tea tree diluted on active pimples"], "ingredients": ["sesame oil", "almond oil", "turmeric powder", "honey", "tea tree oil"] },
+            "yoga": "Anulom Vilom 10 min daily — your permanent Vata calming practice.",
+            "tip": "Vata acne takes longest to heal but results are most permanent when routine is consistent. 6 weeks = clear skin."
+          }
+        ],
+        "weekly_summary": {
+          "key_ingredients": ["sesame oil", "aloe vera gel", "almond oil", "honey", "turmeric powder", "besan", "ashwagandha powder"],
+          "key_diet_changes": ["warm food always", "ghee daily", "consistent meal times", "ashwagandha milk", "no cold food"],
+          "expected_results": "Stress acne reduces by Day 3-4. Dryness improves by Day 2. Marks begin fading by Day 5-6.",
+          "continue_after_7_days": "Oil massage nightly. Warm diet always. Consistent meal times. Ashwagandha 3x weekly."
+        }
+      }
+    },
+
+    "blackheads": {
+      "pitta_dominant": {
+        "plan_id": "BLACKHEADS_PITTA",
+        "title": "7-Day Pitta-Blackheads Plan — Cooling Detox",
+        "overview": "Pitta-dominant blackheads come with redness and inflammation around the pores. This plan clears pores while cooling inflammation simultaneously.",
+        "dosha_focus": "pitta",
+        "days": [
+          { "day": 1, "theme": "Cool and cleanse", "morning": { "time": "6:00 AM", "routine": ["Rose water + honey drink", "Sandalwood + besan face scrub — gentle circular motion on nose", "Cold water rinse", "Rose water toner"], "ingredients": ["rose water", "honey", "sandalwood powder", "besan"] }, "diet": { "breakfast": "Moong dal cheela", "lunch": "Brown rice + dal + cucumber salad", "dinner": "Light khichdi", "drinks": ["coriander water", "coconut water"], "avoid": ["spicy food", "fried food", "alcohol", "coffee"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + multani mitti + rose water mask on T-zone", "Leave 20 min", "Cold water rinse", "Aloe vera toner"], "ingredients": ["sandalwood powder", "multani mitti", "rose water", "aloe vera gel"] }, "yoga": "Sheetali Pranayama 10 min.", "tip": "For Pitta blackheads — cooling the skin reduces the inflammation that makes pores look larger." },
+          { "day": 2, "theme": "Pore opening", "morning": { "time": "6:00 AM", "routine": ["Amla juice drink", "Steam face with rose water 5 min", "Honey + besan scrub on nose", "Cold water rinse + rose water toner"], "ingredients": ["amla juice", "rose water", "honey", "besan"] }, "diet": { "breakfast": "Fresh fruit bowl + warm milk", "lunch": "Roti + vegetables + dal", "dinner": "Vegetable soup", "drinks": ["fennel water", "amla juice"], "avoid": ["tomato", "sour food", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + rose water peel mask", "Leave until dry", "Peel gently", "Rose water + aloe vera toner"], "ingredients": ["egg white", "rose water", "aloe vera gel"] }, "yoga": "Moon salutation 5 rounds.", "tip": "Always close pores with cold water after steam or mask." },
+          { "day": 3, "theme": "Deep extraction", "morning": { "time": "6:00 AM", "routine": ["Neem tea drink", "Neem + sandalwood paste — leave 15 min", "Cold water rinse", "Rose water toner"], "ingredients": ["neem leaves", "sandalwood powder", "rose water"] }, "diet": { "breakfast": "Oats with coconut milk", "lunch": "Rice + dal + palak", "dinner": "Moong soup", "drinks": ["neem tea", "coriander water"], "avoid": ["dairy products", "sugar", "spicy food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + multani mitti mask", "Leave 20 min", "Cold water", "Ice cube on nose 1 min"], "ingredients": ["sandalwood powder", "multani mitti", "ice"] }, "yoga": "Anulom Vilom 10 min.", "tip": "Sandalwood cools while multani mitti draws out oil — perfect Pitta-blackheads combination." },
+          { "day": 4, "theme": "Tightening", "morning": { "time": "6:00 AM", "routine": ["Saffron milk drink", "Besan + turmeric + rose water wash", "Apple cider vinegar diluted toner (1:4 with water)", "Aloe vera"], "ingredients": ["saffron", "milk", "besan", "turmeric powder", "rose water", "apple cider vinegar", "aloe vera gel"] }, "diet": { "breakfast": "Papaya + soaked almonds", "lunch": "Roti + sabzi + dal + raita", "dinner": "Clear soup", "drinks": ["green tea", "coconut water"], "avoid": ["fried food", "excess sugar", "processed snacks"] }, "evening": { "time": "7:00 PM", "routine": ["Cucumber + aloe vera cooling mask", "Leave 20 min", "Cold water", "Rose water"], "ingredients": ["cucumber", "aloe vera gel", "rose water"] }, "yoga": "Bhujangasana 5 rounds + Sheetali 5 min.", "tip": "Cucumber + aloe vera is the best cooling mask for Pitta skin — reduces pore inflammation." },
+          { "day": 5, "theme": "Brightening", "morning": { "time": "6:00 AM", "routine": ["Amla + mint drink", "Rice flour + sandalwood + rose water scrub", "Cold water rinse", "Aloe vera toner"], "ingredients": ["amla juice", "mint", "rice flour", "sandalwood powder", "rose water", "aloe vera gel"] }, "diet": { "breakfast": "Fresh fruit bowl", "lunch": "Brown rice + dal + vegetables", "dinner": "Vegetable clear soup", "drinks": ["fennel water", "triphala before bed"], "avoid": ["outside food", "street food", "processed food"] }, "evening": { "time": "7:00 PM", "routine": ["Tomato juice + honey on blackheads", "Leave 15 min cold water rinse", "Sandalwood spot treatment", "Aloe vera"], "ingredients": ["fresh tomato juice", "honey", "sandalwood powder", "aloe vera gel"] }, "yoga": "Kapalbhati 5 min + Anulom Vilom 10 min.", "tip": "Tomato's natural acid + honey's antibacterial = excellent Pitta-safe blackhead treatment." },
+          { "day": 6, "theme": "Herbal refining", "morning": { "time": "6:00 AM", "routine": ["Rose water + honey drink", "Neem + besan + rose water wash", "Rose water toner", "Light moisturizer"], "ingredients": ["rose water", "honey", "neem leaves", "besan"] }, "diet": { "breakfast": "Idli + sambar", "lunch": "Full balanced meal", "dinner": "Light soup + roti", "drinks": ["green tea", "coriander water"], "avoid": ["spicy food", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + rose water + turmeric mask", "Leave 20 min", "Cold water", "Rose water toner + aloe vera"], "ingredients": ["sandalwood powder", "rose water", "turmeric powder", "aloe vera gel"] }, "yoga": "Sheetali + Bhramari 5 min each.", "tip": "Maintain sunscreen daily — UV rays worsen Pitta skin and make pores appear larger." },
+          { "day": 7, "theme": "Pitta pore routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: coriander water morning", "Permanent wash: besan + sandalwood + rose water", "Permanent toner: rose water", "Sunscreen"], "ingredients": ["coriander seeds", "besan", "sandalwood powder", "rose water", "sunscreen"] }, "diet": { "breakfast": "Any cooling breakfast", "lunch": "Balanced, no spice", "dinner": "Light", "drinks": ["coriander water permanently", "coconut water summer"], "avoid": ["spicy food permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: sandalwood + multani mitti mask", "Daily: rose water toner + aloe vera", "Spot: sandalwood paste"], "ingredients": ["sandalwood powder", "multani mitti", "rose water", "aloe vera gel"] }, "yoga": "Sheetali daily.", "tip": "Pitta blackheads respond fastest when both internal diet and external routine are followed together." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sandalwood powder", "rose water", "aloe vera gel", "multani mitti", "besan", "neem leaves"], "key_diet_changes": ["no spicy food", "coriander water daily", "no fried food", "coconut water"], "expected_results": "Blackheads reduce by Day 3-4. Pores visibly tighter by Day 5. Redness around pores clears by Day 6.", "continue_after_7_days": "Weekly sandalwood mask. Daily rose water toner. No spicy food." }
+      },
+
+      "kapha_dominant": {
+        "plan_id": "BLACKHEADS_KAPHA",
+        "title": "7-Day Kapha-Blackheads Plan — Maximum Detox",
+        "overview": "Kapha blackheads are the most stubborn — caused by heavy oil and thick sebum. This plan is the most intensive detox protocol targeting excess Kapha directly.",
+        "dosha_focus": "kapha",
+        "days": [
+          { "day": 1, "theme": "Maximum detox", "morning": { "time": "6:00 AM", "routine": ["Warm ginger lemon water", "Steam 10 min with ginger water", "Baking soda + honey scrub on nose (1:4 ratio) — 2 min max", "Cold water rinse + witch hazel toner"], "ingredients": ["ginger", "lemon juice", "honey", "baking soda", "witch hazel"] }, "diet": { "breakfast": "Sprouts + ginger tea", "lunch": "Jowar roti + bitter gourd + moong dal", "dinner": "Clear soup + vegetables", "drinks": ["bitter gourd juice", "barley water"], "avoid": ["all dairy", "sugar", "fried food", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Activated charcoal + neem + rose water mask", "Leave 20 min", "Cold water", "Witch hazel toner"], "ingredients": ["activated charcoal powder", "neem powder", "rose water", "witch hazel"] }, "yoga": "Kapalbhati 15 min — extended for Kapha.", "tip": "Bitter gourd juice is the most effective internal oil reducer for Kapha skin — drink 3x this week." },
+          { "day": 2, "theme": "Pore clearing", "morning": { "time": "6:00 AM", "routine": ["Fenugreek seed water drink", "Egg white + lemon mask on T-zone", "Leave until dry — peel", "Witch hazel + rose water toner"], "ingredients": ["fenugreek seeds", "egg white", "lemon juice", "witch hazel", "rose water"] }, "diet": { "breakfast": "Ragi cheela + chutney", "lunch": "Brown rice + karela + dal", "dinner": "Barley soup", "drinks": ["green tea", "warm jeera water"], "avoid": ["cheese", "butter", "sweets", "white rice"] }, "evening": { "time": "7:00 PM", "routine": ["Multani mitti + neem + activated charcoal mask", "Leave 25 min", "Warm then cold water", "Witch hazel"], "ingredients": ["multani mitti", "neem powder", "activated charcoal powder", "witch hazel"] }, "yoga": "Surya Namaskar 12 rounds — intense sweat clears Kapha pores.", "tip": "Kapha blackheads need maximum effort. Do not skip Kapalbhati or Surya Namaskar any day this week." },
+          { "day": 3, "theme": "Oil control", "morning": { "time": "6:00 AM", "routine": ["Triphala water", "Besan + neem + lemon (3 drops) scrub", "Cold water rinse", "Witch hazel toner + oil-free aloe vera"], "ingredients": ["triphala powder", "besan", "neem powder", "lemon juice", "witch hazel", "aloe vera gel"] }, "diet": { "breakfast": "Vegetable poha + green tea", "lunch": "Mixed grain roti + dal + vegetables", "dinner": "Moong dal + roti", "drinks": ["moringa tea", "warm water"], "avoid": ["oily food", "maida", "sugar", "milk"] }, "evening": { "time": "7:00 PM", "routine": ["Tomato juice + neem powder on blackheads", "Leave 20 min", "Cold water", "Witch hazel toner"], "ingredients": ["fresh tomato juice", "neem powder", "witch hazel"] }, "yoga": "Bhastrika 5 min + Kapalbhati 10 min.", "tip": "Witch hazel is essential daily toner for Kapha blackheads — use every single day." },
+          { "day": 4, "theme": "Deep extraction", "morning": { "time": "6:00 AM", "routine": ["Amla juice", "Oil pulling with sesame oil 10 min", "Besan face wash", "Activated charcoal spot mask on nose"], "ingredients": ["amla juice", "sesame oil", "besan", "activated charcoal powder"] }, "diet": { "breakfast": "Sprouts + fruits", "lunch": "Roti + palak + dal", "dinner": "Vegetable soup", "drinks": ["barley water", "ginger tea"], "avoid": ["non-veg today", "dairy", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Rice flour + besan + apple cider vinegar scrub", "Gentle 2 min", "Cold water rinse", "Witch hazel + aloe vera"], "ingredients": ["rice flour", "besan", "apple cider vinegar", "witch hazel", "aloe vera gel"] }, "yoga": "Trikonasana + Kapalbhati 15 min.", "tip": "Apple cider vinegar tightens Kapha pores effectively — always dilute, never use pure." },
+          { "day": 5, "theme": "Herbal treatment", "morning": { "time": "6:00 AM", "routine": ["Neem + tulsi tea drink", "Neem + tulsi + multani mitti mask", "Leave 20 min", "Cold water + witch hazel"], "ingredients": ["neem leaves", "tulsi leaves", "multani mitti", "witch hazel"] }, "diet": { "breakfast": "Idli + sambar", "lunch": "Brown rice + dal + sabzi", "dinner": "Clear broth + lentil", "drinks": ["fennel water", "bitter gourd juice"], "avoid": ["all outside food", "chips", "packaged food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + tea tree (2 drops) + lemon mask", "Leave 20 min", "Peel or rinse cold", "Witch hazel toner"], "ingredients": ["egg white", "tea tree oil", "lemon juice", "witch hazel"] }, "yoga": "Full Surya Namaskar 15 rounds + Kapalbhati 10 min.", "tip": "Tea tree oil in the egg white mask adds antibacterial power specifically for Kapha bacterial blackheads." },
+          { "day": 6, "theme": "Refine and tighten", "morning": { "time": "6:00 AM", "routine": ["Moringa + warm water", "Neem + besan wash", "Witch hazel toner", "Oil-free aloe vera"], "ingredients": ["moringa powder", "neem leaves", "besan", "witch hazel", "aloe vera gel"] }, "diet": { "breakfast": "Besan cheela", "lunch": "Full low-oil meal", "dinner": "Light soup", "drinks": ["green tea", "ginger lemon water"], "avoid": ["oily food", "dairy excess", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Activated charcoal + multani mitti + witch hazel mask", "Leave 20 min", "Cold rinse", "Ice on nose 2 min", "Rose water toner"], "ingredients": ["activated charcoal powder", "multani mitti", "witch hazel", "ice", "rose water"] }, "yoga": "Kapalbhati 15 min + Anulom Vilom 10 min.", "tip": "Ice after mask is non-negotiable for Kapha skin — closes pores instantly." },
+          { "day": 7, "theme": "Kapha permanent routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: warm ginger lemon water", "Permanent wash: besan + neem + rose water", "Permanent toner: witch hazel", "Weekly steam + clay mask"], "ingredients": ["ginger", "lemon juice", "besan", "neem powder", "rose water", "witch hazel"] }, "diet": { "breakfast": "Light Kapha breakfast always", "lunch": "Balanced, low dairy", "dinner": "Light, early", "drinks": ["ginger water permanently", "green tea daily"], "avoid": ["excess dairy permanently", "sugar", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: activated charcoal + multani mitti mask", "Daily: witch hazel + aloe vera", "Spot: tea tree diluted"], "ingredients": ["activated charcoal powder", "multani mitti", "witch hazel", "aloe vera gel", "tea tree oil"] }, "yoga": "Kapalbhati 10 min daily permanently.", "tip": "Kapha blackheads are the most stubborn. Consistency for 4 weeks gives dramatic results." }
+        ],
+        "weekly_summary": { "key_ingredients": ["activated charcoal powder", "multani mitti", "neem powder", "witch hazel", "besan", "egg white"], "key_diet_changes": ["no dairy", "bitter gourd juice 3x", "warm ginger water daily", "barley water"], "expected_results": "Blackheads loosen by Day 2-3. Pores visibly smaller by Day 4-5. Skin less oily by Day 3.", "continue_after_7_days": "Weekly charcoal mask. Daily witch hazel toner. Kapalbhati daily. No excess dairy." }
+      },
+
+      "vata_dominant": {
+        "plan_id": "BLACKHEADS_VATA",
+        "title": "7-Day Vata-Blackheads Plan — Gentle Extraction",
+        "overview": "Vata blackheads are less common but appear due to irregular skin cell turnover and dry skin paradoxically trapping oil. Gentle approach — no harsh extractions.",
+        "dosha_focus": "vata",
+        "days": [
+          { "day": 1, "theme": "Gentle cleanse", "morning": { "time": "6:00 AM", "routine": ["Warm honey water drink", "Warm sesame oil massage 3 min — softens blackheads", "Besan + honey face wash warm water", "Rose water toner"], "ingredients": ["honey", "sesame oil", "besan", "rose water"] }, "diet": { "breakfast": "Warm oatmeal + almonds", "lunch": "Khichdi + ghee", "dinner": "Warm soup + roti", "drinks": ["warm water always", "fennel water"], "avoid": ["cold food", "raw salads", "irregular meals"] }, "evening": { "time": "7:00 PM", "routine": ["Honey + besan gentle scrub — no harsh pressure", "Warm water rinse", "Aloe vera gel + 2 drops sesame oil moisturizer"], "ingredients": ["honey", "besan", "aloe vera gel", "sesame oil"] }, "yoga": "Anulom Vilom 10 min — regulates Vata.", "tip": "Vata blackheads need gentle consistent care — never harsh extraction or strong acids." },
+          { "day": 2, "theme": "Oil softening", "morning": { "time": "6:00 AM", "routine": ["Amla juice warm water", "Warm steam 5 min to soften", "Rice flour + honey gentle scrub", "Warm water rinse + rose water"], "ingredients": ["amla juice", "rice flour", "honey", "rose water"] }, "diet": { "breakfast": "Soaked oats + dates + warm milk", "lunch": "Dal + ghee roti + cooked vegetables", "dinner": "Warm vegetable soup", "drinks": ["fennel tea", "warm water"], "avoid": ["cold drinks", "skipping meals", "raw food"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + honey mask — leave 20 min", "Warm water rinse", "Sesame oil + aloe vera blend"], "ingredients": ["masoor dal", "honey", "sesame oil", "aloe vera gel"] }, "yoga": "Bhramari 5 min + gentle forward bends.", "tip": "Warm sesame oil loosens Vata blackheads more effectively than any stripping product." },
+          { "day": 3, "theme": "Extraction day", "morning": { "time": "6:00 AM", "routine": ["Triphala water", "Long steam 8 min to fully open pores", "Honey + besan soft scrub on nose — very gentle", "Cold water rinse", "Rose water toner"], "ingredients": ["triphala powder", "honey", "besan", "rose water"] }, "diet": { "breakfast": "Warm semolina porridge with saffron", "lunch": "Brown rice + dal + vegetables + ghee", "dinner": "Sweet potato soup", "drinks": ["saffron milk", "warm water"], "avoid": ["cold food", "excess raw food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + honey (no lemon for Vata) mask on nose", "Leave 15 min peel off", "Warm then cold water", "Aloe vera moisturizer"], "ingredients": ["egg white", "honey", "aloe vera gel"] }, "yoga": "Anulom Vilom 15 min.", "tip": "Using honey instead of lemon in egg white mask makes it Vata-safe — same extraction without drying." },
+          { "day": 4, "theme": "Nourish after extraction", "morning": { "time": "6:00 AM", "routine": ["Warm milk + ashwagandha", "Aloe vera gel full face — leave 20 min", "Warm water gentle wash", "Sesame oil moisturizer"], "ingredients": ["milk", "ashwagandha powder", "aloe vera gel", "sesame oil"] }, "diet": { "breakfast": "Banana + warm milk", "lunch": "Khichdi + ghee", "dinner": "Dal + roti", "drinks": ["warm coconut water", "brahmi milk at night"], "avoid": ["cold food", "spicy food", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + almond oil + honey mask — nourishing", "Leave 20 min", "Warm water rinse", "Almond oil night treatment"], "ingredients": ["sandalwood powder", "almond oil", "honey"] }, "yoga": "Yoga Nidra 20 min — Vata recovery.", "tip": "Always nourish after extraction day. Vata skin loses moisture quickly after any cleaning process." },
+          { "day": 5, "theme": "Brightening", "morning": { "time": "6:00 AM", "routine": ["Saffron warm milk drink", "Orange peel powder + honey mask — mild brightening", "Warm water rinse", "Rose water + aloe vera"], "ingredients": ["saffron", "milk", "orange peel powder", "honey", "rose water", "aloe vera gel"] }, "diet": { "breakfast": "Papaya + warm milk", "lunch": "Roti + dal + vegetables", "dinner": "Soup + roti", "drinks": ["coriander water", "warm amla juice"], "avoid": ["cold food", "processed food"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + saffron + milk mask", "Leave 25 min", "Warm water rinse", "Almond oil"], "ingredients": ["masoor dal", "saffron", "milk", "almond oil"] }, "yoga": "Kapalbhati 5 min (gentle) + Anulom Vilom 10 min.", "tip": "Orange peel is Vata-safe brightener — more nourishing than lemon and less acidic." },
+          { "day": 6, "theme": "Strengthen barrier", "morning": { "time": "6:00 AM", "routine": ["Warm honey ginger water", "Besan + sesame oil face wash", "Rose water toner", "Aloe vera + almond oil blend"], "ingredients": ["honey", "ginger", "besan", "sesame oil", "rose water", "aloe vera gel", "almond oil"] }, "diet": { "breakfast": "Oats + nuts + warm milk", "lunch": "Full balanced ghee meal", "dinner": "Light warm dinner", "drinks": ["ashwagandha milk", "warm fennel water"], "avoid": ["cold food", "irregular meals"] }, "evening": { "time": "7:00 PM", "routine": ["Warm sesame oil face massage 5 min", "Leave overnight", "This is your permanent Vata night routine"], "ingredients": ["sesame oil"] }, "yoga": "Anulom Vilom 15 min.", "tip": "Sesame oil overnight is the single best Vata blackhead prevention — softens skin so blackheads cannot form hard plugs." },
+          { "day": 7, "theme": "Vata gentle routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: warm honey water", "Permanent wash: besan + honey + warm water", "Permanent toner: rose water", "Permanent moisturizer: aloe vera + sesame oil"], "ingredients": ["honey", "besan", "rose water", "aloe vera gel", "sesame oil"] }, "diet": { "breakfast": "Warm nourishing always", "lunch": "With ghee always", "dinner": "Light warm early", "drinks": ["warm water always", "fennel tea daily"], "avoid": ["cold food permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: masoor dal + honey mask", "Daily: sesame oil night", "Monthly: gentle steam + extraction"], "ingredients": ["masoor dal", "honey", "sesame oil"] }, "yoga": "Anulom Vilom daily 10 min.", "tip": "Vata blackheads managed with warm oil and gentle routine — never harsh products or strong acids." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sesame oil", "honey", "besan", "aloe vera gel", "masoor dal", "rose water", "almond oil"], "key_diet_changes": ["warm food always", "ghee daily", "consistent meals", "no cold food"], "expected_results": "Skin feels softer by Day 2. Blackheads soften and reduce by Day 4-5. Skin texture improves by Day 6.", "continue_after_7_days": "Nightly sesame oil. Weekly masoor dal mask. Warm diet always." }
+      }
+    },
+
+    "dark_spots": {
+      "pitta_dominant": {
+        "plan_id": "DARKSPOTS_PITTA",
+        "title": "7-Day Pitta Dark Spots Plan — Cooling Brightening",
+        "overview": "Pitta dark spots come from sun damage and inflammation. The key is cooling Pitta internally while brightening topically.",
+        "dosha_focus": "pitta",
+        "days": [
+          { "day": 1, "theme": "Vitamin C + cooling", "morning": { "time": "6:00 AM", "routine": ["Amla juice drink — internal Vitamin C", "Saffron + rose water toner on spots", "Sandalwood + milk paste on dark spots", "Sunscreen SPF 30+ — mandatory for Pitta"], "ingredients": ["amla juice", "saffron", "rose water", "sandalwood powder", "milk", "sunscreen"] }, "diet": { "breakfast": "Papaya + soaked almonds", "lunch": "Brown rice + dal + cucumber", "dinner": "Light soup + roti", "drinks": ["coriander water", "coconut water"], "avoid": ["spicy food", "sun exposure", "citrus fruits except amla"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + turmeric + rose water mask", "Leave 20 min", "Cold water", "Vitamin E oil on spots"], "ingredients": ["sandalwood powder", "turmeric powder", "rose water", "vitamin e oil"] }, "yoga": "Sheetali Pranayama 10 min.", "tip": "Pitta dark spots worsen dramatically without sunscreen. SPF is non-negotiable for this dosha." },
+          { "day": 2, "theme": "Melanin reduction", "morning": { "time": "6:00 AM", "routine": ["Saffron milk drink", "Mulethi + milk paste on spots only", "Leave 20 min", "Rinse + rose water toner", "Sunscreen"], "ingredients": ["saffron", "milk", "mulethi powder", "rose water", "sunscreen"] }, "diet": { "breakfast": "Fresh fruit bowl", "lunch": "Roti + sabzi + dal", "dinner": "Vegetable soup", "drinks": ["fennel water", "amla juice"], "avoid": ["tomato today", "tamarind", "sour food"] }, "evening": { "time": "7:00 PM", "routine": ["Potato juice + rose water on spots", "Leave 20 min", "Cold rinse", "Rosehip oil on spots overnight"], "ingredients": ["raw potato", "rose water", "rosehip oil"] }, "yoga": "Anulom Vilom 10 min.", "tip": "Mulethi (liquorice) contains glabridin — clinically proven melanin inhibitor. Apply daily on spots." },
+          { "day": 3, "theme": "Deep brightening", "morning": { "time": "6:00 AM", "routine": ["Manjistha herbal tea drink", "Manjistha + honey + rose water paste on spots", "Leave 20 min warm water rinse", "Sunscreen"], "ingredients": ["manjistha powder", "honey", "rose water", "sunscreen"] }, "diet": { "breakfast": "Oats + saffron milk", "lunch": "Brown rice + vegetables + dal", "dinner": "Moong soup + roti", "drinks": ["manjistha tea", "coconut water"], "avoid": ["spicy food", "fried food", "sour food"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + saffron + milk mask", "Leave 25 min", "Gentle warm rinse", "Kumkumadi tailam on dark spots overnight"], "ingredients": ["masoor dal", "saffron", "milk", "kumkumadi tailam"] }, "yoga": "Sitali Pranayama 5 min + forward bends.", "tip": "Manjistha + kumkumadi = most powerful Ayurvedic combination for dark spots. Be consistent." },
+          { "day": 4, "theme": "Vitamin boost", "morning": { "time": "6:00 AM", "routine": ["Amla + pomegranate juice", "Orange peel powder + yogurt mask", "Leave 20 min cold rinse", "Sunscreen"], "ingredients": ["amla juice", "pomegranate juice", "orange peel powder", "plain yogurt", "sunscreen"] }, "diet": { "breakfast": "Orange + kiwi fruit bowl", "lunch": "Mixed grain roti + dal + palak", "dinner": "Vegetable barley soup", "drinks": ["amla juice", "green tea"], "avoid": ["all sour fruits except amla", "alcohol", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + aloe vera + saffron mask", "Leave 20 min", "Cold water", "Almond oil on spots"], "ingredients": ["sandalwood powder", "aloe vera gel", "saffron", "almond oil"] }, "yoga": "Bhujangasana 5 rounds + Anulom Vilom 10 min.", "tip": "Eat papaya 3 times this week — internal papain enzyme works from inside to reduce dark pigmentation." },
+          { "day": 5, "theme": "Intensive spot treatment", "morning": { "time": "6:00 AM", "routine": ["Aloe vera + turmeric water drink", "Mulethi + sandalwood + milk spot paste", "Apply only on spots not full face", "Leave 25 min rinse + sunscreen"], "ingredients": ["aloe vera gel", "turmeric powder", "mulethi powder", "sandalwood powder", "milk", "sunscreen"] }, "diet": { "breakfast": "Pomegranate + apple bowl + warm milk", "lunch": "Dal + roti + lauki sabzi", "dinner": "Vegetable soup + roti", "drinks": ["pomegranate juice", "warm saffron water"], "avoid": ["tomatoes today", "sour fruits", "tamarind"] }, "evening": { "time": "7:00 PM", "routine": ["Yogurt + turmeric + besan face pack", "Leave 25 min", "Cold rinse", "Vitamin E on spots + rosehip oil on rest of face"], "ingredients": ["plain yogurt", "turmeric powder", "besan", "vitamin e oil", "rosehip oil"] }, "yoga": "Sheetali 10 min — must do daily for Pitta dark spots.", "tip": "Vitamin E + rosehip oil combination is the most effective natural combination for dark spot fading." },
+          { "day": 6, "theme": "Glow restoration", "morning": { "time": "6:00 AM", "routine": ["Saffron warm water overnight soak drink", "Milk cream + saffron + turmeric paste on face", "Leave 20 min gentle warm rinse", "Rose water + sunscreen"], "ingredients": ["saffron", "milk cream", "turmeric powder", "rose water", "sunscreen"] }, "diet": { "breakfast": "Warm semolina halwa with saffron minimal sugar", "lunch": "Full balanced thali", "dinner": "Dal soup + rice", "drinks": ["saffron milk at bedtime", "coconut water"], "avoid": ["excess sugar", "spicy food"] }, "evening": { "time": "7:00 PM", "routine": ["Papaya + honey face pack", "Leave 20 min", "Gentle rinse", "Kumkumadi tailam or almond oil on spots"], "ingredients": ["ripe papaya", "honey", "kumkumadi tailam", "almond oil"] }, "yoga": "Bhramari + Anulom Vilom — complete cooling practice.", "tip": "Papaya enzyme (papain) works from outside, amla works from inside — together they tackle Pitta dark spots fastest." },
+          { "day": 7, "theme": "Sustainable glow routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: saffron water or amla juice morning", "Permanent wash: besan + rose water", "Permanent: SPF 30+ daily without exception", "Spot treatment: mulethi + milk daily on spots"], "ingredients": ["saffron", "amla juice", "besan", "rose water", "sunscreen", "mulethi powder", "milk"] }, "diet": { "breakfast": "Any cooling balanced", "lunch": "Turmeric in cooking daily", "dinner": "Light early", "drinks": ["saffron milk bedtime permanently", "amla juice daily"], "avoid": ["spicy food permanently", "sun without SPF"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: masoor dal + saffron mask", "Daily: almond oil or rosehip oil on spots overnight", "Nightly: rose water toner"], "ingredients": ["masoor dal", "saffron", "almond oil", "rosehip oil", "rose water"] }, "yoga": "Sheetali 5 min daily.", "tip": "Dark spots take 4-8 weeks to fully fade. This 7-day plan reduces intensity. Be patient and consistent." }
+        ],
+        "weekly_summary": { "key_ingredients": ["saffron", "mulethi powder", "sandalwood powder", "kumkumadi tailam", "rosehip oil", "almond oil", "amla juice"], "key_diet_changes": ["amla juice daily", "saffron milk bedtime", "papaya 3x weekly", "no spicy food", "no sun without SPF"], "expected_results": "Spots lighter by Day 4-5. Overall skin brighter by Day 6. Full fade takes 4-8 weeks.", "continue_after_7_days": "Daily SPF mandatory. Nightly almond oil on spots. Saffron milk bedtime. Amla juice morning." }
+      },
+
+      "kapha_dominant": {
+        "plan_id": "DARKSPOTS_KAPHA",
+        "title": "7-Day Kapha Dark Spots Plan — Detox Brightening",
+        "overview": "Kapha dark spots are caused by slow circulation and toxin buildup. This plan stimulates circulation, detoxifies, and brightens from inside out.",
+        "dosha_focus": "kapha",
+        "days": [
+          { "day": 1, "theme": "Circulation stimulation", "morning": { "time": "6:00 AM", "routine": ["Warm ginger + amla juice — stimulates blood flow to skin", "Dry brush face gently upward strokes with soft cloth", "Besan + turmeric + ginger powder face pack", "Rinse + sunscreen"], "ingredients": ["ginger", "amla juice", "besan", "turmeric powder", "sunscreen"] }, "diet": { "breakfast": "Sprouts + ginger tea", "lunch": "Brown rice + bitter gourd + dal", "dinner": "Clear soup", "drinks": ["ginger lemon water", "moringa tea"], "avoid": ["dairy", "sugar", "cold food"] }, "evening": { "time": "7:00 PM", "routine": ["Papaya + besan + turmeric mask", "Leave 25 min", "Rinse", "Vitamin E on spots"], "ingredients": ["ripe papaya", "besan", "turmeric powder", "vitamin e oil"] }, "yoga": "Kapalbhati 10 min + Surya Namaskar 5 rounds.", "tip": "Kapalbhati increases blood circulation to face — directly reduces Kapha dark spots through better oxygenation." },
+          { "day": 2, "theme": "Melanin control", "morning": { "time": "6:00 AM", "routine": ["Manjistha tea drink", "Mulethi + orange peel + rose water spot mask", "Leave 20 min", "Cold rinse + sunscreen"], "ingredients": ["manjistha powder", "mulethi powder", "orange peel powder", "rose water", "sunscreen"] }, "diet": { "breakfast": "Ragi porridge", "lunch": "Roti + vegetables + dal", "dinner": "Barley soup", "drinks": ["moringa water", "green tea"], "avoid": ["dairy", "sugar", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + orange peel + rose water mask", "Leave 25 min", "Rinse", "Rosehip oil on spots"], "ingredients": ["masoor dal", "orange peel powder", "rose water", "rosehip oil"] }, "yoga": "Surya Namaskar 10 rounds.", "tip": "Masoor dal + orange peel is the best Kapha-friendly brightening pack — stimulates while brightening." },
+          { "day": 3, "theme": "Blood purification", "morning": { "time": "6:00 AM", "routine": ["Manjistha + triphala warm water drink", "Besan + turmeric + lemon (5 drops) scrub on dark spot areas", "Warm rinse", "Sunscreen"], "ingredients": ["manjistha powder", "triphala powder", "besan", "turmeric powder", "lemon juice", "sunscreen"] }, "diet": { "breakfast": "Vegetable upma + green tea", "lunch": "Brown rice + dal + sabzi", "dinner": "Moong soup + roti", "drinks": ["triphala before bed", "moringa tea"], "avoid": ["outside food", "junk food", "dairy excess"] }, "evening": { "time": "7:00 PM", "routine": ["Turmeric + yogurt + besan pack", "Leave 25 min", "Rinse", "Vitamin E + aloe vera blend on spots"], "ingredients": ["turmeric powder", "plain yogurt", "besan", "vitamin e oil", "aloe vera gel"] }, "yoga": "Kapalbhati 15 min — extended dose for Kapha.", "tip": "Manjistha + triphala internally for 7 days purifies blood and reduces Kapha dark spots from root cause." },
+          { "day": 4, "theme": "Intensive brightening", "morning": { "time": "6:00 AM", "routine": ["Amla + pomegranate juice", "Potato juice + lemon (3 drops) on spots only", "Leave 20 min", "Cold rinse + sunscreen"], "ingredients": ["amla juice", "pomegranate juice", "raw potato", "lemon juice", "sunscreen"] }, "diet": { "breakfast": "Fresh papaya + green tea", "lunch": "Roti + palak + dal", "dinner": "Barley soup", "drinks": ["amla juice", "ginger water"], "avoid": ["tomato today", "tamarind", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Saffron + almond oil spot serum (soak saffron in almond oil)", "Apply on spots only", "Leave overnight"], "ingredients": ["saffron", "almond oil"] }, "yoga": "Trikonasana + Kapalbhati 10 min.", "tip": "Saffron soaked in almond oil is the most concentrated natural brightening serum for Kapha skin." },
+          { "day": 5, "theme": "Glow stimulation", "morning": { "time": "6:00 AM", "routine": ["Ginger + amla + turmeric morning drink", "Papaya + besan + honey mask full face", "Leave 20 min rinse", "Sunscreen"], "ingredients": ["ginger", "amla juice", "turmeric powder", "ripe papaya", "besan", "honey", "sunscreen"] }, "diet": { "breakfast": "Sprouts salad + fruits", "lunch": "Full balanced meal", "dinner": "Light vegetable soup", "drinks": ["green tea", "moringa water"], "avoid": ["dairy excess", "fried food", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Orange peel + masoor dal + rose water mask", "Leave 25 min", "Rinse", "Rosehip oil on spots"], "ingredients": ["orange peel powder", "masoor dal", "rose water", "rosehip oil"] }, "yoga": "Full Surya Namaskar 12 rounds + Kapalbhati 10 min.", "tip": "Rosehip oil every night on spots — most effective oil for fading Kapha hyperpigmentation." },
+          { "day": 6, "theme": "Refine and even", "morning": { "time": "6:00 AM", "routine": ["Saffron warm water drink", "Sandalwood + turmeric + orange peel mask", "Leave 20 min", "Cold rinse + sunscreen"], "ingredients": ["saffron", "sandalwood powder", "turmeric powder", "orange peel powder", "sunscreen"] }, "diet": { "breakfast": "Papaya + pomegranate", "lunch": "Balanced meal", "dinner": "Light soup", "drinks": ["saffron milk", "moringa tea"], "avoid": ["sugar", "dairy", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Kumkumadi tailam or saffron almond oil on spots", "Light massage", "Leave overnight"], "ingredients": ["kumkumadi tailam", "almond oil"] }, "yoga": "Kapalbhati 15 min + Anulom Vilom 10 min.", "tip": "Skin circulation stimulation through Kapalbhati is more effective than any topical product for Kapha dark spots." },
+          { "day": 7, "theme": "Kapha brightening routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: ginger amla water morning", "Permanent wash: besan + turmeric", "Permanent sunscreen", "Spot: mulethi paste daily"], "ingredients": ["ginger", "amla juice", "besan", "turmeric powder", "sunscreen", "mulethi powder"] }, "diet": { "breakfast": "Light Kapha breakfast", "lunch": "Low dairy balanced", "dinner": "Light early", "drinks": ["moringa tea daily", "saffron milk weekly"], "avoid": ["dairy excess", "sugar permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: masoor dal + orange peel mask", "Nightly: rosehip oil on spots", "Monthly: Kapalbhati extended 20 min"], "ingredients": ["masoor dal", "orange peel powder", "rosehip oil"] }, "yoga": "Kapalbhati 10 min daily — non-negotiable for Kapha dark spots.", "tip": "Kapha dark spots need circulation stimulation above everything. Kapalbhati + exercise + amla is your formula." }
+        ],
+        "weekly_summary": { "key_ingredients": ["manjistha powder", "orange peel powder", "rosehip oil", "masoor dal", "amla juice", "turmeric powder", "saffron"], "key_diet_changes": ["moringa tea daily", "no dairy excess", "amla juice morning", "papaya 3x weekly"], "expected_results": "Spots lighter by Day 4. Circulation improves visibly by Day 3. Overall brighter by Day 6.", "continue_after_7_days": "Kapalbhati daily. Rosehip oil nightly. Amla juice morning. Weekly masoor dal mask." }
+      },
+
+      "vata_dominant": {
+        "plan_id": "DARKSPOTS_VATA",
+        "title": "7-Day Vata Dark Spots Plan — Nourish and Brighten",
+        "overview": "Vata dark spots come from dryness, dehydration, and stress. These appear as dry hyperpigmented patches. Deep nourishment while brightening is the core approach.",
+        "dosha_focus": "vata",
+        "days": [
+          { "day": 1, "theme": "Nourish first", "morning": { "time": "6:00 AM", "routine": ["Saffron warm milk drink — nourishes and brightens", "Warm almond oil massage 5 min on dark spot areas", "Besan + milk face wash warm water", "Sunscreen"], "ingredients": ["saffron", "milk", "almond oil", "besan", "sunscreen"] }, "diet": { "breakfast": "Soaked almonds + dates + warm milk", "lunch": "Khichdi + ghee + vegetables", "dinner": "Warm vegetable soup + roti", "drinks": ["warm saffron water", "warm coconut water"], "avoid": ["cold food", "raw food", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Kumkumadi tailam massage on spots 5 min", "Leave overnight — best treatment for Vata dark spots"], "ingredients": ["kumkumadi tailam"] }, "yoga": "Anulom Vilom 10 min — reduces Vata stress that causes spots.", "tip": "Vata dark spots are dehydration and stress driven. Kumkumadi oil every night is the most important step." },
+          { "day": 2, "theme": "Vitamin nourishment", "morning": { "time": "6:00 AM", "routine": ["Amla juice + warm water", "Saffron + almond oil + milk cream spot paste", "Leave 25 min warm rinse", "Sunscreen"], "ingredients": ["amla juice", "saffron", "almond oil", "milk cream", "sunscreen"] }, "diet": { "breakfast": "Papaya + soaked almonds + warm milk", "lunch": "Dal + ghee roti + sabzi", "dinner": "Warm soup + roti", "drinks": ["saffron milk", "amla juice"], "avoid": ["cold food", "skipping meals", "stress eating"] }, "evening": { "time": "7:00 PM", "routine": ["Potato juice + aloe vera gel blend on spots", "Leave 20 min warm rinse", "Almond oil overnight"], "ingredients": ["raw potato", "aloe vera gel", "almond oil"] }, "yoga": "Bhramari + Anulom Vilom 15 min.", "tip": "Warm oil before sleep is the most important Vata dark spot habit. Do not skip any night." },
+          { "day": 3, "theme": "Brightening", "morning": { "time": "6:00 AM", "routine": ["Manjistha + warm milk drink", "Mulethi + milk cream spot paste", "Leave 20 min warm rinse", "Sunscreen"], "ingredients": ["manjistha powder", "milk", "mulethi powder", "milk cream", "sunscreen"] }, "diet": { "breakfast": "Warm semolina halwa with ghee saffron", "lunch": "Full meal with ghee", "dinner": "Sweet potato soup + roti", "drinks": ["saffron milk", "warm water"], "avoid": ["cold food", "dry snacks", "processed food"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + milk + honey mask — nourishing brightening", "Leave 25 min warm rinse", "Vitamin E + almond oil blend overnight"], "ingredients": ["masoor dal", "milk", "honey", "vitamin e oil", "almond oil"] }, "yoga": "Paschimottanasana + Anulom Vilom.", "tip": "Masoor dal + milk is the most nourishing brightening mask for Vata — it moisturizes while fading spots." },
+          { "day": 4, "theme": "Deep repair", "morning": { "time": "6:00 AM", "routine": ["Triphala + warm water", "Sandalwood + almond oil + saffron paste on spots", "Leave 25 min warm rinse", "Sunscreen"], "ingredients": ["triphala powder", "sandalwood powder", "almond oil", "saffron", "sunscreen"] }, "diet": { "breakfast": "Banana + warm milk + almonds", "lunch": "Brown rice + dal + ghee", "dinner": "Warm vegetable soup", "drinks": ["coconut water warm", "saffron milk"], "avoid": ["cold food", "all raw food today"] }, "evening": { "time": "7:00 PM", "routine": ["Rosehip oil + vitamin E blend on spots", "Gentle massage", "Leave overnight"], "ingredients": ["rosehip oil", "vitamin e oil"] }, "yoga": "Yoga Nidra 20 min — deep rest heals Vata dark spots.", "tip": "Stress is the primary Vata dark spot trigger. Deep sleep and Yoga Nidra are treatments, not luxuries." },
+          { "day": 5, "theme": "Glow boost", "morning": { "time": "6:00 AM", "routine": ["Saffron + amla drink", "Papaya + milk cream + honey mask", "Leave 20 min warm rinse", "Sunscreen"], "ingredients": ["saffron", "amla juice", "ripe papaya", "milk cream", "honey", "sunscreen"] }, "diet": { "breakfast": "Papaya + warm milk", "lunch": "Full balanced meal", "dinner": "Light warm", "drinks": ["pomegranate juice warm", "saffron milk"], "avoid": ["cold food", "excess salt", "processed food"] }, "evening": { "time": "7:00 PM", "routine": ["Kumkumadi tailam warm massage on spots 10 min", "Leave overnight", "Most important Vata step"], "ingredients": ["kumkumadi tailam"] }, "yoga": "Anulom Vilom 15 min.", "tip": "Kumkumadi tailam is worth the cost for Vata dark spots — it is the most clinically studied Ayurvedic brightening oil." },
+          { "day": 6, "theme": "Sustain the glow", "morning": { "time": "6:00 AM", "routine": ["Warm saffron milk drink", "Almond oil + saffron warm massage", "Besan + milk cream face pack", "Warm rinse + sunscreen"], "ingredients": ["saffron", "milk", "almond oil", "besan", "milk cream", "sunscreen"] }, "diet": { "breakfast": "Oats + nuts + warm milk", "lunch": "Roti + dal + vegetables + ghee", "dinner": "Soup + roti", "drinks": ["ashwagandha milk at bed", "warm fennel water"], "avoid": ["cold food", "stress", "irregular sleep"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + rose water + almond oil mask", "Leave 20 min warm rinse", "Vitamin E oil on spots overnight"], "ingredients": ["sandalwood powder", "rose water", "almond oil", "vitamin e oil"] }, "yoga": "Full Surya Namaskar 5 rounds (before 7 AM only) + Anulom Vilom.", "tip": "Consistent sleep before 10:30 PM is the most underrated treatment for Vata dark spots — skin repairs at night." },
+          { "day": 7, "theme": "Vata brightening routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: saffron warm milk morning", "Permanent wash: besan + milk warm water", "Permanent sunscreen", "Spot: mulethi + almond oil daily"], "ingredients": ["saffron", "milk", "besan", "sunscreen", "mulethi powder", "almond oil"] }, "diet": { "breakfast": "Warm nourishing always", "lunch": "With ghee always", "dinner": "Light early warm", "drinks": ["saffron milk bedtime permanently", "amla juice daily"], "avoid": ["cold food permanently", "stress", "irregular sleep"] }, "evening": { "time": "7:00 PM", "routine": ["Permanent: kumkumadi or almond oil nightly on spots", "Weekly: masoor dal + milk mask", "Monthly: saffron face pack"], "ingredients": ["kumkumadi tailam", "almond oil", "masoor dal", "milk", "saffron"] }, "yoga": "Anulom Vilom daily 10 min.", "tip": "Vata dark spots need the most patience — 8-12 weeks of consistent oil + sunscreen gives full results." }
+        ],
+        "weekly_summary": { "key_ingredients": ["saffron", "almond oil", "kumkumadi tailam", "mulethi powder", "milk cream", "rosehip oil", "masoor dal"], "key_diet_changes": ["saffron milk daily", "ghee always", "warm food always", "almonds daily", "no cold food"], "expected_results": "Skin more hydrated by Day 2. Spots lighter by Day 5. Overall glow by Day 6-7. Full results 8-12 weeks.", "continue_after_7_days": "Nightly oil on spots non-negotiable. Sunscreen daily. Saffron milk bedtime. Warm diet always." }
+      }
+    },
+
+    "pores": {
+      "pitta_dominant": {
+        "plan_id": "PORES_PITTA",
+        "title": "7-Day Pitta Pores Plan — Cooling Pore Refinement",
+        "overview": "Pitta large pores come with redness and inflammation. Cool while tightening.",
+        "dosha_focus": "pitta",
+        "days": [
+          { "day": 1, "theme": "Cool and tighten", "morning": { "time": "6:00 AM", "routine": ["Rose water drink + amla juice", "Sandalwood + rose water mask on pores", "Leave 20 min cold water rinse", "Ice wrapped in cloth on pores 2 min"], "ingredients": ["rose water", "amla juice", "sandalwood powder", "ice"] }, "diet": { "breakfast": "Moong cheela", "lunch": "Brown rice + dal + cucumber", "dinner": "Light soup", "drinks": ["coriander water", "coconut water"], "avoid": ["spicy", "fried", "coffee"] }, "evening": { "time": "7:00 PM", "routine": ["Multani mitti + sandalwood + rose water mask", "Leave 20 min cold rinse", "Rose water toner"], "ingredients": ["multani mitti", "sandalwood powder", "rose water"] }, "yoga": "Sheetali 10 min.", "tip": "For Pitta pores: sandalwood cools inflammation that makes pores look larger." },
+          { "day": 2, "theme": "Astringent treatment", "morning": { "time": "6:00 AM", "routine": ["Amla juice", "Egg white + rose water mask", "Leave dry 20 min peel", "Rose water toner"], "ingredients": ["amla juice", "egg white", "rose water"] }, "diet": { "breakfast": "Papaya + almonds", "lunch": "Roti + sabzi + dal", "dinner": "Vegetable soup", "drinks": ["fennel water", "green tea"], "avoid": ["dairy excess", "spicy food"] }, "evening": { "time": "7:00 PM", "routine": ["Cucumber + aloe vera gel mask", "Leave 20 min cold rinse", "Rose water + witch hazel toner"], "ingredients": ["cucumber", "aloe vera gel", "rose water", "witch hazel"] }, "yoga": "Sitali Pranayama 5 min.", "tip": "Witch hazel is cooling AND astringent — perfect for Pitta pores." },
+          { "day": 3, "theme": "Deep cleanse", "morning": { "time": "6:00 AM", "routine": ["Neem tea drink", "Steam rose water 5 min", "Sandalwood + besan scrub", "Cold water + rose water"], "ingredients": ["neem leaves", "rose water", "sandalwood powder", "besan"] }, "diet": { "breakfast": "Oats coconut milk", "lunch": "Brown rice + palak + dal", "dinner": "Moong soup", "drinks": ["neem tea", "coriander water"], "avoid": ["dairy", "sugar", "spicy"] }, "evening": { "time": "7:00 PM", "routine": ["Multani mitti + rose water mask", "Leave 20 min", "Cold rinse + ice 2 min", "Aloe vera"], "ingredients": ["multani mitti", "rose water", "ice", "aloe vera gel"] }, "yoga": "Anulom Vilom 10 min.", "tip": "Ice after mask non-negotiable — closes pores that steam opened." },
+          { "day": 4, "theme": "Toning", "morning": { "time": "6:00 AM", "routine": ["Saffron milk", "Tomato juice + rose water on pores", "Leave 15 min cold rinse", "Rose water toner"], "ingredients": ["saffron", "milk", "fresh tomato juice", "rose water"] }, "diet": { "breakfast": "Fruit bowl", "lunch": "Roti + vegetables + dal + raita", "dinner": "Clear soup", "drinks": ["coconut water", "green tea"], "avoid": ["spicy food", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + cucumber paste", "Leave 20 min cold", "Witch hazel + rose water toner"], "ingredients": ["sandalwood powder", "cucumber", "witch hazel", "rose water"] }, "yoga": "Moon salutation 5 rounds.", "tip": "Tomato juice is a natural astringent safe for Pitta — use diluted for sensitive Pitta skin." },
+          { "day": 5, "theme": "Exfoliation", "morning": { "time": "6:00 AM", "routine": ["Amla juice", "Rice flour + rose water gentle scrub 2 min", "Cold rinse", "Aloe vera toner"], "ingredients": ["amla juice", "rice flour", "rose water", "aloe vera gel"] }, "diet": { "breakfast": "Fresh papaya", "lunch": "Brown rice + dal + vegetables", "dinner": "Barley soup", "drinks": ["barley water", "fennel water"], "avoid": ["fried snacks", "outside food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + sandalwood mask", "Leave 20 min peel", "Cold rinse", "Rose water + aloe vera"], "ingredients": ["egg white", "sandalwood powder", "rose water", "aloe vera gel"] }, "yoga": "Kapalbhati 5 min + Anulom Vilom 10 min.", "tip": "Rice flour is the gentlest exfoliator for Pitta skin — removes dead skin without irritating." },
+          { "day": 6, "theme": "Strengthen", "morning": { "time": "6:00 AM", "routine": ["Rose water + honey drink", "Besan + sandalwood + rose water face wash", "Witch hazel toner", "Aloe vera"], "ingredients": ["rose water", "honey", "besan", "sandalwood powder", "witch hazel", "aloe vera gel"] }, "diet": { "breakfast": "Idli + sambar", "lunch": "Full balanced", "dinner": "Light soup", "drinks": ["green tea", "coriander water"], "avoid": ["all spicy"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + aloe vera + rose water mask", "Leave 20 min cold", "Witch hazel + rose water"], "ingredients": ["sandalwood powder", "aloe vera gel", "rose water", "witch hazel"] }, "yoga": "Sheetali + Bhramari 5 min each.", "tip": "Sunscreen prevents Pitta UV damage that enlarges pores — apply every day." },
+          { "day": 7, "theme": "Pitta pore routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: coriander water", "Permanent wash: besan + sandalwood + rose water", "Permanent toner: rose water + witch hazel", "Sunscreen"], "ingredients": ["coriander seeds", "besan", "sandalwood powder", "rose water", "witch hazel", "sunscreen"] }, "diet": { "breakfast": "Any cooling", "lunch": "No spice balanced", "dinner": "Light", "drinks": ["coriander water daily", "coconut water"], "avoid": ["spicy food permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: multani mitti + sandalwood", "Daily: witch hazel + aloe vera", "Monthly: ice facial"], "ingredients": ["multani mitti", "sandalwood powder", "witch hazel", "aloe vera gel"] }, "yoga": "Sheetali daily.", "tip": "Pitta pores respond fastest — visible results in 2 weeks with consistent routine." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sandalwood powder", "rose water", "witch hazel", "multani mitti", "aloe vera gel", "egg white"], "key_diet_changes": ["no spicy food", "coriander water daily", "no fried food"], "expected_results": "Pores visibly smaller by Day 4. Redness reduces by Day 3. Skin cooler and tighter by Day 5.", "continue_after_7_days": "Daily witch hazel toner. Weekly clay mask. Sunscreen always. No spicy food." }
+      },
+      "kapha_dominant": {
+        "plan_id": "PORES_KAPHA",
+        "title": "7-Day Kapha Pores Plan — Maximum Pore Refinement",
+        "overview": "Kapha large pores are the most prominent — caused by excess oil stretching pores. Maximum detox and oil control.",
+        "dosha_focus": "kapha",
+        "days": [
+          { "day": 1, "theme": "Maximum cleanse", "morning": { "time": "6:00 AM", "routine": ["Warm ginger lemon water", "Steam 10 min ginger water", "Activated charcoal + besan + rose water scrub 3 min", "Cold water + witch hazel"], "ingredients": ["ginger", "lemon juice", "activated charcoal powder", "besan", "rose water", "witch hazel"] }, "diet": { "breakfast": "Sprouts + ginger tea", "lunch": "Brown rice + bitter gourd + dal", "dinner": "Clear soup", "drinks": ["bitter gourd juice", "barley water"], "avoid": ["all dairy", "sugar", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Activated charcoal + multani mitti + witch hazel mask", "Leave 20 min", "Cold rinse + ice 3 min", "Witch hazel toner"], "ingredients": ["activated charcoal powder", "multani mitti", "witch hazel", "ice"] }, "yoga": "Kapalbhati 15 min.", "tip": "Activated charcoal + multani mitti is the most powerful Kapha pore treatment combination." },
+          { "day": 2, "theme": "Oil extraction", "morning": { "time": "6:00 AM", "routine": ["Fenugreek water", "Egg white + lemon (3 drops) peel mask", "Leave dry peel", "Witch hazel toner"], "ingredients": ["fenugreek seeds", "egg white", "lemon juice", "witch hazel"] }, "diet": { "breakfast": "Ragi porridge", "lunch": "Jowar roti + karela + dal", "dinner": "Barley soup", "drinks": ["green tea", "moringa water"], "avoid": ["dairy", "sugar", "white rice"] }, "evening": { "time": "7:00 PM", "routine": ["Multani mitti + neem + apple cider vinegar mask", "Leave 25 min", "Cold rinse ice 2 min", "Witch hazel"], "ingredients": ["multani mitti", "neem powder", "apple cider vinegar", "witch hazel", "ice"] }, "yoga": "Surya Namaskar 12 rounds.", "tip": "Weekly apple cider vinegar in clay mask — most effective Kapha pore shrinking combination." },
+          { "day": 3, "theme": "Pore tightening", "morning": { "time": "6:00 AM", "routine": ["Triphala water", "Tomato juice + besan scrub on T-zone 3 min", "Cold water", "Witch hazel + rose water toner"], "ingredients": ["triphala powder", "fresh tomato juice", "besan", "witch hazel", "rose water"] }, "diet": { "breakfast": "Besan cheela + chutney", "lunch": "Mixed grain + dal + vegetables", "dinner": "Moong soup", "drinks": ["moringa tea", "warm jeera water"], "avoid": ["oily food", "maida", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Rice flour + honey scrub 3 min", "Cold water", "Activated charcoal spot mask on T-zone", "Leave 15 min cold rinse ice 2 min"], "ingredients": ["rice flour", "honey", "activated charcoal powder", "ice"] }, "yoga": "Bhastrika 5 min + Kapalbhati 15 min.", "tip": "Tomato's natural acids tighten Kapha pores — use undiluted on oily areas only." },
+          { "day": 4, "theme": "Herbal treatment", "morning": { "time": "6:00 AM", "routine": ["Ginger lemon honey drink", "Neem + multani mitti + rose water mask", "Leave 20 min cold rinse", "Witch hazel toner"], "ingredients": ["ginger", "lemon juice", "honey", "neem leaves", "multani mitti", "rose water", "witch hazel"] }, "diet": { "breakfast": "Vegetable poha + green tea", "lunch": "Roti + palak + dal", "dinner": "Vegetable soup", "drinks": ["barley water", "ginger tulsi tea"], "avoid": ["dairy", "outside food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + tea tree (2 drops) + witch hazel mask", "Leave 20 min peel", "Cold ice rinse", "Rose water toner"], "ingredients": ["egg white", "tea tree oil", "witch hazel", "rose water", "ice"] }, "yoga": "Trikonasana + Kapalbhati 15 min.", "tip": "This day 4 mask is the strongest pore-tightening treatment in this plan — do not skip." },
+          { "day": 5, "theme": "Exfoliation", "morning": { "time": "6:00 AM", "routine": ["Amla juice", "Baking soda + honey scrub (1:4) on nose T-zone only 2 min", "Cold water", "Witch hazel"], "ingredients": ["amla juice", "baking soda", "honey", "witch hazel"] }, "diet": { "breakfast": "Sprouts + fruits", "lunch": "Brown rice + dal + sabzi", "dinner": "Clear broth", "drinks": ["green tea", "bitter gourd juice"], "avoid": ["fried food", "dairy", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Multani mitti + activated charcoal + rose water", "Leave 25 min", "Cold rinse ice 3 min", "Witch hazel toner aloe vera"], "ingredients": ["multani mitti", "activated charcoal powder", "rose water", "witch hazel", "aloe vera gel", "ice"] }, "yoga": "Full Surya Namaskar 15 rounds.", "tip": "Sweat from intense Surya Namaskar naturally unclogs Kapha pores better than any face wash." },
+          { "day": 6, "theme": "Oil control sustain", "morning": { "time": "6:00 AM", "routine": ["Moringa + warm water", "Besan + lemon + neem face wash", "Witch hazel toner", "Oil-free aloe vera"], "ingredients": ["moringa powder", "besan", "lemon juice", "neem powder", "witch hazel", "aloe vera gel"] }, "diet": { "breakfast": "Upma + green tea", "lunch": "Full low-oil balanced", "dinner": "Light early", "drinks": ["moringa tea", "ginger water"], "avoid": ["excess oil", "dairy", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Neem + multani mitti + apple cider vinegar full face mask", "Leave 25 min", "Cold rinse ice 3 min", "Witch hazel + aloe vera"], "ingredients": ["neem powder", "multani mitti", "apple cider vinegar", "witch hazel", "aloe vera gel", "ice"] }, "yoga": "Kapalbhati 15 min + Anulom Vilom 10 min.", "tip": "Mobile phone hygiene — clean screen daily. Hair off face while sleeping. Both critical for Kapha pores." },
+          { "day": 7, "theme": "Kapha pore routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: ginger lemon water", "Permanent wash: besan + neem + lemon", "Permanent toner: witch hazel", "No heavy moisturizer — aloe vera only"], "ingredients": ["ginger", "lemon juice", "besan", "neem powder", "witch hazel", "aloe vera gel"] }, "diet": { "breakfast": "Light Kapha always", "lunch": "Low dairy balanced", "dinner": "Light soup", "drinks": ["ginger water daily", "green tea daily"], "avoid": ["dairy excess permanently", "sugar", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly Sunday: charcoal + clay mask", "Daily: witch hazel + aloe vera", "Monthly: ice facial session"], "ingredients": ["activated charcoal powder", "multani mitti", "witch hazel", "aloe vera gel"] }, "yoga": "Kapalbhati 10-15 min daily permanently.", "tip": "Kapha pores need the most consistent effort — 3 weeks of this routine gives dramatic results." }
+        ],
+        "weekly_summary": { "key_ingredients": ["activated charcoal powder", "multani mitti", "witch hazel", "besan", "neem powder", "egg white", "ice"], "key_diet_changes": ["no dairy", "bitter gourd juice 3x", "ginger lemon daily", "no sugar"], "expected_results": "Pores visibly smaller by Day 3. Oil reduces dramatically by Day 4. Skin texture refined by Day 6-7.", "continue_after_7_days": "Weekly clay mask. Daily witch hazel. Kapalbhati daily. No dairy excess. No fried food." }
+      },
+      "vata_dominant": {
+        "plan_id": "PORES_VATA",
+        "title": "7-Day Vata Pores Plan — Gentle Tightening",
+        "overview": "Vata pores are less common — they appear due to dehydration making pores look bigger. Hydrate while gently tightening.",
+        "dosha_focus": "vata",
+        "days": [
+          { "day": 1, "theme": "Hydrate first", "morning": { "time": "6:00 AM", "routine": ["Warm water with honey + aloe vera juice", "Sesame oil massage 3 min warm", "Besan + honey + warm water face wash", "Rose water toner + aloe vera gel"], "ingredients": ["honey", "aloe vera juice", "sesame oil", "besan", "rose water", "aloe vera gel"] }, "diet": { "breakfast": "Warm oatmeal + almonds", "lunch": "Khichdi + ghee", "dinner": "Warm soup + roti", "drinks": ["warm water throughout", "fennel tea"], "avoid": ["cold food", "raw salads", "cold drinks"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + honey + aloe vera mask", "Leave 20 min warm rinse", "Aloe vera + sesame oil blend"], "ingredients": ["masoor dal", "honey", "aloe vera gel", "sesame oil"] }, "yoga": "Anulom Vilom 10 min.", "tip": "Vata pores appear large when dehydrated — hydration is the most important step, not astringents." },
+          { "day": 2, "theme": "Gentle extraction", "morning": { "time": "6:00 AM", "routine": ["Amla juice warm water", "Warm steam 5 min", "Rice flour + honey + aloe vera soft scrub 2 min", "Warm then cold rinse + rose water"], "ingredients": ["amla juice", "rice flour", "honey", "aloe vera gel", "rose water"] }, "diet": { "breakfast": "Soaked oats + dates + milk", "lunch": "Dal + ghee roti + sabzi", "dinner": "Warm soup", "drinks": ["warm water", "fennel tea"], "avoid": ["cold drinks", "irregular meals"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + honey (no lemon) mask", "Leave 15 min warm rinse cold finish", "Rose water + aloe vera"], "ingredients": ["egg white", "honey", "rose water", "aloe vera gel"] }, "yoga": "Bhramari + Anulom Vilom 15 min.", "tip": "Use honey instead of lemon in egg white for Vata — same tightening effect without drying." },
+          { "day": 3, "theme": "Nourishing tightening", "morning": { "time": "6:00 AM", "routine": ["Warm saffron milk", "Besan + sandalwood + honey mask", "Leave 20 min warm rinse", "Aloe vera + rose water"], "ingredients": ["saffron", "milk", "besan", "sandalwood powder", "honey", "aloe vera gel", "rose water"] }, "diet": { "breakfast": "Warm semolina + saffron", "lunch": "Brown rice + dal + ghee", "dinner": "Vegetable soup + roti", "drinks": ["saffron milk", "warm water"], "avoid": ["cold food", "dry snacks"] }, "evening": { "time": "7:00 PM", "routine": ["Potato juice + aloe vera on pores", "Leave 20 min warm then cold rinse", "Sesame oil moisturizer"], "ingredients": ["raw potato", "aloe vera gel", "sesame oil"] }, "yoga": "Paschimottanasana + Anulom Vilom.", "tip": "Sandalwood + honey mask is the ideal Vata pore treatment — tightens while nourishing." },
+          { "day": 4, "theme": "Circulation boost", "morning": { "time": "6:00 AM", "routine": ["Triphala + warm water", "Gently warm face with warm cloth compress 2 min", "Rice flour + sesame oil + honey scrub 2 min", "Cold rinse + rose water"], "ingredients": ["triphala powder", "rice flour", "sesame oil", "honey", "rose water"] }, "diet": { "breakfast": "Banana + almonds + milk", "lunch": "Khichdi + ghee + vegetables", "dinner": "Sweet potato soup", "drinks": ["warm coconut water", "brahmi milk"], "avoid": ["cold food", "all raw food today"] }, "evening": { "time": "7:00 PM", "routine": ["Masoor dal + milk + saffron mask", "Leave 25 min warm rinse", "Almond oil + aloe vera overnight"], "ingredients": ["masoor dal", "milk", "saffron", "almond oil", "aloe vera gel"] }, "yoga": "Yoga Nidra 15 min.", "tip": "Warm compress before scrub softens Vata pores for better cleaning without harsh extraction." },
+          { "day": 5, "theme": "Herbal tightening", "morning": { "time": "6:00 AM", "routine": ["Amla juice", "Sandalwood + rose water + honey spot mask on large pores", "Leave 20 min cold finish", "Rose water toner + aloe vera"], "ingredients": ["amla juice", "sandalwood powder", "rose water", "honey", "aloe vera gel"] }, "diet": { "breakfast": "Warm papaya + milk", "lunch": "Full balanced with ghee", "dinner": "Light soup + roti", "drinks": ["coriander water", "warm amla juice"], "avoid": ["processed food", "cold food"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + sandalwood + rose water mask", "Leave 20 min peel or rinse", "Warm then cold rinse", "Almond oil + aloe vera"], "ingredients": ["egg white", "sandalwood powder", "rose water", "almond oil", "aloe vera gel"] }, "yoga": "Anulom Vilom 15 min.", "tip": "Sandalwood + egg white is the premium Vata pore mask — cooling, tightening, nourishing together." },
+          { "day": 6, "theme": "Barrier strengthening", "morning": { "time": "6:00 AM", "routine": ["Saffron warm milk", "Besan + sesame oil + aloe vera wash", "Rose water toner", "Aloe vera + almond oil blend"], "ingredients": ["saffron", "milk", "besan", "sesame oil", "aloe vera gel", "rose water", "almond oil"] }, "diet": { "breakfast": "Oats + nuts + warm milk", "lunch": "Full ghee meal", "dinner": "Light warm", "drinks": ["ashwagandha milk bed", "warm water"], "avoid": ["cold food", "stress"] }, "evening": { "time": "7:00 PM", "routine": ["Warm sesame oil full face massage 5 min", "Leave overnight", "Wash next morning — best Vata overnight treatment"], "ingredients": ["sesame oil"] }, "yoga": "Anulom Vilom 15 min + Shavasana.", "tip": "Sesame oil overnight is the number one Vata pore treatment — hydrates skin so pores appear smaller." },
+          { "day": 7, "theme": "Vata pore routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: warm honey water", "Permanent wash: besan + honey + warm water", "Permanent: rose water + aloe vera toner", "Sunscreen"], "ingredients": ["honey", "besan", "rose water", "aloe vera gel", "sunscreen"] }, "diet": { "breakfast": "Warm nourishing always", "lunch": "Ghee always", "dinner": "Light warm early", "drinks": ["warm water always", "fennel tea daily"], "avoid": ["cold food permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Weekly: masoor dal + honey mask", "Daily: sesame oil or almond oil night", "Monthly: gentle steam extraction"], "ingredients": ["masoor dal", "honey", "sesame oil", "almond oil"] }, "yoga": "Anulom Vilom daily 10 min.", "tip": "Vata pores improve most with hydration and oil — exactly opposite approach to Kapha pores." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sesame oil", "aloe vera gel", "honey", "besan", "rose water", "masoor dal", "almond oil"], "key_diet_changes": ["warm food always", "ghee daily", "no cold food", "almonds daily"], "expected_results": "Skin more hydrated by Day 2. Pores appear smaller by Day 4. Texture smoother by Day 6.", "continue_after_7_days": "Nightly oil always. Warm diet. Weekly masoor dal mask. Rose water toner daily." }
+      }
+    },
+
+    "wrinkles": {
+      "pitta_dominant": {
+        "plan_id": "WRINKLES_PITTA",
+        "title": "7-Day Pitta Wrinkles Plan — Cool and Restore",
+        "overview": "Pitta wrinkles appear early due to inflammation, sun damage, and heat. Address inflammation while restoring collagen.",
+        "dosha_focus": "pitta",
+        "days": [
+          { "day": 1, "theme": "Anti-inflammatory nourishment", "morning": { "time": "6:00 AM", "routine": ["Saffron + rose water cool milk drink", "Coconut oil + aloe vera blend massage 5 min upward", "Besan + rose water gentle wash", "Aloe vera + rose water moisturizer"], "ingredients": ["saffron", "milk", "rose water", "coconut oil", "aloe vera gel", "besan"] }, "diet": { "breakfast": "Papaya + soaked almonds + milk", "lunch": "Brown rice + dal + vegetables", "dinner": "Warm soup + roti", "drinks": ["coriander water", "coconut water", "saffron milk bed"], "avoid": ["spicy food", "sun without SPF", "alcohol"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + aloe vera + almond oil mask", "Leave 20 min warm rinse", "Rosehip oil on wrinkle lines overnight"], "ingredients": ["sandalwood powder", "aloe vera gel", "almond oil", "rosehip oil"] }, "yoga": "Simhasana (lion pose) 10 reps + Sheetali 10 min.", "tip": "Pitta wrinkles need cooling + nourishing together — never just nourishing (will aggravate Pitta heat)." },
+          { "day": 2, "theme": "Collagen support", "morning": { "time": "6:00 AM", "routine": ["Amla juice + saffron milk", "Egg white + aloe vera + honey mask", "Leave 20 min cool rinse", "Aloe vera + sunscreen"], "ingredients": ["amla juice", "saffron", "milk", "egg white", "aloe vera gel", "honey", "sunscreen"] }, "diet": { "breakfast": "Papaya + almonds + warm milk", "lunch": "Roti + vegetables + dal", "dinner": "Vegetable soup", "drinks": ["amla juice", "coconut water"], "avoid": ["fried food", "spicy food"] }, "evening": { "time": "7:00 PM", "routine": ["Cooling aloe vera + vitamin E + almond oil serum on wrinkles", "Facial massage upward 5 min", "Leave overnight"], "ingredients": ["aloe vera gel", "vitamin e oil", "almond oil"] }, "yoga": "Matsyasana 3 min + Facial yoga 5 min.", "tip": "Amla juice daily gives Pitta skin the Vitamin C needed for collagen synthesis internally." },
+          { "day": 3, "theme": "Deep anti-aging", "morning": { "time": "6:00 AM", "routine": ["Saffron + warm milk", "Rosehip oil massage 5 min", "Besan + milk cream wash", "Rose water + sunscreen"], "ingredients": ["saffron", "milk", "rosehip oil", "besan", "milk cream", "rose water", "sunscreen"] }, "diet": { "breakfast": "Soaked almonds + dates + milk", "lunch": "Khichdi + ghee", "dinner": "Warm soup", "drinks": ["saffron milk", "coriander water"], "avoid": ["spicy food", "cold food", "fried food"] }, "evening": { "time": "7:00 PM", "routine": ["Sandalwood + banana + honey + aloe vera mask", "Leave 25 min cool rinse", "Kumkumadi tailam overnight on lines"], "ingredients": ["sandalwood powder", "ripe banana", "honey", "aloe vera gel", "kumkumadi tailam"] }, "yoga": "Uttanasana (forward bend) 5 reps 30 sec + Bhramari 5 min.", "tip": "Kumkumadi tailam is the finest Pitta-safe anti-aging oil — saffron-based, cooling, rejuvenating." },
+          { "day": 4, "theme": "Hydration focus", "morning": { "time": "6:00 AM", "routine": ["Rose water + aloe vera juice drink", "Aloe vera full face application leave 20 min", "Besan gentle wash", "Rose water + almond oil moisturizer"], "ingredients": ["rose water", "aloe vera juice", "aloe vera gel", "besan", "almond oil"] }, "diet": { "breakfast": "Banana + warm milk", "lunch": "Roti + dal + ghee", "dinner": "Light warm soup", "drinks": ["shatavari milk", "coconut water"], "avoid": ["cold food", "fried food", "spicy food"] }, "evening": { "time": "7:00 PM", "routine": ["Honey + glycerin + rose water cooling serum on lines", "Gentle press massage", "Leave overnight"], "ingredients": ["honey", "rose water", "aloe vera gel"] }, "yoga": "Viparita Karani 15 min — best anti-aging inversion for Pitta.", "tip": "Honey + rose water serum is cooling and deeply hydrating — perfect for Pitta wrinkles." },
+          { "day": 5, "theme": "Herbal anti-aging", "morning": { "time": "6:00 AM", "routine": ["Brahmi + saffron milk", "Sandalwood + aloe vera + honey face mask", "Leave 20 min cool rinse", "Rose water + sunscreen"], "ingredients": ["brahmi powder", "saffron", "milk", "sandalwood powder", "aloe vera gel", "honey", "rose water", "sunscreen"] }, "diet": { "breakfast": "Papaya + almonds", "lunch": "Full balanced cooling meal", "dinner": "Moong soup + roti", "drinks": ["brahmi milk", "coriander water"], "avoid": ["spicy food", "alcohol", "sun exposure"] }, "evening": { "time": "7:00 PM", "routine": ["Warm sesame oil + sandalwood powder face massage", "Upward strokes 10 min", "Leave overnight"], "ingredients": ["sesame oil", "sandalwood powder"] }, "yoga": "Simhasana 15 reps + Anulom Vilom 10 min.", "tip": "Brahmi reduces cortisol (the primary Pitta aging hormone) — drink daily for 21 days for visible results." },
+          { "day": 6, "theme": "Firming", "morning": { "time": "6:00 AM", "routine": ["Saffron milk", "Coconut oil + aloe vera massage 5 min", "Besan + rose water wash", "Aloe vera + sunscreen"], "ingredients": ["saffron", "milk", "coconut oil", "aloe vera gel", "besan", "rose water", "sunscreen"] }, "diet": { "breakfast": "Warm halwa with saffron minimal sugar", "lunch": "Full balanced thali", "dinner": "Dal soup + rice", "drinks": ["saffron milk bed", "coconut water"], "avoid": ["spicy food permanently"] }, "evening": { "time": "7:00 PM", "routine": ["Facial yoga 10 min", "Rosehip oil + vitamin E on lines", "Gentle press and hold on each wrinkle area"], "ingredients": ["rosehip oil", "vitamin e oil"] }, "yoga": "Full facial yoga 10 min + Viparita Karani 10 min.", "tip": "Facial yoga targeted on your specific wrinkle areas prevents deepening — do 10 min daily permanently." },
+          { "day": 7, "theme": "Pitta anti-aging routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: saffron milk or amla juice", "Permanent: aloe vera + coconut oil morning routine", "Permanent: sunscreen every day", "Weekly: sandalwood mask"], "ingredients": ["saffron", "milk", "amla juice", "aloe vera gel", "coconut oil", "sunscreen", "sandalwood powder"] }, "diet": { "breakfast": "Cooling nourishing always", "lunch": "Balanced no spice ghee", "dinner": "Light early warm", "drinks": ["saffron milk bedtime permanently", "coriander water daily"], "avoid": ["spicy food permanently", "sun without SPF"] }, "evening": { "time": "7:00 PM", "routine": ["Permanent: rosehip oil or kumkumadi nightly on lines", "Weekly: banana + honey mask", "Facial yoga 5 min daily"], "ingredients": ["rosehip oil", "kumkumadi tailam", "ripe banana", "honey"] }, "yoga": "Simhasana + Viparita Karani daily.", "tip": "Pitta wrinkles need cooling + collagen together. SPF is the single most important prevention step." }
+        ],
+        "weekly_summary": { "key_ingredients": ["rosehip oil", "kumkumadi tailam", "aloe vera gel", "sandalwood powder", "saffron", "almond oil", "brahmi powder"], "key_diet_changes": ["saffron milk daily", "amla juice daily", "no spicy food", "ghee always", "SPF mandatory"], "expected_results": "Skin more hydrated by Day 2. Fine lines softer by Day 4-5. Overall firmer by Day 6-7.", "continue_after_7_days": "SPF non-negotiable. Nightly rosehip oil. Saffron milk bedtime. Facial yoga 5 min daily." }
+      },
+      "kapha_dominant": {
+        "plan_id": "WRINKLES_KAPHA",
+        "title": "7-Day Kapha Wrinkles Plan — Stimulate and Restore",
+        "overview": "Kapha wrinkles appear later in life but are deeper. Caused by slow circulation and Ama (toxin) buildup. Stimulate circulation while nourishing.",
+        "dosha_focus": "kapha",
+        "days": [
+          { "day": 1, "theme": "Circulation first", "morning": { "time": "6:00 AM", "routine": ["Warm ginger + honey + turmeric drink", "Dry brush face with soft cloth upward strokes 2 min", "Sesame oil massage 5 min upward strokes", "Besan face wash + warm then cold rinse"], "ingredients": ["ginger", "honey", "turmeric powder", "sesame oil", "besan"] }, "diet": { "breakfast": "Ragi porridge + warm milk", "lunch": "Brown rice + dal + vegetables", "dinner": "Light soup + roti", "drinks": ["ginger tea", "warm water"], "avoid": ["cold food", "excess dairy", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Banana + honey + sesame oil mask", "Leave 20 min warm rinse", "Sesame oil on wrinkle lines overnight"], "ingredients": ["ripe banana", "honey", "sesame oil"] }, "yoga": "Kapalbhati 10 min + Simhasana 10 reps.", "tip": "Kapha wrinkles need stimulation above nourishment — gentle dry brushing daily improves circulation to face." },
+          { "day": 2, "theme": "Detox and nourish", "morning": { "time": "6:00 AM", "routine": ["Triphala + warm ginger water", "Sesame oil face massage 10 min upward", "Besan + honey wash", "Aloe vera + almond oil moisturizer"], "ingredients": ["triphala powder", "ginger", "sesame oil", "besan", "honey", "aloe vera gel", "almond oil"] }, "diet": { "breakfast": "Sprouts + warm milk", "lunch": "Khichdi + ghee", "dinner": "Warm barley soup", "drinks": ["barley water", "ginger lemon"], "avoid": ["dairy excess", "sugar", "cold food"] }, "evening": { "time": "7:00 PM", "routine": ["Rosehip oil + sesame oil blend massage 10 min", "Upward strokes on all wrinkle areas", "Leave overnight"], "ingredients": ["rosehip oil", "sesame oil"] }, "yoga": "Surya Namaskar 5 rounds + Kapalbhati 10 min.", "tip": "Sesame oil + rosehip oil blend is the most effective Kapha wrinkle treatment — stimulates and repairs." },
+          { "day": 3, "theme": "Collagen boost", "morning": { "time": "6:00 AM", "routine": ["Ashwagandha + warm milk + saffron", "Egg white + almond oil + honey mask", "Leave 20 min warm rinse", "Almond oil + sunscreen"], "ingredients": ["ashwagandha powder", "milk", "saffron", "egg white", "almond oil", "honey", "sunscreen"] }, "diet": { "breakfast": "Soaked almonds + dates + warm milk", "lunch": "Roti + dal + sabzi + ghee", "dinner": "Sweet potato soup + roti", "drinks": ["saffron milk", "warm water"], "avoid": ["cold food", "sugar", "excess dairy"] }, "evening": { "time": "7:00 PM", "routine": ["Kumkumadi tailam warm massage 10 min", "Upward outward strokes", "Leave overnight"], "ingredients": ["kumkumadi tailam"] }, "yoga": "Bhujangasana + Matsyasana + Kapalbhati 10 min.", "tip": "Ashwagandha internally reduces cortisol aging in Kapha skin — take daily." },
+          { "day": 4, "theme": "Deep nourishment", "morning": { "time": "6:00 AM", "routine": ["Shatavari + warm milk", "Warm sesame oil face and neck massage 10 min", "Leave 20 min besan wash", "Aloe vera + almond oil"], "ingredients": ["shatavari powder", "milk", "sesame oil", "besan", "aloe vera gel", "almond oil"] }, "diet": { "breakfast": "Oats + nuts + warm milk + dates", "lunch": "Full balanced ghee meal", "dinner": "Light warm soup", "drinks": ["shatavari milk", "ginger water"], "avoid": ["cold food", "dairy excess", "sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Banana + cream + honey mask", "Leave 25 min warm rinse", "Castor oil on deep lines only (very thin layer)"], "ingredients": ["ripe banana", "milk cream", "honey", "castor oil"] }, "yoga": "Viparita Karani 15 min + facial yoga 5 min.", "tip": "Shatavari is the best herb for skin elasticity in Kapha skin aged 35+ — take daily in milk." },
+          { "day": 5, "theme": "Herbal anti-aging", "morning": { "time": "6:00 AM", "routine": ["Brahmi + saffron + warm milk", "Sesame oil + sandalwood powder massage 5 min", "Besan + milk wash", "Almond oil moisturizer"], "ingredients": ["brahmi powder", "saffron", "milk", "sesame oil", "sandalwood powder", "besan", "almond oil"] }, "diet": { "breakfast": "Warm semolina + ghee + saffron", "lunch": "Roti + palak + dal + ghee", "dinner": "Warm barley soup", "drinks": ["brahmi milk", "warm ginger water"], "avoid": ["cold food", "sugar", "excess dairy"] }, "evening": { "time": "7:00 PM", "routine": ["Sesame oil + vitamin E facial massage 10 min", "Upward strokes focus on nasolabial lines and forehead", "Leave overnight"], "ingredients": ["sesame oil", "vitamin e oil"] }, "yoga": "Kapalbhati 15 min + Simhasana 15 reps + Anulom Vilom 10 min.", "tip": "Brahmi + Ashwagandha together are the most powerful Kapha anti-aging herbal combination." },
+          { "day": 6, "theme": "Sustain and firm", "morning": { "time": "6:00 AM", "routine": ["Chyawanprash + warm milk morning", "Long sesame oil massage 10 min", "Warm besan wash", "Almond oil + aloe vera"], "ingredients": ["chyawanprash", "milk", "sesame oil", "besan", "almond oil", "aloe vera gel"] }, "diet": { "breakfast": "Full nourishing breakfast + chyawanprash", "lunch": "Full ghee balanced", "dinner": "Light warm early", "drinks": ["saffron milk bedtime", "warm water"], "avoid": ["cold food", "excess sugar"] }, "evening": { "time": "7:00 PM", "routine": ["Facial yoga 10 min targeting specific lines", "Rosehip oil + sesame oil on all lines", "Leave overnight"], "ingredients": ["rosehip oil", "sesame oil"] }, "yoga": "Full Surya Namaskar 5 rounds + Kapalbhati 15 min.", "tip": "Chyawanprash daily is the most comprehensive Ayurvedic anti-aging formulation — 35+ herbs working together." },
+          { "day": 7, "theme": "Kapha anti-aging routine", "morning": { "time": "6:00 AM", "routine": ["Permanent: warm ginger milk or saffron milk", "Permanent: sesame oil massage daily", "Permanent: besan wash", "Permanent: sunscreen"], "ingredients": ["ginger", "saffron", "milk", "sesame oil", "besan", "sunscreen"] }, "diet": { "breakfast": "Warm nourishing + chyawanprash daily", "lunch": "With ghee always", "dinner": "Light early warm", "drinks": ["saffron milk bedtime permanently", "ginger water daily"], "avoid": ["cold food permanently", "dairy excess"] }, "evening": { "time": "7:00 PM", "routine": ["Permanent: sesame oil or kumkumadi nightly", "Weekly: banana + honey mask", "Facial yoga 5-10 min daily"], "ingredients": ["sesame oil", "kumkumadi tailam", "ripe banana", "honey"] }, "yoga": "Kapalbhati 10 min + Simhasana daily permanently.", "tip": "Kapha wrinkles need the most consistent effort. Daily oil massage is non-negotiable. 4 weeks = visible improvement." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sesame oil", "rosehip oil", "kumkumadi tailam", "saffron", "ashwagandha powder", "shatavari powder", "chyawanprash"], "key_diet_changes": ["chyawanprash daily", "saffron milk bedtime", "ghee always", "almonds + dates daily", "no cold food"], "expected_results": "Circulation improves by Day 2. Skin more supple by Day 4. Wrinkles appear softer by Day 5-6.", "continue_after_7_days": "Daily oil massage. Chyawanprash. Kapalbhati. Saffron milk. Warm diet always." }
+      },
+      "vata_dominant": {
+        "plan_id": "WRINKLES_VATA",
+        "title": "7-Day Vata Wrinkles Plan — Maximum Nourishment",
+        "overview": "Vata wrinkles are the most common — caused by dryness, dehydration, and stress depleting collagen. Maximum nourishment, oil, and internal restoration.",
+        "dosha_focus": "vata",
+        "days": [
+          { "day": 1, "theme": "Oil saturation day", "morning": { "time": "6:00 AM", "routine": ["Warm saffron milk + 1 tsp ghee — most nourishing Vata anti-aging drink", "Sesame oil full face and neck massage 10 min upward", "Leave 30 min", "Besan + milk cream gentle wash warm water", "Aloe vera gel moisturizer"], "ingredients": ["saffron", "milk", "ghee", "sesame oil", "besan", "milk cream", "aloe vera gel"] }, "diet": { "breakfast": "10 soaked almonds + 3 dates + warm milk with saffron", "lunch": "Khichdi + generous ghee + steamed vegetables", "dinner": "Warm vegetable soup + roti + warm milk", "drinks": ["warm water throughout only", "warm saffron milk bed"], "avoid": ["cold food", "raw food", "cold drinks", "irregular meals"] }, "evening": { "time": "7:00 PM", "routine": ["Coconut oil full face massage 10 min", "Upward and outward strokes on all lines", "Leave overnight — this is your most important step"], "ingredients": ["coconut oil"] }, "yoga": "Simhasana 10 reps + Anulom Vilom 10 min.", "tip": "Vata wrinkles are entirely nourishment-starved. Oil every day, twice a day, is the treatment." },
+          { "day": 2, "theme": "Internal collagen", "morning": { "time": "6:00 AM", "routine": ["Ashwagandha + saffron + warm milk", "Warm almond oil massage 10 min", "Besan + honey warm wash", "Aloe vera + almond oil moisturizer"], "ingredients": ["ashwagandha powder", "saffron", "milk", "almond oil", "besan", "honey", "aloe vera gel"] }, "diet": { "breakfast": "Ragi porridge with warm milk + ghee + jaggery", "lunch": "Dal makhani + roti + ghee", "dinner": "Warm sweet potato soup + roti", "drinks": ["ashwagandha milk", "warm water"], "avoid": ["cold food", "skipping meals", "dry snacks"] }, "evening": { "time": "7:00 PM", "routine": ["Egg white + almond oil + honey face mask", "Leave 20 min warm rinse", "Kumkumadi tailam massage on all wrinkle lines overnight"], "ingredients": ["egg white", "almond oil", "honey", "kumkumadi tailam"] }, "yoga": "Matsyasana + Bhramari 10 min.", "tip": "Ashwagandha + ghee in diet daily is the most powerful internal Vata anti-aging protocol." },
+          { "day": 3, "theme": "Rosehip + collagen", "morning": { "time": "6:00 AM", "routine": ["Shatavari + warm milk", "Warm rosehip oil face massage 10 min", "Leave 30 min", "Milk cream + besan gentle wash warm water", "Almond oil moisturizer"], "ingredients": ["shatavari powder", "milk", "rosehip oil", "milk cream", "besan", "almond oil"] }, "diet": { "breakfast": "Warm semolina halwa with ghee saffron almonds", "lunch": "Roti + dal + ghee + cooked vegetables", "dinner": "Warm soup + roti + warm milk", "drinks": ["shatavari milk", "saffron warm water"], "avoid": ["cold food", "dry food", "processed food"] }, "evening": { "time": "7:00 PM", "routine": ["Banana + cream + saffron + honey mask", "Leave 25 min warm rinse", "Rosehip oil + sesame oil blend overnight on lines"], "ingredients": ["ripe banana", "milk cream", "saffron", "honey", "rosehip oil", "sesame oil"] }, "yoga": "Uttanasana hold 30 sec × 5 + Anulom Vilom 15 min.", "tip": "Rosehip oil has the highest natural retinol — for Vata wrinkles it is the single most effective topical." },
+          { "day": 4, "theme": "Maximum hydration", "morning": { "time": "6:00 AM", "routine": ["Aloe vera juice + warm water + 1 tsp ghee", "Warm sesame oil face and neck scalp massage 15 min", "Leave 30 min", "Besan + warm water wash", "Aloe vera gel + almond oil"], "ingredients": ["aloe vera juice", "ghee", "sesame oil", "besan", "aloe vera gel", "almond oil"] }, "diet": { "breakfast": "Banana + dates + soaked almonds + warm milk", "lunch": "Khichdi + large amount of ghee + vegetables", "dinner": "Warm milk + triphala — cleanse and nourish", "drinks": ["warm saffron water throughout", "no cold drinks ever"], "avoid": ["cold food", "all dry snacks", "skipping meals or snacks"] }, "evening": { "time": "7:00 PM", "routine": ["Honey + glycerin + aloe vera deep hydrating mask on lines", "Leave 20 min warm rinse", "Castor oil thin layer on deepest lines only"], "ingredients": ["honey", "aloe vera gel", "castor oil"] }, "yoga": "Yoga Nidra 30 min — deepest rest for Vata restoration.", "tip": "Castor oil on deepest lines only — the ricinoleic acid penetrates deepest into Vata-depleted skin." },
+          { "day": 5, "theme": "Brahmi restoration", "morning": { "time": "6:00 AM", "routine": ["Brahmi + saffron + warm milk + ghee", "Warm kumkumadi tailam face massage 10 min", "Leave 30 min", "Besan + milk cream wash", "Aloe vera + sunscreen"], "ingredients": ["brahmi powder", "saffron", "milk", "ghee", "kumkumadi tailam", "besan", "milk cream", "aloe vera gel", "sunscreen"] }, "diet": { "breakfast": "Warm ragi porridge + almonds + ghee", "lunch": "Full balanced heavy ghee meal", "dinner": "Warm nutritious soup + roti + warm milk", "drinks": ["brahmi milk", "chyawanprash milk"], "avoid": ["cold food", "stress", "irregular sleep"] }, "evening": { "time": "7:00 PM", "routine": ["Sesame oil + sandalwood powder + saffron warm massage", "Upward outward strokes all lines 10 min", "Leave overnight"], "ingredients": ["sesame oil", "sandalwood powder", "saffron"] }, "yoga": "Simhasana 15 reps + Kapalbhati 5 min mild + Anulom Vilom 15 min.", "tip": "Brahmi reduces anxiety-driven cortisol which is the primary Vata aging hormone — take daily for 21 days." },
+          { "day": 6, "theme": "Full restoration", "morning": { "time": "6:00 AM", "routine": ["Saffron milk + ghee + chyawanprash morning routine", "Long 15 min warm sesame oil massage", "Leave 30 min milk cream wash", "Almond oil + aloe vera"], "ingredients": ["saffron", "milk", "ghee", "chyawanprash", "sesame oil", "milk cream", "almond oil", "aloe vera gel"] }, "diet": { "breakfast": "Most nourishing breakfast of week — almonds dates milk ghee saffron", "lunch": "Full ghee rich balanced", "dinner": "Light warm early + warm milk bed", "drinks": ["saffron milk bed", "warm water throughout"], "avoid": ["cold food", "stress", "late sleep"] }, "evening": { "time": "7:00 PM", "routine": ["Facial yoga 15 min specific to your lines", "Rosehip oil + kumkumadi full face massage 10 min", "Leave overnight"], "ingredients": ["rosehip oil", "kumkumadi tailam"] }, "yoga": "Anulom Vilom 20 min + Simhasana 15 reps + Shavasana 10 min.", "tip": "Sleep quality is anti-aging medicine for Vata. Sleep before 10 PM every night — this is treatment." },
+          { "day": 7, "theme": "Vata anti-aging for life", "morning": { "time": "6:00 AM", "routine": ["Permanent: saffron milk + ghee every morning", "Permanent: sesame oil massage daily minimum 5 min", "Permanent: besan + milk cream warm wash", "Permanent: sunscreen and aloe vera"], "ingredients": ["saffron", "milk", "ghee", "sesame oil", "besan", "milk cream", "sunscreen", "aloe vera gel"] }, "diet": { "breakfast": "Warm nourishing always + chyawanprash daily", "lunch": "Ghee always mandatory", "dinner": "Light warm before 8 PM always", "drinks": ["saffron milk bedtime permanently", "warm water only permanently"], "avoid": ["cold food permanently", "irregular sleep", "stress eating"] }, "evening": { "time": "7:00 PM", "routine": ["Permanent: rosehip oil or sesame oil nightly on all lines", "Weekly: banana + cream mask", "Facial yoga 5-10 min daily forever"], "ingredients": ["rosehip oil", "sesame oil", "ripe banana", "milk cream"] }, "yoga": "Anulom Vilom + Simhasana daily permanently.", "tip": "Vata wrinkles need the most long-term commitment. 3 months of this routine = significant reversal visible to others." }
+        ],
+        "weekly_summary": { "key_ingredients": ["sesame oil", "almond oil", "rosehip oil", "kumkumadi tailam", "saffron", "ghee", "ashwagandha powder", "shatavari powder", "chyawanprash"], "key_diet_changes": ["ghee mandatory daily", "saffron milk bedtime", "almonds + dates daily", "chyawanprash daily", "warm food only always"], "expected_results": "Skin deeply moisturized by Day 1-2. Elasticity improves by Day 4. Fine lines softer by Day 5-6. Deep lines reduce by Day 7.", "continue_after_7_days": "Daily oil massage non-negotiable. Ghee in diet always. Sleep before 10 PM. Facial yoga daily. 3 months for full results." }
+      }
+    }
+
+  }
+}

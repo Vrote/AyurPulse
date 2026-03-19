@@ -3,31 +3,21 @@ from typing import List, Optional
 
 
 class ClassProbability(BaseModel):
-    """Confidence score for a single skin condition class."""
     class_name: str
-    confidence: float   # percentage, e.g. 92.45
+    confidence: float
 
 
 class PredictionResponse(BaseModel):
-    """
-    Full API response returned after skin analysis.
-
-    Fields:
-        status:           "success" or "error"
-        detected_conditions: List of conditions that crossed their threshold.
-        all_probabilities:   Raw confidence for all 5 classes (useful for frontend charts).
-        message:          Human-readable summary.
-        consult_doctor:   True when no condition is detected or confidence is borderline.
-    """
-    status: str
+    status:              str
+    prediction_id:       Optional[str] = None  # MongoDB _id — pass to /plan/generate
     detected_conditions: List[str]
-    all_probabilities: List[ClassProbability]
-    message: str
-    consult_doctor: bool
+    all_probabilities:   List[ClassProbability]
+    message:             str
+    consult_doctor:      bool
+    next_step:           Optional[str] = None  # tells frontend what to do next
 
 
 class ErrorResponse(BaseModel):
-    """Returned when something goes wrong."""
-    status: str = "error"
+    status:  str = "error"
     message: str
-    detail: Optional[str] = None
+    detail:  Optional[str] = None

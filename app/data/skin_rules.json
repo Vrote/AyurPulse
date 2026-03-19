@@ -1,0 +1,89 @@
+{
+  "skin_type": {
+    "oily": {
+      "note": "Oily skin — avoid heavy oils, use aloe vera and rose water",
+      "swaps": {
+        "coconut oil": "aloe vera gel",
+        "sesame oil": "rose water",
+        "almond oil": "aloe vera gel",
+        "milk cream": "plain yogurt",
+        "ghee on face": "none — skip",
+        "castor oil": "tea tree oil diluted"
+      }
+    },
+    "dry": {
+      "note": "Dry skin — avoid harsh acids and clay, use oils and honey",
+      "swaps": {
+        "lemon juice": "rose water",
+        "apple cider vinegar": "rose water",
+        "multani mitti": "masoor dal + milk mask",
+        "witch hazel": "rose water",
+        "activated charcoal": "masoor dal powder",
+        "baking soda": "rice flour scrub"
+      }
+    },
+    "sensitive": {
+      "note": "Sensitive skin — avoid all acids, use only gentle ingredients",
+      "swaps": {
+        "lemon juice": "rose water",
+        "apple cider vinegar": "rose water",
+        "turmeric powder": "sandalwood powder",
+        "neem leaves": "cucumber",
+        "cinnamon powder": "none — skip",
+        "baking soda": "none — skip",
+        "egg white": "plain yogurt",
+        "witch hazel": "rose water",
+        "tea tree oil": "lavender oil diluted"
+      }
+    },
+    "combination": {
+      "note": "Combination skin — use aloe vera all over, oils on dry areas only",
+      "swaps": {
+        "coconut oil": "aloe vera gel",
+        "heavy cream": "aloe vera gel"
+      }
+    },
+    "normal": {
+      "note": "Normal skin — follow plan as-is, no swaps needed",
+      "swaps": {}
+    }
+  },
+
+  "age": {
+    "10-20": {
+      "note": "Teen skin — focus on prevention. Do NOT use anti-aging products like castor oil or kumkumadi. Sunscreen is your most important habit."
+    },
+    "21-30": {
+      "note": "Start rosehip oil at night and sunscreen daily — best age to build these habits."
+    },
+    "31-40": {
+      "note": "Double your oil massage time to 10 min. Add shatavari or ashwagandha in warm milk nightly."
+    },
+    "40+": {
+      "note": "15 min oil massage every morning is non-negotiable. Add chyawanprash daily. Maximum nourishment is your priority."
+    }
+  },
+
+  "season": {
+    "summer": {
+      "tip": "Refrigerate rose water and aloe vera — cold application gives extra cooling. Apply sunscreen every 3 hours outdoors."
+    },
+    "winter": {
+      "tip": "Apply sesame oil 15 min before bath daily. Use warm water only for face wash. Never cold water in winter."
+    },
+    "monsoon": {
+      "tip": "Dry your face thoroughly after every wash. Neem is your most important ingredient this season — prevents fungal growth."
+    },
+    "autumn": {
+      "tip": "Begin oil massage routine now. Transition from cold to warm water for face wash. Skin entering winter needs oil."
+    }
+  },
+
+  "lifestyle": {
+    "high_stress": "High stress tip: Brahmi + ashwagandha in warm milk every night reduces cortisol — directly improves your skin.",
+    "poor_sleep": "Sleep tip: Your skin repairs 10 PM to 2 AM. Sleep before 10:30 PM — this is treatment, not luxury.",
+    "low_water": "Water tip: Drink 2 glasses warm water immediately on waking. Skin is 64% water — hydration shows on your face tomorrow.",
+    "vegan": "Vegan tip: Replace all milk in this plan with almond milk or oat milk. Replace honey in diet with jaggery.",
+    "female": "Skin is oiliest and most acne-prone on days 22-28 of your cycle. Reduce dairy and sugar those days."
+  }
+}
