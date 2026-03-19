@@ -8,6 +8,7 @@ from app.config.settings import settings
 from app.routes.prediction_routes import router as prediction_router
 from app.routes.auth_routes import router as auth_router
 from app.routes.plan_routes import router as plan_router
+from app.routes.shop_routes import router as shop_router
 from app.middleware.error_handler import (
     http_exception_handler,
     validation_exception_handler,
@@ -22,21 +23,18 @@ def create_app() -> FastAPI:
         version=settings.APP_VERSION,
         description=(
             "AyurPulse — AI-powered skin condition detection + Ayurvedic treatment.\n\n"
-            "**Feature 1:** Upload image → AI detects skin condition → saved to your history\n"
-            "**Feature 2:** Register / Login / Logout with JWT auth\n"
-            "**Feature 3:** Fill profile form → get personalized 7-day Ayurvedic plan\n"
-            "**Feature 4:** Tick daily tasks + rate your skin → track 7-day progress\n\n"
+            "**Feature 1:** Upload image → AI detects skin condition\n"
+            "**Feature 2:** Register / Login / Logout\n"
+            "**Feature 3:** Personalized 7-day Ayurvedic plan with daily checklists\n"
+            "**Feature 4:** Find nearest Ayurvedic shops using GPS\n\n"
             "**How to use protected endpoints:**\n"
             "1. Login via `/api/v1/auth/login` → copy `access_token`\n"
-            "2. Click **Authorize** → paste token → Authorize → Close\n"
-            "3. All protected endpoints now work automatically."
+            "2. Click **Authorize** → paste token → Authorize → Close"
         ),
         docs_url="/docs",
         redoc_url="/redoc",
     )
 
-    # ── Swagger Bearer token ───────────────────────────────────────────────────
-    # Only these routes work WITHOUT login
     PUBLIC_ROUTES = {
         "/api/v1/auth/register",
         "/api/v1/auth/login",
@@ -61,7 +59,7 @@ def create_app() -> FastAPI:
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT",
-                "description": "Paste your access_token from /login. Do NOT include 'Bearer' prefix."
+                "description": "Paste access_token from /login. No 'Bearer' prefix."
             }
         }
         for path, methods in schema.get("paths", {}).items():
@@ -73,7 +71,6 @@ def create_app() -> FastAPI:
 
     app.openapi = custom_openapi
 
-    # ── CORS ──────────────────────────────────────────────────────────────────
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -82,17 +79,15 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    # ── Exception handlers ────────────────────────────────────────────────────
     app.add_exception_handler(StarletteHTTPException, http_exception_handler)
     app.add_exception_handler(RequestValidationError, validation_exception_handler)
     app.add_exception_handler(Exception, global_exception_handler)
 
-    # ── Routers ───────────────────────────────────────────────────────────────
     app.include_router(auth_router)
     app.include_router(prediction_router)
     app.include_router(plan_router)
+    app.include_router(shop_router)
 
-    # ── Root ──────────────────────────────────────────────────────────────────
     @app.get("/", tags=["Root"])
     async def root():
         return {
@@ -101,23 +96,22 @@ def create_app() -> FastAPI:
             "status":  "running",
             "docs":    "http://127.0.0.1:8000/docs",
             "endpoints": {
-                "register":          "POST /api/v1/auth/register",
-                "login":             "POST /api/v1/auth/login",
-                "logout":            "POST /api/v1/auth/logout",
-                "refresh":           "POST /api/v1/auth/refresh",
-                "me":                "GET  /api/v1/auth/me",
-                "predict":           "POST /api/v1/predict",
-                "predict_history":   "GET  /api/v1/predict/history",
-                "health":            "GET  /api/v1/health",
-                "plan_generate":     "POST /api/v1/plan/generate",
-                "plan_my_plan":      "GET  /api/v1/plan/my-plan",
-                "plan_checkin":      "POST /api/v1/plan/checkin",
-                "plan_progress":     "GET  /api/v1/plan/progress/{plan_id}",
-                "plan_conditions":   "GET  /api/v1/plan/conditions",
+                "register":        "POST /api/v1/auth/register",
+                "login":           "POST /api/v1/auth/login",
+                "logout":          "POST /api/v1/auth/logout",
+                "me":              "GET  /api/v1/auth/me",
+                "predict":         "POST /api/v1/predict",
+                "predict_history": "GET  /api/v1/predict/history",
+                "health":          "GET  /api/v1/health",
+                "plan_generate":   "POST /api/v1/plan/generate",
+                "plan_my_plan":    "GET  /api/v1/plan/my-plan",
+                "plan_checkin":    "POST /api/v1/plan/checkin",
+                "plan_progress":   "GET  /api/v1/plan/progress/{plan_id}",
+                "plan_conditions": "GET  /api/v1/plan/conditions",
+                "shops_nearby":    "POST /api/v1/shops/nearby",
             }
         }
 
-    # ── Startup / Shutdown ────────────────────────────────────────────────────
     @app.on_event("startup")
     async def startup():
         await connect_db()
