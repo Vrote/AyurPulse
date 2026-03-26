@@ -295,9 +295,9 @@ async def logout_user(access_token: str, refresh_token: str | None = None) -> Me
     )
 
 
-async def get_user_profile(user_id: str) -> UserResponse:
+async def get_user_profile(user_id: str) -> UserResponse | DoctorResponse:
     """
-    Fetch user profile by ID.
+    Fetch user or doctor profile by ID.
     Used in the /me endpoint after token validation.
 
     Raises:
@@ -308,8 +308,14 @@ async def get_user_profile(user_id: str) -> UserResponse:
     if db is None:
         raise RuntimeError("Database unavailable. Please try again later.")
 
+    # Try finding in users first
     user = await db["users"].find_one({"_id": ObjectId(user_id)})
-    if not user:
-        raise ValueError("User not found.")
+    if user:
+        return _format_user(user)
 
-    return _format_user(user)
+    # Try finding in doctors next
+    doc = await db["doctors"].find_one({"_id": ObjectId(user_id)})
+    if doc:
+        return _format_doctor(doc)
+
+    raise ValueError("User not found.")

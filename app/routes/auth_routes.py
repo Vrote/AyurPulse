@@ -18,6 +18,7 @@ from app.schemas.auth_schema import (
     RegisterResponse,
     MessageResponse,
     UserResponse,
+    DoctorResponse,
 )
 from app.auth.dependencies import get_current_user
 
@@ -138,7 +139,7 @@ async def logout(
 
 @router.get(
     "/me",
-    response_model=UserResponse,
+    response_model=UserResponse | DoctorResponse,
     summary="Get current user profile",
     description="Returns the authenticated user's profile. Requires valid Bearer token.",
 )

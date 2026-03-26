@@ -68,5 +68,6 @@ async def get_current_user(
         "user_id": str(user_doc["_id"]),
         "email":   user_doc["email"],
         "role":    user_doc.get("role", "user"),
-        "full_name": user_doc.get("full_name", "User")
+        "full_name": user_doc.get("full_name", "User"),
+        "specialization": user_doc.get("specialization") # Important for doctor-based filtering
     }

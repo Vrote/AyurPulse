@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from datetime import datetime
 
-# --- INPUT MODELS 
+# --- INPUT MODELS gi
 
 class DoshaAnswers(BaseModel):
     """The Quick 6-Question Assessment Answers (Simple Version)."""
@@ -60,6 +60,7 @@ class PlanResponse(BaseModel):
     title: str
     overview: str
     dosha_focus: str
+    required_specialty: str = Field(default="General Ayurveda", description="The expert area needed to review this plan")
     is_doctor_vetted: bool = Field(default=False, description="Flag: True if a doctor has reviewed and approved this plan")
     is_doctor_modified: bool = Field(default=False, description="Flag: True if the doctor actually changed the plan content")
     doctor_notes: Optional[str] = Field(None, description="Direct notes from the doctor to the user")

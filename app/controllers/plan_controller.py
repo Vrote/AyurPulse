@@ -137,12 +137,23 @@ async def generate_personalized_plan(request: PlanRequest, user_id: str) -> Plan
         continue_after_7_days  = summary_data["continue_after_7_days"]
     )
 
+    # Determine required specialty based on condition
+    condition_to_specialty = {
+        "acne": "Ayurvedic Dermatology",
+        "blackheads": "Ayurvedic Dermatology",
+        "dark_spots": "Skin Rejuvenation",
+        "pores": "Ayurvedic Dermatology",
+        "wrinkles": "Anti-Aging (Rasayana)"
+    }
+    required_specialty = condition_to_specialty.get(condition, "General Ayurveda")
+
     # 6. Build Final Response Object
     response = PlanResponse(
         plan_id               = base_plan["plan_id"],
         title                 = base_plan["title"],
         overview              = base_plan["overview"],
         dosha_focus           = base_plan["dosha_focus"],
+        required_specialty    = required_specialty,
         personalization_notes = personalization_notes,
         days                  = processed_days,
         weekly_summary        = weekly_summary,
@@ -189,13 +200,60 @@ async def get_plan_history(user_id: str):
     return history
 
 
-async def get_all_plans_for_doctor():
-    """Fetch all plans for doctor to review (most recent first)."""
+async def get_all_plans_for_doctor(specialization: Optional[str] = None):
+    """
+    Fetch all plans for doctor to review (most recent first).
+    Optionally filters by the doctor's specialization.
+    """
     db = get_db()
     if db is None:
         return []
 
-    cursor = db["user_plans"].find().sort("created_at", -1)
+    # Filtering logic: General Ayurveda sees EVERYTHING. Specialists see their field + general.
+    query = {"is_doctor_vetted": False}
+    
+    # If the doctor is NOT a Generalist, we restrict their view to their specialty + general items
+    if specialization and specialization != "General Ayurveda":
+        query["$or"] = [
+            {"required_specialty": specialization},
+            {"required_specialty": "General Ayurveda"},
+            {"required_specialty": {"$exists": False}} # Support older plans
+        ]
+
+    cursor = db["user_plans"].find(query).sort("created_at", -1)
+    
+    plans = []
+    async for doc in cursor:
+        doc["id"] = str(doc["_id"])
+        del doc["_id"]
+        # Format timestamps
+        if isinstance(doc.get("created_at"), datetime):
+            doc["created_at"] = doc["created_at"].isoformat()
+        if isinstance(doc.get("reviewed_at"), datetime):
+            doc["reviewed_at"] = doc["reviewed_at"].isoformat()
+        plans.append(doc)
+    
+    return plans
+
+
+async def get_reviewed_plans_for_doctor(specialization: Optional[str] = None):
+    """
+    Fetch all plans that have already been reviewed/checked by a doctor.
+    Shows the history of patient reviews and modifications.
+    """
+    db = get_db()
+    if db is None:
+        return []
+
+    # Filtering logic: Only vetted plans, filtered by specialty
+    query = {"is_doctor_vetted": True}
+    if specialization and specialization != "General Ayurveda":
+        query["$or"] = [
+            {"required_specialty": specialization},
+            {"required_specialty": "General Ayurveda"}
+        ]
+
+    cursor = db["user_plans"].find(query).sort("reviewed_at", -1)
     
     plans = []
     async for doc in cursor:

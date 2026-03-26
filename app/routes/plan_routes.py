@@ -1,7 +1,13 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from typing import Dict, List
 
-from app.controllers.plan_controller import generate_personalized_plan, get_plan_history, get_all_plans_for_doctor, review_plan_by_doctor
+from app.controllers.plan_controller import (
+    generate_personalized_plan, 
+    get_plan_history, 
+    get_all_plans_for_doctor, 
+    get_reviewed_plans_for_doctor,
+    review_plan_by_doctor
+)
 from app.schemas.plan_schema import PlanRequest, PlanResponse, PlanReviewRequest
 from app.auth.dependencies import get_current_user
 from app.utils.prakriti_assessment import get_all_questions
@@ -69,11 +75,11 @@ async def plan_history(
 
 
 @router.get(
-    "/all",
-    summary="[Doctor Only] Get all user plans",
-    description="Fetch every plan ever generated for review. requires Doctor role."
+    "/unchecked-plans",
+    summary="[Doctor Only] Get new/unchecked plans",
+    description="Fetch every plan that is currently waiting for professional review. Requires Doctor role."
 )
-async def fetch_all_plans(
+async def fetch_unchecked_plans(
     current_user: dict = Depends(get_current_user)
 ):
     """Doctor-only endpoint to see all system generated plans."""
@@ -82,7 +88,24 @@ async def fetch_all_plans(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied. Doctors only."
         )
-    return await get_all_plans_for_doctor()
+    return await get_all_plans_for_doctor(current_user.get("specialization"))
+
+
+@router.get(
+    "/reviewed-plans",
+    summary="[Doctor Only] Get reviewed/checked plans",
+    description="Returns a list of all plans already reviewed and approved by doctors. Useful for tracking history."
+)
+async def fetch_reviewed_plans(
+    current_user: dict = Depends(get_current_user)
+):
+    """Doctor-only endpoint to see all plans that have already been reviewed."""
+    if current_user.get("role") != "doctor":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. Doctors only."
+        )
+    return await get_reviewed_plans_for_doctor(current_user.get("specialization"))
 
 
 @router.patch(
