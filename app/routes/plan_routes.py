@@ -1,42 +1,48 @@
 from fastapi import APIRouter, HTTPException, Depends, status
+from typing import Dict, List
 
-from app.controllers.plan_controller import generate_plan, get_my_plan
-from app.controllers.progress_controller import save_checkin, get_progress
-from app.schemas.plan_schema import (
-    SkinProfileRequest, PlanResponse,
-    CheckinRequest, CheckinResponse,
-    ProgressResponse,
-)
+from app.controllers.plan_controller import generate_personalized_plan, get_plan_history, get_all_plans_for_doctor, review_plan_by_doctor
+from app.schemas.plan_schema import PlanRequest, PlanResponse, PlanReviewRequest
 from app.auth.dependencies import get_current_user
+from app.utils.prakriti_assessment import get_all_questions
 
 router = APIRouter(
     prefix="/api/v1/plan",
-    tags=["Ayurvedic Plan"]
+    tags=["Ayurvedic Plans"]
 )
 
 
-# ── Generate plan ──────────────────────────────────────────────────────────────
+@router.get(
+    "/questions",
+    summary="Get Dosha Assessment Questions",
+    description="Returns the 6 questions needed for the Quick-6 Dosha Assessment."
+)
+async def fetch_questions():
+    """Retrieve the static list of 6 Prakriti questions for the frontend."""
+    return get_all_questions()
+
+
 @router.post(
     "/generate",
     response_model=PlanResponse,
-    status_code=status.HTTP_201_CREATED,
-    summary="Generate 7-day Ayurvedic plan",
+    summary="Generate personalized 7-day plan",
     description=(
-        "Fill the 9-field skin profile form. System selects the right plan "
-        "from the dataset, personalizes it to your profile, saves it to your account, "
-        "and returns all 7 days with a tickable checklist for each day. Requires login."
-    ),
+        "Send prediction_id and user profile (Dosha, Skin Type, Lifestyle). "
+        "Returns a personalized 7-day routine. Saves it to history. Requires login."
+    )
 )
-async def generate(
-    profile: SkinProfileRequest,
-    current_user: dict = Depends(get_current_user),
+async def create_plan(
+    request: PlanRequest,
+    current_user: dict = Depends(get_current_user)
 ):
+    """Bridge between frontend form and backend Plan Assembly Engine."""
     try:
-        return await generate_plan(profile, current_user["user_id"])
+        return await generate_personalized_plan(request, current_user["user_id"])
     except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except FileNotFoundError as e:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -44,98 +50,67 @@ async def generate(
         )
 
 
-# ── Get my current plan ────────────────────────────────────────────────────────
 @router.get(
-    "/my-plan",
-    summary="Get my current plan",
-    description=(
-        "Returns your most recent active plan with all 7 days and checklist. "
-        "Use this to reload your plan when you open the app. Requires login."
-    ),
+    "/history",
+    summary="Get plan history",
+    description="Returns your last 5 generated plans. Requires login."
 )
-async def my_plan(current_user: dict = Depends(get_current_user)):
-    try:
-        return await get_my_plan(current_user["user_id"])
-    except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
-    except RuntimeError as e:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(e))
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Could not fetch plan: {str(e)}"
-        )
-
-
-# ── Daily check-in ─────────────────────────────────────────────────────────────
-@router.post(
-    "/checkin",
-    response_model=CheckinResponse,
-    summary="Submit daily check-in",
-    description=(
-        "User submits which tasks they completed today and rates their skin 1-10. "
-        "Send the list of completed checklist item IDs and the skin rating. "
-        "Can be updated multiple times for the same day. Requires login."
-    ),
-)
-async def checkin(
-    data: CheckinRequest,
-    current_user: dict = Depends(get_current_user),
+async def plan_history(
+    current_user: dict = Depends(get_current_user)
 ):
+    """Fetch user's saved plans from user_plans collection."""
     try:
-        return await save_checkin(data, current_user["user_id"])
-    except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except RuntimeError as e:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(e))
+        return await get_plan_history(current_user["user_id"])
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Check-in failed: {str(e)}"
+            detail=f"Failed to fetch history: {str(e)}"
         )
 
 
-# ── Progress summary ───────────────────────────────────────────────────────────
 @router.get(
-    "/progress/{plan_id}",
-    response_model=ProgressResponse,
-    summary="Get 7-day progress",
-    description=(
-        "Returns your completion percentage and skin rating for each day. "
-        "Frontend uses this to show the progress tracker. Requires login."
-    ),
+    "/all",
+    summary="[Doctor Only] Get all user plans",
+    description="Fetch every plan ever generated for review. requires Doctor role."
 )
-async def progress(
+async def fetch_all_plans(
+    current_user: dict = Depends(get_current_user)
+):
+    """Doctor-only endpoint to see all system generated plans."""
+    if current_user.get("role") != "doctor":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. Doctors only."
+        )
+    return await get_all_plans_for_doctor()
+
+
+@router.patch(
+    "/{plan_id}/review",
+    summary="[Doctor Only] Review and Approve/Modify a plan",
+    description="Update a plan with doctor notes or modifications. Sets 'is_doctor_vetted' flag."
+)
+async def review_plan(
     plan_id: str,
-    current_user: dict = Depends(get_current_user),
+    request: PlanReviewRequest,
+    current_user: dict = Depends(get_current_user)
 ):
+    """Bridge for doctors to validate or change system plans."""
+    if current_user.get("role") != "doctor":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. Doctors only."
+        )
+    
     try:
-        return await get_progress(plan_id, current_user["user_id"])
+        return await review_plan_by_doctor(plan_id, request, current_user.get("full_name", "Doctor"))
     except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
-    except RuntimeError as e:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Could not fetch progress: {str(e)}"
+            detail=f"Failed to review plan: {str(e)}"
         )
-
-
-# ── Conditions list ────────────────────────────────────────────────────────────
-@router.get(
-    "/conditions",
-    summary="List supported conditions",
-    description="Returns all 5 conditions. No login needed. Use to populate dropdown.",
-)
-async def conditions():
-    return {
-        "status": "success",
-        "conditions": [
-            {"value": "acne",        "label": "Acne",        "dosha": "Pitta"},
-            {"value": "blackheads",  "label": "Blackheads",  "dosha": "Kapha"},
-            {"value": "dark spots",  "label": "Dark Spots",  "dosha": "Pitta-Vata"},
-            {"value": "pores",       "label": "Large Pores", "dosha": "Kapha"},
-            {"value": "wrinkles",    "label": "Wrinkles",    "dosha": "Vata"},
-        ]
-    }

@@ -1,161 +1,77 @@
-from pydantic import BaseModel, Field, field_validator
-from typing import List, Optional
-from enum import Enum
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict
+from datetime import datetime
+
+# --- INPUT MODELS ---
+
+class DoshaAnswers(BaseModel):
+    """The Quick 6-Question Assessment Answers (Simple Version)."""
+    body_frame: str = Field(..., description="small_thin / medium / large_heavy")
+    hunger:     str = Field(..., description="irregular / very_strong / slow")
+    sleep:      str = Field(..., description="light / sound / deep")
+    feeling:    str = Field(..., description="cold / hot / cool")
+    digestion:  str = Field(..., description="gas_bloat / burning / heavy")
+    mood:       str = Field(..., description="quick_anxious / focused_irritable / calm")
+
+class PlanRequest(BaseModel):
+    """Data required to generate a personalized AyurPulse plan."""
+    prediction_id: str = Field(..., description="MongoDB ID from the skin analysis result")
+    dosha_answers: DoshaAnswers
+    skin_type:     str = Field(..., description="oily / dry / sensitive / combination / normal")
+    age_group:     str = Field(..., description="10-20 / 21-30 / 31-40 / 40+")
+    season:        str = Field(..., description="summer / winter / monsoon / autumn")
+    lifestyle:     List[str] = Field(default=[], description="['high_stress', 'low_water', 'vegan', 'female', 'poor_sleep']")
 
 
-class SkinType(str, Enum):
-    oily        = "oily"
-    dry         = "dry"
-    combination = "combination"
-    sensitive   = "sensitive"
-    normal      = "normal"
+# --- OUTPUT MODELS ---
 
-class AgeGroup(str, Enum):
-    teen   = "10-20"
-    young  = "21-30"
-    adult  = "31-40"
-    mature = "40+"
+class RoutineStep(BaseModel):
+    time: str
+    routine: List[str]
+    ingredients: List[str]
+    procedure: List[str] = Field(default=[], description="Step-by-step instructions (e.g., '1. Mix powder with water', '2. Apply on face'...)")
 
-class Season(str, Enum):
-    summer  = "summer"
-    winter  = "winter"
-    monsoon = "monsoon"
-    autumn  = "autumn"
-
-class StressLevel(str, Enum):
-    low    = "low"
-    medium = "medium"
-    high   = "high"
-
-class SleepHours(str, Enum):
-    poor    = "less than 6"
-    average = "6-8"
-    good    = "more than 8"
-
-class WaterIntake(str, Enum):
-    low    = "less than 4 glasses"
-    medium = "4-8 glasses"
-    high   = "more than 8 glasses"
-
-class Gender(str, Enum):
-    male   = "male"
-    female = "female"
-    other  = "other"
-
-class DietType(str, Enum):
-    vegetarian     = "vegetarian"
-    non_vegetarian = "non-vegetarian"
-    vegan          = "vegan"
-
-
-# ── Request ────────────────────────────────────────────────────────────────────
-
-class SkinProfileRequest(BaseModel):
-    """
-    8-field form. System automatically uses your latest skin analysis result.
-    No need to pass condition — backend fetches it from your prediction history.
-    """
-    # Fallback — only for testing via Swagger
-    # In real app this is never needed — system auto-fetches latest prediction
-    detected_condition: Optional[str] = Field(
-        None,
-        example=None,
-        description="Leave empty. System auto-uses your latest skin analysis result."
-    )
-
-    # 8 profile fields — always required
-    skin_type:    SkinType    = Field(..., example="oily")
-    age_group:    AgeGroup    = Field(..., example="21-30")
-    season:       Season      = Field(..., example="summer")
-    stress_level: StressLevel = Field(..., example="medium")
-    sleep_hours:  SleepHours  = Field(..., example="6-8")
-    water_intake: WaterIntake = Field(..., example="4-8 glasses")
-    gender:       Gender      = Field(..., example="female")
-    diet_type:    DietType    = Field(..., example="vegetarian")
-
-    @field_validator("detected_condition")
-    @classmethod
-    def validate_condition(cls, v: str) -> str:
-        if v is None:
-            return v
-        valid = ["acne", "blackheads", "dark spots", "pores", "wrinkles"]
-        v = v.lower().strip()
-        if v not in valid:
-            raise ValueError(f"Must be one of: {', '.join(valid)}")
-        return v
-
-
-# ── Checklist item ─────────────────────────────────────────────────────────────
-
-class ChecklistItem(BaseModel):
-    id:       str    # unique e.g. "d1_morning_0"
-    category: str    # morning / evening / diet / yoga
-    task:     str    # what user reads
-    done:     bool = False
-
-
-# ── Day plan ───────────────────────────────────────────────────────────────────
+class DietPlan(BaseModel):
+    breakfast: str
+    lunch: str
+    dinner: str
+    drinks: List[str]
+    avoid: List[str]
 
 class DayPlan(BaseModel):
-    day:       int
-    theme:     str
-    checklist: List[ChecklistItem]
-    tip:       str
+    day: int
+    theme: str
+    morning: RoutineStep
+    diet: DietPlan
+    evening: RoutineStep
+    yoga: str
+    tip: str
 
-
-# ── Plan response ──────────────────────────────────────────────────────────────
+class WeeklySummary(BaseModel):
+    key_ingredients: List[str]
+    key_diet_changes: List[str]
+    expected_results: str
+    continue_after_7_days: str
 
 class PlanResponse(BaseModel):
-    status:           str = "success"
-    plan_id:          str
-    condition:        str
-    dosha:            str
-    dosha_tip:        str
-    plan_title:       str
-    key_ingredients:  List[str]
-    days:             List[DayPlan]
-    weekly_summary:   str
-    expected_results: str
-    disclaimer:       str
+    status: str = "success"
+    plan_id: str
+    id: Optional[str] = Field(None, description="MongoDB ID of the saved plan")
+    title: str
+    overview: str
+    dosha_focus: str
+    is_doctor_vetted: bool = Field(default=False, description="Flag: True if a doctor has reviewed and approved this plan")
+    is_doctor_modified: bool = Field(default=False, description="Flag: True if the doctor actually changed the plan content")
+    doctor_notes: Optional[str] = Field(None, description="Direct notes from the doctor to the user")
+    doctor_name: Optional[str] = Field(None, description="Name of the doctor who reviewed the plan")
+    reviewed_at: Optional[str] = Field(None, description="When the doctor last reviewed the plan")
+    personalization_notes: List[str] = []
+    days: List[DayPlan]
+    weekly_summary: WeeklySummary
+    created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
 
-
-# ── Check-in request / response ────────────────────────────────────────────────
-
-class CheckinRequest(BaseModel):
-    plan_id:       str
-    day:           int  = Field(..., ge=1, le=7)
-    completed_ids: List[str]
-    skin_rating:   int  = Field(..., ge=1, le=10,
-        description="How does your skin feel today? 1=very bad 10=very good")
-
-
-class CheckinResponse(BaseModel):
-    status:          str = "success"
-    day:             int
-    completed_count: int
-    total_count:     int
-    completion_pct:  int
-    skin_rating:     int
-    message:         str
-
-
-# ── Progress ───────────────────────────────────────────────────────────────────
-
-class DayProgress(BaseModel):
-    day:             int
-    completed_count: int
-    total_count:     int
-    completion_pct:  int
-    skin_rating:     Optional[int]  = None
-    checked_in:      bool
-
-
-class ProgressResponse(BaseModel):
-    status:          str = "success"
-    plan_id:         str
-    condition:       str
-    overall_pct:     int
-    days_checked_in: int
-    days:            List[DayProgress]
-    avg_skin_rating: Optional[float] = None
-    message:         str
+class PlanReviewRequest(BaseModel):
+    """Data sent by a doctor to approve or modify a plan."""
+    is_doctor_vetted: bool = True
+    doctor_notes: Optional[str] = None
+    modified_plan: Optional[Dict] = None # Full or partial plan object if modifications were made

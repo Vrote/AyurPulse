@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import Optional
+from typing import Optional, Union
 import re
 
 
@@ -32,6 +32,13 @@ class RegisterRequest(BaseModel):
         return v.strip()
 
 
+class DoctorRegisterRequest(RegisterRequest):
+    """Specific request for Doctor registration with professional details."""
+    specialization: str = Field(..., description="e.g. Ayurvedic Dermatology, General Ayurveda")
+    clinic_address: Optional[str] = None
+    experience_years: Optional[int] = Field(None, ge=0)
+
+
 class LoginRequest(BaseModel):
     """Request body for POST /api/v1/auth/login"""
     email: EmailStr = Field(..., example="vaishnavi@example.com")
@@ -57,13 +64,27 @@ class UserResponse(BaseModel):
     full_name: str
     email: str
     is_active: bool
+    role: str
+    created_at: str
+
+
+class DoctorResponse(BaseModel):
+    """Detailed doctor profile for frontend/admin review."""
+    id: str
+    full_name: str
+    email: str
+    specialization: str
+    clinic_address: Optional[str]
+    is_active: bool = True
+    is_verified: bool
+    role: str = "doctor"
     created_at: str
 
 
 class RegisterResponse(BaseModel):
     status: str = "success"
     message: str
-    user: UserResponse
+    user: Union[UserResponse, DoctorResponse]
 
 
 class MessageResponse(BaseModel):

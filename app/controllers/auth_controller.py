@@ -11,9 +11,11 @@ from app.config.settings import settings
 from app.db.mongodb import get_db
 from app.schemas.auth_schema import (
     RegisterRequest,
+    DoctorRegisterRequest,
     LoginRequest,
     TokenResponse,
     UserResponse,
+    DoctorResponse,
     RegisterResponse,
     MessageResponse,
 )
@@ -26,7 +28,23 @@ def _format_user(user: dict) -> UserResponse:
         full_name=user["full_name"],
         email=user["email"],
         is_active=user.get("is_active", True),
+        role=user.get("role", "user"),
         created_at=user["created_at"].isoformat(),
+    )
+
+
+def _format_doctor(doc: dict) -> DoctorResponse:
+    """Convert MongoDB doctor document to safe DoctorResponse (no password)."""
+    return DoctorResponse(
+        id=str(doc["_id"]),
+        full_name=doc["full_name"],
+        email=doc["email"],
+        specialization=doc.get("specialization", "AyurPulse Expert"),
+        clinic_address=doc.get("clinic_address"),
+        is_active=doc.get("is_active", True),
+        is_verified=doc.get("is_verified", False),
+        role="doctor",
+        created_at=doc["created_at"].isoformat(),
     )
 
 
@@ -62,6 +80,7 @@ async def register_user(data: RegisterRequest) -> RegisterResponse:
         "email": data.email.lower(),
         "password": hash_password(data.password),
         "is_active": True,
+        "role": "user",
         "created_at": now,
         "updated_at": now,
     }
@@ -74,6 +93,47 @@ async def register_user(data: RegisterRequest) -> RegisterResponse:
         status="success",
         message="Account created successfully. You can now log in.",
         user=_format_user(user_doc),
+    )
+
+
+async def register_doctor(data: DoctorRegisterRequest) -> RegisterResponse:
+    """
+    Specific registration for doctors into a separate 'doctors' collection.
+    """
+    db = get_db()
+    if db is None:
+        raise RuntimeError("Database unavailable.")
+
+    # 1. Check duplicate email in both collections
+    existing_user = await db["users"].find_one({"email": data.email.lower()})
+    existing_doc = await db["doctors"].find_one({"email": data.email.lower()})
+    if existing_user or existing_doc:
+        raise ValueError("An account with this email already exists.")
+
+    # 2. Build doctor document
+    now = datetime.now(timezone.utc)
+    doctor_doc = {
+        "full_name": data.full_name,
+        "email": data.email.lower(),
+        "password": hash_password(data.password),
+        "specialization": data.specialization,
+        "clinic_address": data.clinic_address,
+        "experience_years": data.experience_years,
+        "is_active": True,
+        "is_verified": False, # Needs admin check
+        "role": "doctor",
+        "created_at": now,
+        "updated_at": now,
+    }
+
+    # 3. Insert into MongoDB
+    result = await db["doctors"].insert_one(doctor_doc)
+    doctor_doc["_id"] = result.inserted_id
+
+    return RegisterResponse(
+        status="success",
+        message="Doctor account created successfully. Pading verification.",
+        user=_format_doctor(doctor_doc),
     )
 
 
@@ -102,27 +162,33 @@ async def login_user(data: LoginRequest) -> TokenResponse:
 
     users = db["users"]
 
-    # 1. Find user — use same generic error for both wrong email & wrong password
+    # 1. Find account — check 'users' then 'doctors'
     INVALID_CREDENTIALS = "Invalid email or password."
 
-    user = await users.find_one({"email": data.email.lower()})
-    if not user:
+    account = await db["users"].find_one({"email": data.email.lower()})
+    is_doctor = False
+    
+    if not account:
+        account = await db["doctors"].find_one({"email": data.email.lower()})
+        is_doctor = True
+
+    if not account:
         raise ValueError(INVALID_CREDENTIALS)
 
     # 2. Verify password
-    if not verify_password(data.password, user["password"]):
+    if not verify_password(data.password, account["password"]):
         raise ValueError(INVALID_CREDENTIALS)
 
     # 3. Check account is active
-    if not user.get("is_active", True):
+    if not account.get("is_active", True):
         raise ValueError("Your account has been deactivated. Please contact support.")
 
     # 4. Generate tokens
-    user_id = str(user["_id"])
-    access_token = create_access_token(user_id=user_id, email=user["email"])
-    refresh_token = create_refresh_token(user_id=user_id, email=user["email"])
+    user_id = str(account["_id"])
+    access_token = create_access_token(user_id=user_id, email=account["email"])
+    refresh_token = create_refresh_token(user_id=user_id, email=account["email"])
 
-    # 5. Store refresh token in DB (for validation & logout tracking)
+    # 5. Store refresh token in DB
     now = datetime.now(timezone.utc)
     await db["refresh_tokens"].insert_one({
         "user_id": user_id,
@@ -130,9 +196,10 @@ async def login_user(data: LoginRequest) -> TokenResponse:
         "created_at": now,
     })
 
-    # 6. Update last login timestamp
-    await users.update_one(
-        {"_id": user["_id"]},
+    # 6. Update last login timestamp in the correct collection
+    collection_name = "doctors" if is_doctor else "users"
+    await db[collection_name].update_one(
+        {"_id": account["_id"]},
         {"$set": {"last_login": now}}
     )
 
@@ -201,13 +268,6 @@ async def logout_user(access_token: str, refresh_token: str | None = None) -> Me
     """
     Logout user by blacklisting their access token.
     Also removes refresh token from DB if provided.
-
-    Why blacklist access tokens?
-        JWTs are stateless — we can't "delete" them.
-        Blacklisting ensures the token is rejected even before it expires.
-
-    Raises:
-        RuntimeError: If database is unavailable.
     """
     db = get_db()
     if db is None:
@@ -215,15 +275,19 @@ async def logout_user(access_token: str, refresh_token: str | None = None) -> Me
 
     now = datetime.now(timezone.utc)
 
-    # 1. Blacklist access token
-    await db["token_blacklist"].insert_one({
-        "token": access_token,
-        "blacklisted_at": now,
-    })
+    # 1. Blacklist access token (using update_one+upsert to avoid DuplicateKeyError)
+    await db["token_blacklist"].update_one(
+        {"token": access_token},
+        {"$set": {"blacklisted_at": now}},
+        upsert=True
+    )
 
     # 2. Remove refresh token from DB if provided
     if refresh_token:
-        await db["refresh_tokens"].delete_one({"token": refresh_token})
+        result = await db["refresh_tokens"].delete_one({"token": refresh_token})
+        if result.deleted_count == 0:
+            # Token might have already been used/deleted, we just continue
+            pass
 
     return MessageResponse(
         status="success",

@@ -3,6 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.controllers.auth_controller import (
     register_user,
+    register_doctor,
     login_user,
     refresh_access_token,
     logout_user,
@@ -10,6 +11,7 @@ from app.controllers.auth_controller import (
 )
 from app.schemas.auth_schema import (
     RegisterRequest,
+    DoctorRegisterRequest,
     LoginRequest,
     TokenResponse,
     RefreshTokenRequest,
@@ -45,6 +47,27 @@ async def register(data: RegisterRequest):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Registration failed. Please try again."
+        )
+
+
+@router.post(
+    "/doctor/register",
+    response_model=RegisterResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Register new doctor",
+    description="Create a new professional account for a doctor. Includes medical license details.",
+)
+async def register_doc(data: DoctorRegisterRequest):
+    try:
+        return await register_doctor(data)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
+    except RuntimeError as e:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(e))
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Doctor registration failed. Please try again."
         )
 
 

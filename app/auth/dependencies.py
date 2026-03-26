@@ -1,5 +1,6 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from bson import ObjectId
 
 from app.auth.jwt_handler import decode_access_token
 from app.db.mongodb import get_db
@@ -15,17 +16,8 @@ async def get_current_user(
     FastAPI dependency — extracts and validates the JWT from the Authorization header.
     Inject this into any route that requires authentication.
 
-    Usage in route:
-        @router.get("/profile")
-        async def profile(current_user: dict = Depends(get_current_user)):
-            ...
-
     Returns:
-        Dict with user_id and email from the token payload.
-
-    Raises:
-        401 Unauthorized if token is missing, expired, or invalid.
-        401 Unauthorized if the token has been blacklisted (logged out).
+        Dict with user_id, email, and role from the database.
     """
     # 1. Check Authorization header exists
     if not credentials:
@@ -49,16 +41,32 @@ async def get_current_user(
 
     # 3. Check if token is blacklisted (user logged out)
     db = get_db()
-    if db is not None:
-        blacklisted = await db["token_blacklist"].find_one({"token": token})
-        if blacklisted:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token has been invalidated. Please log in again.",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
+    if db is None:
+        raise HTTPException(status_code=500, detail="Database connection error.")
+
+    blacklisted = await db["token_blacklist"].find_one({"token": token})
+    if blacklisted:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has been invalidated. Please log in again.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    # 4. Fetch the full user/doctor from DB for role-based access
+    user_doc = await db["users"].find_one({"_id": ObjectId(payload["sub"])})
+    if not user_doc:
+        user_doc = await db["doctors"].find_one({"_id": ObjectId(payload["sub"])})
+
+    if not user_doc:
+         raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Account no longer exists.",
+             headers={"WWW-Authenticate": "Bearer"},
+        )
 
     return {
-        "user_id": payload["sub"],
-        "email": payload["email"],
+        "user_id": str(user_doc["_id"]),
+        "email":   user_doc["email"],
+        "role":    user_doc.get("role", "user"),
+        "full_name": user_doc.get("full_name", "User")
     }

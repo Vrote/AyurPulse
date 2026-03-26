@@ -1,3 +1,11 @@
+import bcrypt
+# Monkeypatch bcrypt to fix passlib incompatibility (AttributeError: module 'bcrypt' has no attribute '__about__')
+if not hasattr(bcrypt, "__about__"):
+    class BcryptAbout:
+        def __init__(self):
+            self.__version__ = bcrypt.__version__
+    bcrypt.__about__ = BcryptAbout()
+
 from passlib.context import CryptContext
 
 # bcrypt is the industry standard for password hashing

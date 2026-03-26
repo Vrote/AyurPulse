@@ -7,8 +7,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.config.settings import settings
 from app.routes.prediction_routes import router as prediction_router
 from app.routes.auth_routes import router as auth_router
-from app.routes.plan_routes import router as plan_router
 from app.routes.shop_routes import router as shop_router
+from app.routes.plan_routes import router as plan_router
 from app.middleware.error_handler import (
     http_exception_handler,
     validation_exception_handler,
@@ -25,8 +25,7 @@ def create_app() -> FastAPI:
             "AyurPulse — AI-powered skin condition detection + Ayurvedic treatment.\n\n"
             "**Feature 1:** Upload image → AI detects skin condition\n"
             "**Feature 2:** Register / Login / Logout\n"
-            "**Feature 3:** Personalized 7-day Ayurvedic plan with daily checklists\n"
-            "**Feature 4:** Find nearest Ayurvedic shops using GPS\n\n"
+            "**Feature 3:** Find nearest Ayurvedic shops using GPS\n\n"
             "**How to use protected endpoints:**\n"
             "1. Login via `/api/v1/auth/login` → copy `access_token`\n"
             "2. Click **Authorize** → paste token → Authorize → Close"
@@ -39,8 +38,8 @@ def create_app() -> FastAPI:
         "/api/v1/auth/register",
         "/api/v1/auth/login",
         "/api/v1/auth/refresh",
+        "/api/v1/plan/questions", # New public endpoint
         "/api/v1/health",
-        "/api/v1/plan/conditions",
         "/",
     }
 
@@ -85,8 +84,8 @@ def create_app() -> FastAPI:
 
     app.include_router(auth_router)
     app.include_router(prediction_router)
-    app.include_router(plan_router)
     app.include_router(shop_router)
+    app.include_router(plan_router)
 
     @app.get("/", tags=["Root"])
     async def root():
@@ -99,16 +98,14 @@ def create_app() -> FastAPI:
                 "register":        "POST /api/v1/auth/register",
                 "login":           "POST /api/v1/auth/login",
                 "logout":          "POST /api/v1/auth/logout",
+                "refresh":         "POST /api/v1/auth/refresh",
                 "me":              "GET  /api/v1/auth/me",
                 "predict":         "POST /api/v1/predict",
                 "predict_history": "GET  /api/v1/predict/history",
-                "health":          "GET  /api/v1/health",
+                "plan_questions":  "GET  /api/v1/plan/questions",
                 "plan_generate":   "POST /api/v1/plan/generate",
-                "plan_my_plan":    "GET  /api/v1/plan/my-plan",
-                "plan_checkin":    "POST /api/v1/plan/checkin",
-                "plan_progress":   "GET  /api/v1/plan/progress/{plan_id}",
-                "plan_conditions": "GET  /api/v1/plan/conditions",
                 "shops_nearby":    "POST /api/v1/shops/nearby",
+                "health":          "GET  /api/v1/health",
             }
         }
 
@@ -124,4 +121,4 @@ def create_app() -> FastAPI:
     return app
 
 
-app = create_app()
+app = create_app()
