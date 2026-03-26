@@ -1,6 +1,6 @@
 # AyurPulse Project Progress & Roadmap 🚀
 
-This file is a permanent record of our progress, implementation decisions, and the roadmap for deployment. **Even if our chat history is reset, this file will always remain in your project for reference.**
+This file is a permanent record of our progress, architecture decisions, and current deployment state. **This file serves as the master overview of what has been accomplished in this project.**
 
 ---
 
@@ -8,43 +8,49 @@ This file is a permanent record of our progress, implementation decisions, and t
 
 *   **Backend**: FastAPI (Python 3.11/12)
 *   **Database**: MongoDB (Motor async driver)
-*   **AI Model**: PyTorch EfficientNet-B2 (`saved_models/face_skin_disease_model.pth`)
-*   **Features Ready**:
-    *   ✅ **User Authentication**: Register, Login, Logout, JWT Refresh tokens.
-    *   ✅ **Skin Analysis**: Image upload -> AI prediction mapping (Acne, Blackheads, etc.).
-    *   ✅ **Shop Locator**: OSM-based nearby Ayurvedic shop search.
-    *   ✅ **Data Layer**: Highly detailed Ayurvedic treatment plans (`ayurvedic_plans_v2.json`) and personalization rules (`skin_rules.json`).
+*   **AI Model**: PyTorch EfficientNet-B2
+*   **Authentication**: JWT-based stateless auth for distinct `user` and `doctor` roles.
+
+### ✅ Completed Modules:
+*   **User Registration & Authentication**: Full JWT lifecycle, robust Bcrypt hashing, session refresh logic.
+*   **Doctor Authentication & Vetting System**: Custom doctor registration requiring strict specializations. Doctors have isolated dashboards where they view unfiltered AI plans (`unchecked-plans`) that match their expertise and submit `doctor_notes` directly modifying patient history (`reviewed-plans`).
+*   **Skin Analysis Integration**: Endpoint linking raw multipart image uploads to backend PyTorch prediction thresholds safely triggering Ayurvedic logic.
+*   **Prakriti Engine**: 6-question robust algorithm determining dominant Doshas based strictly mapped string values.
+*   **Plan Assembly Engine**: Heavy dynamic algorithm joining `ayurvedic_plans_v2.json` (7-day base plans) with `skin_rules.json` (Personalization rules for age, season, and lifestyle swaps).
+*   **OSM Shops**: Geolocation matching users to local Ayurvedic stores.
 
 ---
 
-## 🛠️ 2. Architectural Decisions (New!)
+## 📝 2. External Developer Integration Rules
 
-1.  **The "Quick 6" Assessment**: 
-    *   To avoid user frustration, we've reduced the Prakriti assessment to the **top 6 most telling questions** (Body Frame, Appetite, Sleep, Skin Temp, Digestion, Personality).
-2.  **The Combined User Profile**: 
-    *   We will use a single "Smart Consultation Form" that combines:
-        *   **Prakriti** (Dosha Score)
-        *   **Skin Profile** (Type, Age, Season)
-        *   **Lifestyle** (Stress, Water, Diet)
+With the core Skin analysis backend fully complete, the project is configured to receive expansions from group mates:
 
----
+1.  **Frontend Developer (React)**:
+    *   **Resource File:** `frontend_requirements.md`
+    *   **Status:** The guide is fully generated. It explicitly outlines every endpoint, Authentication token requirement, and how the React state should manage Data (e.g., Doctors editing plans via the `PATCH` endpoint, or Users seeing "Verified" checkmarks once a plan is checked).
 
-## 📅 3. Project Roadmap (Next Steps)
-
-1.  [x] **Step 1: Implementation of the "Smart Assessment" Logic**
-    *   ✅ Create `prakriti_assessment.py` (The logic to calculate Dosha scores).
-    *   ✅ Create `plan_schema.py` (The data structure for saving profiles).
-    *   ✅ **Database Persistence**: Saved plans and profiles to `user_plans` collection.
-    *   ✅ **History API**: Added `GET /api/v1/plan/history` endpoint.
-2.  [ ] **Step 2: Build the Plan Assembly Engine**
-    *   Logic to fetch 7-day plans based on Condition + Dosha.
-    *   Logic to apply `skin_rules.json` swaps based on the user's profile.
-3.  [ ] **Step 3: End-to-End Testing**
-    *   Flow: `Register` -> `Login` -> `Predict (Image)` -> `Complete Profile` -> `Get Plan`.
-4.  [ ] **Step 4: Deployment Prep**
-    *   Environment variables, CORS config, and Model loading optimization.
+2.  **Hair Prediction & Chatbot Expansion (Python/AI Developer)**:
+    *   **Resource File:** `backend_extension_guide.md`
+    *   **Status:** A strict rule guide was created to ensure the secondary backend developer securely extends the project without breaking existing routing logic. She is strictly tasked to create alternative files (e.g., `hair_plans.json`, `hair_routes.py`) and loop to the same MongoDB `user_plans` connection.
 
 ---
 
-*Last Updated: 2026-03-25 19:37*
+## 📅 3. Pipeline & Deployment (Next Steps)
+
+1.  [x] **Step 1: AI Plan Engine Consolidation** (Done)
+2.  [x] **Step 2: Doctor Dashboard Logic & Permissions** (Done)
+3.  [x] **Step 3: Frontend Schema Rules & Documentation** (Done)
+4.  [x] **Step 4: Extension Groupmate Documentation** (Done)
+5.  [ ] **Step 5: Frontend Integration Execution**
+    *   Hand off `frontend_requirements.md` to the React developer.
+    *   Test End-to-End CORS compatibility with React `localhost:3000`.
+6.  [ ] **Step 6: Chatbot & Hair Extension Execution**
+    *   Secondary developer creates `hair_plans.json` and hooks the `Ayurvedic Trichology` specialization logic inline.
+7.  [ ] **Step 7: Production Deployment Process**
+    *   MongoDB Atlas production migration.
+    *   Uvicorn production execution on rendering service (Render/Heroku/AWS).
+
+---
+
+*Last Updated: 2026-03-27*
 *Note: This file is maintained as your permanent project memory.*
