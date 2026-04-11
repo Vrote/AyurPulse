@@ -76,7 +76,34 @@ const getShops = () => {
     - Show a list of the 3 clinics.
     - Each clinic should have a **"View on Maps"** button (using `maps_link`).
     - If `phone` is available, show a **"Call Now"** link: `<a href={`tel:${shop.phone}`}>Call</a>`.
-5.  **Status**: Display the `data.message` so the user knows if the search area was expanded to find them clinics.
+5.  **Status**: Display the `data.message` so the user knows if the search area was expanded.
+
+## 4. Handling Empty Fields (Null Checks)
+OpenStreetMap data is sometimes incomplete. The API returns `null` if a field like `phone` or `website` is missing. Your React code **must** check for this before rendering:
+
+```javascript
+{shops.map((shop) => (
+  <div key={shop.latitude}>
+    <h3>{shop.name}</h3>
+    <p>Distance: {shop.distance}</p>
+    
+    {/* Only show Phone if it exists */}
+    {shop.phone ? (
+      <a href={`tel:${shop.phone}`} className="btn">Call {shop.phone}</a>
+    ) : (
+      <span className="info">No phone number provided</span>
+    )}
+
+    {/* Only show Website button if URL exists */}
+    {shop.website && (
+      <a href={shop.website} target="_blank">Visit Website</a>
+    )}
+    
+    {/* Always show Address fallback if missing */}
+    <p>Address: {shop.address || "Search nearby area for details"}</p>
+  </div>
+))}
+```
 
 > [!TIP]
-> Always handle the case where the user denies location permission by showing a fallback (like a search bar for city name).
+> Use Optional Chaining (`shop?.phone`) and standard JavaScript falsy checks (`if (shop.phone)`) to keep the UI clean and prevent crashes.
