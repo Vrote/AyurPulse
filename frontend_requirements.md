@@ -144,7 +144,7 @@ Call this on app load (if token exists) to hydrate the user context in React (e.
 **Endpoint:** `POST /api/v1/shops/nearby`
 - Use the HTML5 Geolocation API (`navigator.geolocation.getCurrentPosition()`) to get latitude/longitude.
 - **Body:** `{"latitude": 18.5204, "longitude": 73.8567, "radius_km": 5}`
-- **UI Action:** Render the returned shops. Each shop has a `maps_link` to open Google Maps.
+- **UI Action:** Render the returned shops. Each shop has a `maps_link` to open Google Maps, and optional `phone` and `website` fields.
 
 ---
 

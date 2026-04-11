@@ -16,12 +16,14 @@ class NearbyShopsRequest(BaseModel):
 
 
 class Shop(BaseModel):
-    name:     str
-    address:  str
-    distance: str           # e.g. "1.2 km away"
-    latitude: float
-    longitude:float
-    maps_link:str           # opens Google Maps with pin
+    name:      str
+    address:   str
+    distance:  str           # e.g. "1.2 km away"
+    latitude:  float
+    longitude: float
+    maps_link: str           # opens Google Maps with pin
+    phone:     Optional[str] = None
+    website:   Optional[str] = None
 
 
 class NearbyShopsResponse(BaseModel):
