@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - ayurpulse-network
+
+  backend:
+    build: ./Ayurpulse
+    container_name: ayurpulse-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017
+      - DATABASE_NAME=Ayurpulse_db
+      - APP_NAME=AyurPulse
+      - DEBUG=False
+    depends_on:
+      - mongodb
+    volumes:
+      - ./Ayurpulse/logs:/app/logs
+      - ./Ayurpulse/uploads:/app/uploads
+    networks:
+      - ayurpulse-network
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:8000
+    container_name: ayurpulse-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - ayurpulse-network
+
+networks:
+  ayurpulse-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
