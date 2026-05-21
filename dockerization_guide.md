@@ -60,5 +60,11 @@ A: It prevents large or sensitive files (like `venv/`, `node_modules/`, or `.env
 **Q: What is the benefit of a multi-stage build?**  
 A: It separates the build environment from the runtime environment. This produces a much smaller final image and improves security by excluding build tools.
 
-**Q: How do you handle environment variables?**  
-A: In development, we use `.env` files. In Docker, we pass them via the `environment:` section in `docker-compose.yml` to allow for easy overrides during deployment.
+---
+
+## 7. Security & Secrets (Interview Gold)
+**Q: How do you handle sensitive data like Gemini API keys or DB passwords?**  
+**A:** We follow the principle of **Never Baking Secrets into Images**.
+1. **`.dockerignore`:** We explicitly ignore `.env` files so they are never copied into the container image.
+2. **Environment Variables:** We inject sensitive values at runtime via the `environment:` section in `docker-compose` or through host environment variables.
+3. **Benefit:** This keeps the images generic and safe to share/deploy, as they only contain application logic, not confidential credentials.
