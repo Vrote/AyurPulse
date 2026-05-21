@@ -2,7 +2,20 @@
 
 This guide explains the step-by-step process used to containerize the AyurPulse application. Use this for your interview preparation to explain *how* and *why* we chose this architecture.
 
-## 1. System Architecture
+## 1. What is Docker?
+**Definition:** Docker is an open-source platform that uses **OS-level virtualization** to deliver software in packages called **Containers**.
+
+- **An Image:** The "Blueprint" or read-only template of your app (OS + Code + Libraries).
+- **A Container:** A running instance of an image. It's like a "Self-Contained Sandbox."
+- **Docker vs VM:** Containers are much lighter than Virtual Machines because they share the host’s OS kernel instead of booting a whole new Operating System.
+
+## 2. Why use Docker? (Core Benefits)
+1. **Consistency:** "It works on my machine" becomes "It works on every machine."
+2. **Isolation:** Services (Backend, Frontend, DB) don't interfere with each other or the host system.
+3. **Scalability:** You can easily spin up multiple copies of a container to handle more traffic.
+4. **Portability:** You can move your app from a laptop to a cloud server (AWS, Azure) without changing any code.
+
+## 3. System Architecture
 The application is split into three main containers orchestrated by **Docker Compose**:
 - **MongoDB:** Database for persistence.
 - **FastAPI (Backend):** Python-based API for medical logic and AI.
@@ -43,13 +56,25 @@ Docker Compose manages the lifecycle and networking of the three containers.
 
 ---
 
-## 5. Critical Commands
+## 5. Expanded Command List
+### Orchestration (Docker Compose)
 | Command | Purpose |
 | :--- | :--- |
-| `docker-compose up --build` | Build images and start all services. |
-| `docker-compose down` | Stop and remove all containers and networks. |
-| `docker-compose logs -f` | View real-time logs from all services. |
+| `docker compose up --build` | Build images and start all services. |
+| `docker compose up -d` | Start in "Detached" mode (runs in background). |
+| `docker compose ps` | List running containers and their status. |
+| `docker compose stop` | Stop containers without removing them. |
+| `docker compose down` | Stop and **remove** all containers and networks. |
+| `docker compose logs -f` | View real-time logs from all services. |
+
+### Single Container Management
+| Command | Purpose |
+| :--- | :--- |
+| `docker images` | List all images stored on your machine. |
+| `docker ps -a` | List all containers (even stopped ones). |
 | `docker exec -it <name> sh` | Open a shell inside a running container. |
+| `docker volume ls` | List all persistent data volumes. |
+| `docker system prune` | **Cleanup:** Delete all unused containers and cache to save space. |
 
 ---
 
