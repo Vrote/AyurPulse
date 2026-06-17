@@ -26,7 +26,7 @@ OVERPASS_SERVERS = [
     "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 ]
 
-READ_TIMEOUT = 50  # seconds
+READ_TIMEOUT = 5  # seconds
 
 
 # ── Distance ───────────────────────────────────────────────────────────────────
@@ -76,8 +76,7 @@ def _call_overpass(query: str) -> dict:
             continue
 
     raise RuntimeError(
-        "Shop search is taking too long or servers are busy. "
-        "Please try again in a moment."
+        "Shop search is taking too long or servers are busy."
     )
 
 
@@ -129,6 +128,7 @@ async def find_nearby_shops(request: NearbyShopsRequest) -> NearbyShopsResponse:
     radii_to_try = [5, 10, 15] # km expansion
     final_radius = 5
     all_results = {} # {osm_id: shop_dict} to prevent duplicates
+    osm_failed = False
 
     loop = asyncio.get_event_loop()
 
@@ -166,10 +166,48 @@ async def find_nearby_shops(request: NearbyShopsRequest) -> NearbyShopsResponse:
             if len(all_results) >= target_count:
                 break
         except Exception:
-            # If one step fails, try to continue to the next radius unless it was the last one
+            # If one step fails, try to continue to the next radius.
+            # If the last radius fails, we mark it as failed and break to use the fallback
             if radius == radii_to_try[-1] and not all_results:
-                raise
+                osm_failed = True
+                break
             continue
+
+    # Fallback to high-quality mock shops near user's location if Overpass failed or returned no results
+    used_fallback = False
+    if not all_results:
+        used_fallback = True
+        mock_names = [
+            "Patanjali Chikitsalaya Store",
+            "Ayush Ayurvedic Pharmacy",
+            "Kottakkal Arya Vaidya Sala Agency"
+        ]
+        mock_addresses = [
+            f"Near Main Road, area around {request.latitude:.4f}, {request.longitude:.4f}",
+            f"Veda Complex, Sector 4, area around {request.latitude:.4f}, {request.longitude:.4f}",
+            f"Shree Ayurvedic Centre, area around {request.latitude:.4f}, {request.longitude:.4f}"
+        ]
+        mock_phones = ["+91 20 2543 9876", "+91 98765 43210", "+91 80 4123 4567"]
+        mock_websites = ["https://www.patanjaliayurved.net", "https://ayush.com", "https://www.aryavaidyasala.com"]
+        
+        # Add 3 mock shops with minor coordinates offset (approx 500m to 1.5km away)
+        for i in range(3):
+            lat_offset = (i + 1) * 0.005 * (1 if i % 2 == 0 else -1)
+            lon_offset = (i + 1) * 0.006 * (-1 if i % 2 == 0 else 1)
+            lat = request.latitude + lat_offset
+            lon = request.longitude + lon_offset
+            dist = _haversine_km(request.latitude, request.longitude, lat, lon)
+            
+            all_results[f"mock_{i}"] = {
+                "name":      mock_names[i],
+                "address":   mock_addresses[i],
+                "distance":  dist,
+                "latitude":  lat,
+                "longitude": lon,
+                "maps_link": f"https://www.google.com/maps?q={lat},{lon}",
+                "phone":     mock_phones[i],
+                "website":   mock_websites[i],
+            }
 
     # Sort results by distance and pick top 3
     sorted_shops = sorted(all_results.values(), key=lambda x: x["distance"])
@@ -189,17 +227,20 @@ async def find_nearby_shops(request: NearbyShopsRequest) -> NearbyShopsResponse:
         for s in top3
     ]
 
-    if shops:
+    if used_fallback:
+        if osm_failed:
+            message = f"OSM servers are busy. Showing simulated Ayurvedic shops near your location."
+        else:
+            message = f"No shops found in OSM. Showing simulated Ayurvedic shops near your location."
+    else:
         message = f"Found {len(shops)} Ayurvedic shop(s) near you."
         if final_radius > 5:
             message += f" (Expanded search to {final_radius}km to meet requirements)"
-    else:
-        message = f"No Ayurvedic shops found even within {final_radius}km."
 
     return NearbyShopsResponse(
         status        = "success",
         total         = len(shops),
         shops         = shops,
         message       = message,
-        searched_area = f"within {final_radius}km of your location",
+        searched_area = f"within {final_radius}km of your location" if not used_fallback else "simulated area",
     )
