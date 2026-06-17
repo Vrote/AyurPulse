@@ -1,8 +1,20 @@
 # AyurPulse — AI-Powered Ayurvedic Wellness Platform 🌿
 
-AyurPulse is a modern, data-driven approach to holistic health. It combines advanced Machine Learning (PyTorch) with ancient Ayurvedic principles to analyze user skin conditions, determine their dominant Prakriti (Dosha balance), and dynamically assemble heavily personalized 7-day treatment plans. 
+AyurPulse is a modern, data-driven approach to holistic health. It combines advanced Machine Learning (PyTorch) with ancient Ayurvedic principles to analyze user skin conditions, determine their dominant Prakriti (Dosha balance), and dynamically assemble heavily personalized 7-day treatment plans.
 
 Additionally, AyurPulse bridges the gap between digital prediction and professional consultation by allowing specialized Ayurvedic Doctors to review, vet, and modify these AI-generated plans via a secure Dashboard.
+
+---
+
+## 🧭 Project Documentation Guide Directory
+
+To help you prepare for technical interviews and understand how each component of the full-stack system was engineered, we have split our documentation into highly focused, in-depth technical guides. Click on any link below to explore the architecture and interview focus points:
+
+1. **🧠 [Backend Technical Guide](GUIDE_BACKEND.md):** Deep dive into ASGI (FastAPI), EfficientNet-B2 computer vision inference singletons, Prakriti rules engines, dynamic ingredient swaps, parallel Overpass OSM mirror racing, and custom doctor vetting queue controllers.
+2. **🎨 [Frontend Technical Guide](GUIDE_FRONTEND.md):** Deep dive into React SPAs (Vite), global `AuthContext` state, dynamic multi-stage onboarding, state immutability (deep-copying state), and advanced **silent access token refresh** using Axios response interceptors.
+3. **🔌 [Full-Stack Integration Guide](GUIDE_INTEGRATION.md):** Comprehensive analysis of E2E patient/doctor communication, CORS middleware, multipart/form file uploading endpoints, and API networks.
+4. **🗄️ [Database Technical Guide](GUIDE_DATABASE.md):** Details MongoDB async driver operations (`motor`), document denormalization choices, self-cleaning collections (TTL indexes on blacklisted tokens), and Compound Indexing optimizations.
+5. **🧪 [Selenium Testing Guide](GUIDE_SELENIUM_TESTING.md):** Standard-based QA framework including the Page Object Model (POM) design, explicit waiting loops, JS obscured-clicks bypasses, dynamic failure screenshot capturing hooks, and a standalone live-coding script.
 
 ---
 
@@ -16,26 +28,7 @@ Additionally, AyurPulse bridges the gap between digital prediction and professio
 
 ---
 
-## 🏗️ Technology Stack
-
-*   **Backend Framework:** FastAPI (Python 3.11+)
-*   **Database:** MongoDB Atlas (Async querying via Motor)
-*   **AI / Machine Learning:** PyTorch (EfficientNet-B2)
-*   **Security:** Stateless JWT Authentication & Bcrypt password hashing
-*   **Frontend (Integrating):** React.js
-
----
-
-## 📖 Contributor Documentation
-
-To ensure a highly scalable and stable deployment, specific documentation guides have been written for team integration. Please read the respective guide before making any changes or pull requests to the repository:
-
-1.  **Frontend Developer Guide:** Read `frontend_requirements.md` for full Swagger-style Endpoint structures, JWT integration rules, and explicit UI workflow assignments.
-2.  **Machine Learning / Extensions Guide:** Read `backend_extension_guide.md` to map new AI features (like Hair Analysis or Chatbots) without jeopardizing the existing database stability or Core Prediction Logic.
-
----
-
-## 🚀 Local Development Setup
+## 🚀 Local Development Quickstart
 
 ### 1. Requirements
 Ensure you have Python 3.11+ and an active MongoDB database (local or Atlas) running.
@@ -50,7 +43,7 @@ JWT_REFRESH_SECRET_KEY=your_secure_randomly_generated_string
 
 ### 3. Installation & Run
 ```bash
-# Optional: Create a virtual environment
+# Create a virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
@@ -66,4 +59,4 @@ Once the server is running, explore and test the entire backend directly via Swa
 👉 `http://127.0.0.1:8000/docs`
 
 ---
-*Maintained with ❤️ for the AyurPulse Thesis/Project.*
+*Maintained with ❤️ for the AyurPulse Project.*
