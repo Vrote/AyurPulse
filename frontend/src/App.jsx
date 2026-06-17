@@ -10,6 +10,7 @@ import RegisterPatient from './pages/RegisterPatient';
 import RegisterDoctor from './pages/RegisterDoctor';
 import PatientDashboard from './pages/PatientDashboard';
 import DoctorDashboard from './pages/DoctorDashboard';
+import ChatPage from './pages/ChatPage';
 
 // Helper component to redirect/render dashboard based on user role
 const DashboardSwitch = () => {
@@ -44,6 +45,16 @@ function App() {
                     <DashboardSwitch />
                   </ProtectedRoute>
                 } 
+              />
+
+              {/* Protected Chat Route — patients only */}
+              <Route
+                path="/chat"
+                element={
+                  <ProtectedRoute allowedRoles={['user']}>
+                    <ChatPage />
+                  </ProtectedRoute>
+                }
               />
 
               {/* Fallback route */}

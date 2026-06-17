@@ -21,3 +21,23 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-stone-300 rounded-full hover:bg-stone-400 transition-colors;
 }
+
+/* Chat page micro-animations */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideInRight { animation: slideInRight 0.28s ease-out both; }
+.animate-slideInLeft  { animation: slideInLeft  0.28s ease-out both; }
+.animate-fadeIn       { animation: fadeIn        0.35s ease-out both; }

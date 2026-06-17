@@ -175,6 +175,8 @@ async def generate_personalized_plan(request: PlanRequest, user_id: str) -> Plan
         result = await db["user_plans"].insert_one(plan_doc)
         response.id = str(result.inserted_id)
 
+
+
     return response
 
 
@@ -300,7 +302,7 @@ async def review_plan_by_doctor(plan_id: str, request: PlanReviewRequest, doctor
         update_data["is_doctor_modified"] = True
         # ── SENSITIVE DATA CLEANUP ──
         # Strictly prevent doctor from changing internal system/user IDs
-        forbidden_keys = ["id", "_id", "user_id", "prediction_id", "created_at"]
+        forbidden_keys = ["id", "_id", "user_id", "prediction_id", "created_at", "is_doctor_vetted", "is_doctor_modified"]
         for key in forbidden_keys:
             if key in request.modified_plan:
                 del request.modified_plan[key]
@@ -321,6 +323,8 @@ async def review_plan_by_doctor(plan_id: str, request: PlanReviewRequest, doctor
     updated_doc = await db["user_plans"].find_one({"_id": obj_id})
     updated_doc["id"] = str(updated_doc["_id"])
     del updated_doc["_id"]
+
+
     if isinstance(updated_doc["created_at"], datetime):
         updated_doc["created_at"] = updated_doc["created_at"].isoformat()
     if isinstance(updated_doc.get("reviewed_at"), datetime):

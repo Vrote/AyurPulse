@@ -9,6 +9,7 @@ from app.routes.prediction_routes import router as prediction_router
 from app.routes.auth_routes import router as auth_router
 from app.routes.shop_routes import router as shop_router
 from app.routes.plan_routes import router as plan_router
+from app.routes.chat import router as chat_router
 from app.middleware.error_handler import (
     http_exception_handler,
     validation_exception_handler,
@@ -86,6 +87,7 @@ def create_app() -> FastAPI:
     app.include_router(prediction_router)
     app.include_router(shop_router)
     app.include_router(plan_router)
+    app.include_router(chat_router)
 
     @app.get("/", tags=["Root"])
     async def root():
@@ -105,6 +107,7 @@ def create_app() -> FastAPI:
                 "plan_questions":  "GET  /api/v1/plan/questions",
                 "plan_generate":   "POST /api/v1/plan/generate",
                 "shops_nearby":    "POST /api/v1/shops/nearby",
+                "chat":            "POST /api/v1/chat",
                 "health":          "GET  /api/v1/health",
             }
         }

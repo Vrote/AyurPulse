@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Leaf, LogOut, Menu, X, User } from 'lucide-react';
+import { Leaf, LogOut, Menu, X, User, MessageSquare } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -28,6 +28,10 @@ const Navbar = () => {
     } else if (user.role === 'doctor') {
       navLinks.push({ name: 'Doctor Dashboard', path: '/dashboard' });
     }
+    // Chat link — visible to patients only
+    if (user.role === 'user') {
+      navLinks.push({ name: 'Chat', path: '/chat', icon: MessageSquare });
+    }
   }
 
   return (
@@ -52,12 +56,13 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
                   isActive(link.path)
                     ? 'text-emerald-700 font-semibold border-b-2 border-emerald-600 pb-1'
                     : 'text-stone-600 hover:text-emerald-700'
                 }`}
               >
+                {link.icon && <link.icon className="w-3.5 h-3.5" />}
                 {link.name}
               </Link>
             ))}
@@ -123,12 +128,13 @@ const Navbar = () => {
               key={link.path}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className={`block px-3 py-2 rounded-xl text-base font-medium transition-colors ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-base font-medium transition-colors ${
                 isActive(link.path)
                   ? 'text-emerald-800 bg-emerald-50/70 font-semibold'
                   : 'text-stone-600 hover:text-emerald-700 hover:bg-stone-50'
               }`}
             >
+              {link.icon && <link.icon className="w-4 h-4" />}
               {link.name}
             </Link>
           ))}

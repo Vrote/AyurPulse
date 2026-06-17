@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     JWT_ALGORITHM: str = "HS256"
 
+    # Groq API Key
+    GROQ_API_KEY: str = ""
+
     class Config:
         env_file = ".env"
         extra = "ignore"

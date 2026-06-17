@@ -69,7 +69,10 @@ const PatientDashboard = () => {
   const fetchQuestions = async () => {
     try {
       const response = await api.get('/plan/questions');
-      setQuizQuestions(response.data);
+      // API returns { unified_form: [...] } — extract only the 6 dosha questions
+      const allQuestions = response.data?.unified_form || [];
+      const doshaQuestions = allQuestions.filter((q) => q.section === '1. Body Nature');
+      setQuizQuestions(doshaQuestions);
     } catch (err) {
       console.error('Error fetching quiz questions:', err);
     }
@@ -431,15 +434,15 @@ const PatientDashboard = () => {
                         <div key={q.id} className="p-5 border border-stone-200 rounded-xl space-y-3 bg-stone-50/20">
                           <h4 className="font-semibold text-stone-850 text-sm flex gap-2">
                             <span className="text-emerald-700 font-bold">Q:</span>
-                            {q.question}
+                            {q.label}
                           </h4>
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                            {Object.entries(q.options).map(([key, label]) => {
-                              const isChecked = quizAnswers[q.id] === key;
+                            {(q.options || []).map((opt) => {
+                              const isChecked = quizAnswers[q.id] === opt.value;
                               return (
                                 <button
-                                  key={key}
-                                  onClick={() => handleQuizAnswer(q.id, key)}
+                                  key={opt.value}
+                                  onClick={() => handleQuizAnswer(q.id, opt.value)}
                                   className={`p-3 text-xs border rounded-xl font-medium transition-all text-left flex items-start gap-2 ${
                                     isChecked
                                       ? 'border-emerald-600 bg-emerald-50/50 text-emerald-900 shadow-sm'
@@ -453,7 +456,7 @@ const PatientDashboard = () => {
                                     onChange={() => {}}
                                     className="mt-0.5 accent-emerald-700"
                                   />
-                                  <span>{label}</span>
+                                  <span>{opt.text}</span>
                                 </button>
                               );
                             })}
