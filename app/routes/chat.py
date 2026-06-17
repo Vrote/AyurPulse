@@ -6,6 +6,7 @@ Automatically routes queries between general knowledge and
 personalized plan data based on the user's question.
 """
 
+from typing import Optional
 from fastapi import APIRouter, HTTPException, Depends, status
 from pydantic import BaseModel, Field
 
@@ -16,6 +17,14 @@ router = APIRouter(
     prefix="/api/v1",
     tags=["Ayurvedic Chatbot"],
 )
+
+
+class ChatPlanResponse(BaseModel):
+    id: str = Field(..., description="The plan's MongoDB ObjectId as a string.")
+    title: str = Field(..., description="Plan title")
+    condition: str = Field(..., description="Skin condition associated with the plan")
+    dosha: str = Field(..., description="Dosha associated with the plan")
+    created_at: str = Field(..., description="Creation date formatted as YYYY-MM-DD")
 
 
 class ChatRequest(BaseModel):
@@ -30,6 +39,14 @@ class ChatRequest(BaseModel):
         default=[],
         description="Previous messages in the conversation [{role, content}, ...]",
     )
+    chat_mode: str = Field(
+        default="general",
+        description="Chat mode: general or plan",
+    )
+    plan_id: Optional[str] = Field(
+        default=None,
+        description="MongoDB ID of the selected plan when chat_mode is 'plan'",
+    )
 
 
 class ChatResponse(BaseModel):
@@ -38,6 +55,25 @@ class ChatResponse(BaseModel):
         default=[],
         description="References used to generate the answer.",
     )
+
+
+@router.get(
+    "/chat/plans",
+    response_model=list[ChatPlanResponse],
+    summary="Get user plans for chat context",
+    description="Returns a list of all plans created by the logged-in user, to select as chat context."
+)
+async def chat_plans(
+    current_user: dict = Depends(get_current_user),
+):
+    try:
+        from app.controllers.chat_controller import get_user_plans_for_chat
+        return await get_user_plans_for_chat(current_user["user_id"])
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to fetch plans for chat: {str(e)}",
+        )
 
 
 @router.post(
@@ -66,10 +102,22 @@ async def chat(
             user_message=request.message,
             user_id=current_user["user_id"],
             history=request.history,
+            chat_mode=request.chat_mode,
+            plan_id=request.plan_id,
         )
         return ChatResponse(
             answer=result["answer"],
             sources=result["sources"],
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        )
+    except PermissionError as e:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(e),
         )
     except Exception as e:
         raise HTTPException(
