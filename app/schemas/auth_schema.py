@@ -76,6 +76,7 @@ class DoctorResponse(BaseModel):
     specialization: str
     clinic_address: Optional[str]
     is_active: bool = True
+    
     is_verified: bool
     role: str = "doctor"
     created_at: str
