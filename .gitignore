@@ -62,6 +62,7 @@ coverage.xml
 # Logs and database
 *.sqlite3
 *.db
+mongodb_data/
 
 # FastAPI / Uploads
 uploads/
