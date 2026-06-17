@@ -14,7 +14,6 @@ To help you prepare for technical interviews and understand how each component o
 2. **🎨 [Frontend Technical Guide](GUIDE_FRONTEND.md):** Deep dive into React SPAs (Vite), global `AuthContext` state, dynamic multi-stage onboarding, state immutability (deep-copying state), and advanced **silent access token refresh** using Axios response interceptors.
 3. **🔌 [Full-Stack Integration Guide](GUIDE_INTEGRATION.md):** Comprehensive analysis of E2E patient/doctor communication, CORS middleware, multipart/form file uploading endpoints, and API networks.
 4. **🗄️ [Database Technical Guide](GUIDE_DATABASE.md):** Details MongoDB async driver operations (`motor`), document denormalization choices, self-cleaning collections (TTL indexes on blacklisted tokens), and Compound Indexing optimizations.
-5. **🧪 [Selenium Testing Guide](GUIDE_SELENIUM_TESTING.md):** Standard-based QA framework including the Page Object Model (POM) design, explicit waiting loops, JS obscured-clicks bypasses, dynamic failure screenshot capturing hooks, and a standalone live-coding script.
 
 ---
 
