@@ -174,8 +174,8 @@ const DoctorDashboard = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-xs text-stone-400">
                   {new Date(plan.created_at).toLocaleString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-stone-850">
-                  Patient Profile File
+                <td className="px-6 py-4 whitespace-nowrap font-semibold text-emerald-950">
+                  {plan.patient_metadata?.full_name || "Anonymous Patient"}
                 </td>
                 <td className="px-6 py-4 font-semibold text-stone-900">
                   {plan.title}

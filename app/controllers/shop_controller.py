@@ -10,8 +10,12 @@ import urllib.request
 import urllib.parse
 import json as json_lib
 import asyncio
+import logging
+import httpx
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Optional
+
+logger = logging.getLogger(__name__)
 
 from app.schemas.shop_schema import (
     NearbyShopsRequest,
@@ -57,27 +61,44 @@ def _build_query(lat: float, lon: float, radius_m: int) -> str:
     )
 
 
-# ── Sync call ──────────────────────────────────────────────────────────────────
-def _call_overpass(query: str) -> dict:
-    """Sync urllib POST — runs in thread pool."""
+# ── Async Parallel Racing ──────────────────────────────────────────────────────
+async def _race_overpass_servers(query: str) -> dict:
+    """Query all configured Overpass API mirrors in parallel and return the first successful response."""
     encoded = urllib.parse.urlencode({"data": query}).encode("utf-8")
 
-    for url in OVERPASS_SERVERS:
-        try:
-            req = urllib.request.Request(
+    async def _query_one(url: str) -> dict:
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
                 url,
-                data    = encoded,
-                method  = "POST",
-                headers = {"Content-Type": "application/x-www-form-urlencoded"},
+                content=encoded,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+                timeout=5.0
             )
-            with urllib.request.urlopen(req, timeout=READ_TIMEOUT) as r:
-                return json_lib.loads(r.read())
-        except Exception:
-            continue
+            if resp.status_code == 200:
+                try:
+                    return resp.json()
+                except Exception as e:
+                    raise RuntimeError(f"Invalid JSON from {url}: {e}")
+            raise RuntimeError(f"Mirror {url} failed with status {resp.status_code}")
 
-    raise RuntimeError(
-        "Shop search is taking too long or servers are busy."
-    )
+    # Start tasks for all servers concurrently
+    tasks = [asyncio.create_task(_query_one(url)) for url in OVERPASS_SERVERS]
+
+    # Race tasks
+    pending = tasks
+    while pending:
+        done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
+        for task in done:
+            try:
+                result = task.result()
+                # Cancel all remaining pending tasks
+                for p_task in pending:
+                    p_task.cancel()
+                return result
+            except Exception as e:
+                logger.warning(f"Overpass mirror query failed: {e}")
+
+    raise RuntimeError("All Overpass servers are busy or timed out.")
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
@@ -130,16 +151,13 @@ async def find_nearby_shops(request: NearbyShopsRequest) -> NearbyShopsResponse:
     all_results = {} # {osm_id: shop_dict} to prevent duplicates
     osm_failed = False
 
-    loop = asyncio.get_event_loop()
-
     for radius in radii_to_try:
         final_radius = radius
         radius_m = radius * 1000
         query = _build_query(request.latitude, request.longitude, radius_m)
 
         try:
-            with ThreadPoolExecutor(max_workers=1) as pool:
-                data = await loop.run_in_executor(pool, _call_overpass, query)
+            data = await _race_overpass_servers(query)
             
             elements = data.get("elements", [])
             for el in elements:

@@ -53,6 +53,13 @@ class WeeklySummary(BaseModel):
     expected_results: str
     continue_after_7_days: str
 
+class PatientMetadata(BaseModel):
+    full_name: str
+    age_group: str
+    skin_type: str
+    lifestyle: List[str]
+    dosha_answers: Dict[str, str]
+
 class PlanResponse(BaseModel):
     status: str = "success"
     plan_id: str
@@ -70,6 +77,7 @@ class PlanResponse(BaseModel):
     days: List[DayPlan]
     weekly_summary: WeeklySummary
     created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
+    patient_metadata: Optional[PatientMetadata] = None
 
 class PlanReviewRequest(BaseModel):
     """Data sent by a doctor to approve or modify a plan."""

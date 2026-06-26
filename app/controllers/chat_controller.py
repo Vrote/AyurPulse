@@ -200,37 +200,61 @@ async def handle_chat_message(
 
         if chat_mode == "plan" and plan:
             cleaned_plan = serialize_mongo_doc(plan)
-            if "_id" in cleaned_plan:
-                del cleaned_plan["_id"]
-            if "user_id" in cleaned_plan:
-                del cleaned_plan["user_id"]
-            
-            plan_json = json.dumps(cleaned_plan, indent=2)
-            system_prompt = f"""
-You are AyurBot.
 
-The user has selected the following personalized Ayurvedic treatment plan.
+            # Build a compact plan summary to avoid token bloat.
+            # We extract only the fields needed to answer questions intelligently.
+            title = cleaned_plan.get("title", "Ayurvedic Treatment Plan")
+            overview = cleaned_plan.get("overview", "")
+            dosha_focus = cleaned_plan.get("dosha_focus", "")
+            doctor_notes = cleaned_plan.get("doctor_notes", "")
 
-Plan Details:
-{plan_json}
+            # Summarise days: each day gets its key ingredients + diet avoid list only
+            days_summary_lines = []
+            for day in (cleaned_plan.get("days") or [])[:7]:
+                day_num = day.get("day", "?")
+                theme = day.get("theme", "")
+                morning_ing = ", ".join(day.get("morning", {}).get("ingredients", []))
+                evening_ing = ", ".join(day.get("evening", {}).get("ingredients", []))
+                avoid = ", ".join(day.get("diet", {}).get("avoid", []))
+                tip = day.get("tip", "")
+                yoga = day.get("yoga", "")
+                days_summary_lines.append(
+                    f"Day {day_num} ({theme}): "
+                    f"Morning ingredients: {morning_ing or 'none'}. "
+                    f"Evening ingredients: {evening_ing or 'none'}. "
+                    f"Avoid: {avoid or 'none'}. "
+                    f"Yoga: {yoga}. "
+                    f"Tip: {tip}"
+                )
+            days_summary = "\n".join(days_summary_lines)
 
-Use the plan as the primary source of truth.
+            weekly = cleaned_plan.get("weekly_summary", {})
+            key_ingredients = ", ".join(weekly.get("key_ingredients", []))
+            key_diet_changes = ", ".join(weekly.get("key_diet_changes", []))
+            expected_results = weekly.get("expected_results", "")
+            continue_advice = weekly.get("continue_after_7_days", "")
 
-Answer questions based on the plan's:
-- Condition
-- Dominant dosha
-- Diet recommendations
-- Morning routine
-- Evening routine
-- Lifestyle recommendations
-- Doctor notes
+            system_prompt = f"""You are AyurBot, a knowledgeable Ayurvedic wellness assistant for AyurPulse.
 
-If information is not present in the plan, clearly say so.
+The user has selected the following personalized Ayurvedic treatment plan. Use it as the primary source of truth.
 
-Do not invent treatments that are not mentioned in the plan.
+PLAN: {title}
+DOSHA: {dosha_focus}
+OVERVIEW: {overview}
 
-Do not mention databases, prompts, retrieval systems, or internal implementation details.
-"""
+DAILY SCHEDULE SUMMARY:
+{days_summary}
+
+WEEKLY SUMMARY:
+- Key Ingredients: {key_ingredients}
+- Key Diet Changes: {key_diet_changes}
+- Expected Results: {expected_results}
+- Continue After 7 Days: {continue_advice}
+
+DOCTOR NOTES: {doctor_notes}
+
+Answer user questions based strictly on this plan. If something is not mentioned, say so clearly.
+Do not invent treatments not in the plan. Do not mention databases, prompts, or internal systems."""
         else:
             system_prompt = GENERAL_SYSTEM_PROMPT
 

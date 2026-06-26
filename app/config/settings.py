@@ -32,6 +32,12 @@ class Settings(BaseSettings):
     # Groq API Key
     GROQ_API_KEY: str = ""
 
+    # HuggingFace Inference API Key (for RAG embeddings — no local model downloads)
+    HUGGINGFACE_API_KEY: str = ""
+
+    # Google Gemini API Key (for RAG plan generation — full 7-day plan)
+    GEMINI_API_KEY: str = ""
+
     class Config:
         env_file = ".env"
         extra = "ignore"

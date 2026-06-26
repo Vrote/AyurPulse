@@ -7,8 +7,9 @@ from datetime import datetime
 from app.utils.logger import logger
 
 from app.db.mongodb import get_db
+from app.controllers.rag_controller import generate_rag_plan
 from app.utils.prakriti_assessment import calculate_dosha
-from app.schemas.plan_schema import PlanRequest, PlanResponse, DayPlan, WeeklySummary, RoutineStep, DietPlan, PlanReviewRequest
+from app.schemas.plan_schema import PlanRequest, PlanResponse, DayPlan, WeeklySummary, RoutineStep, DietPlan, PlanReviewRequest, PatientMetadata
 
 
 def load_json_data(filename: str) -> Dict:
@@ -44,7 +45,124 @@ async def generate_personalized_plan(request: PlanRequest, user_id: str) -> Plan
     # 2. Determine Dominant Dosha from answers
     dominant_dosha = calculate_dosha(request.dosha_answers.model_dump())
 
-    # 3. Load Master Plans and Skin Rules
+    # 2.1 Fetch patient details and construct PatientMetadata
+    patient_name = "Anonymous Patient"
+    try:
+        user_doc = await db["users"].find_one({"_id": ObjectId(user_id)})
+        if user_doc:
+            patient_name = user_doc.get("full_name", "Anonymous Patient")
+    except Exception as e:
+        logger.error(f"Failed to fetch user full name in plan generation: {e}")
+
+    patient_metadata = PatientMetadata(
+        full_name=patient_name,
+        age_group=request.age_group,
+        skin_type=request.skin_type,
+        lifestyle=request.lifestyle,
+        dosha_answers=request.dosha_answers.model_dump()
+    )
+
+    # 2.5 RAG-Enhanced Plan Generation (try before rule-based fallback)
+    try:
+        lifestyle_data = {
+            "sleep_hours": "poor" if "poor_sleep" in request.lifestyle else "normal",
+            "stress_level": "high" if "high_stress" in request.lifestyle else "normal",
+            "water_intake": "low" if "low_water" in request.lifestyle else "normal",
+            "exercise_frequency": "unknown"
+        }
+        rag_plan = await generate_rag_plan(
+            condition=condition,
+            dominant_dosha=dominant_dosha,
+            age=request.age_group,
+            lifestyle_data=lifestyle_data
+        )
+        if rag_plan is not None:
+            logger.info("RAG plan generated successfully for user")
+
+            # Determine required specialty
+            condition_to_specialty_rag = {
+                "acne": "Ayurvedic Dermatology",
+                "blackheads": "Ayurvedic Dermatology",
+                "dark_spots": "Skin Rejuvenation",
+                "pores": "Ayurvedic Dermatology",
+                "wrinkles": "Anti-Aging (Rasayana)"
+            }
+            required_specialty = condition_to_specialty_rag.get(condition, "General Ayurveda")
+
+            # Build PlanResponse from RAG plan dict
+            rag_days = []
+            for day_data in rag_plan.get("days", []):
+                morning = RoutineStep(
+                    time=day_data.get("morning", {}).get("time", "6:00 AM"),
+                    routine=day_data.get("morning", {}).get("routine", []),
+                    ingredients=day_data.get("morning", {}).get("ingredients", []),
+                    procedure=day_data.get("morning", {}).get("procedure", [])
+                )
+                evening = RoutineStep(
+                    time=day_data.get("evening", {}).get("time", "7:00 PM"),
+                    routine=day_data.get("evening", {}).get("routine", []),
+                    ingredients=day_data.get("evening", {}).get("ingredients", []),
+                    procedure=day_data.get("evening", {}).get("procedure", [])
+                )
+                diet = DietPlan(
+                    breakfast=day_data.get("diet", {}).get("breakfast", ""),
+                    lunch=day_data.get("diet", {}).get("lunch", ""),
+                    dinner=day_data.get("diet", {}).get("dinner", ""),
+                    drinks=day_data.get("diet", {}).get("drinks", []),
+                    avoid=day_data.get("diet", {}).get("avoid", [])
+                )
+                rag_days.append(DayPlan(
+                    day=day_data.get("day", 1),
+                    theme=day_data.get("theme", ""),
+                    morning=morning,
+                    diet=diet,
+                    evening=evening,
+                    yoga=day_data.get("yoga", ""),
+                    tip=day_data.get("tip", "")
+                ))
+
+            ws = rag_plan.get("weekly_summary", {})
+            weekly_summary = WeeklySummary(
+                key_ingredients=ws.get("key_ingredients", []),
+                key_diet_changes=ws.get("key_diet_changes", []),
+                expected_results=ws.get("expected_results", ""),
+                continue_after_7_days=ws.get("continue_after_7_days", "")
+            )
+
+            response = PlanResponse(
+                plan_id=rag_plan.get("plan_id", f"{condition}_{dominant_dosha}_RAG"),
+                title=rag_plan.get("title", ""),
+                overview=rag_plan.get("overview", ""),
+                dosha_focus=rag_plan.get("dosha_focus", dominant_dosha.replace("_dominant", "")),
+                required_specialty=required_specialty,
+                personalization_notes=[f"RAG-personalized plan for {condition} ({dominant_dosha})"],
+                days=rag_days,
+                weekly_summary=weekly_summary,
+                is_doctor_vetted=False,
+                is_doctor_modified=False,
+                doctor_notes=None,
+                doctor_name=None,
+                reviewed_at=None,
+                created_at=datetime.now().isoformat(),
+                patient_metadata=patient_metadata
+            )
+
+            # Save to MongoDB
+            if db is not None:
+                plan_doc = response.model_dump()
+                plan_doc["user_id"] = user_id
+                plan_doc["prediction_id"] = request.prediction_id
+                plan_doc["created_at"] = datetime.now()
+                result = await db["user_plans"].insert_one(plan_doc)
+                response.id = str(result.inserted_id)
+
+            return response
+        else:
+            logger.info("RAG returned None, using rule-based fallback")
+    except Exception as e:
+        logger.error(f"RAG pipeline error in plan_controller: {e}")
+
+    # 3. Load Master Plans and Skin Rules (Rule-Based Fallback)
     master_plans = load_json_data("ayurvedic_plans_v2.json")
     skin_rules   = load_json_data("skin_rules.json")
 
@@ -162,7 +280,8 @@ async def generate_personalized_plan(request: PlanRequest, user_id: str) -> Plan
         doctor_notes          = None,
         doctor_name           = None,
         reviewed_at           = None,
-        created_at            = datetime.now().isoformat()
+        created_at            = datetime.now().isoformat(),
+        patient_metadata      = patient_metadata
     )
 
     # 7. Save to MongoDB user_plans collection (Persistence)
@@ -202,6 +321,36 @@ async def get_plan_history(user_id: str):
     return history
 
 
+async def _backfill_patient_metadata(doc: dict, db) -> dict:
+    """Helper to backfill patient_metadata for old database records."""
+    if not doc.get("patient_metadata"):
+        try:
+            p_name = "Anonymous Patient"
+            if "user_id" in doc:
+                user_doc = await db["users"].find_one({"_id": ObjectId(doc["user_id"])})
+                if user_doc:
+                    p_name = user_doc.get("full_name", "Anonymous Patient")
+            
+            # Use general default fallback details for old records
+            doc["patient_metadata"] = {
+                "full_name": p_name,
+                "age_group": "21-30",
+                "skin_type": "combination",
+                "lifestyle": [],
+                "dosha_answers": {
+                    "body_frame": "medium",
+                    "hunger": "very_strong",
+                    "sleep": "sound",
+                    "feeling": "hot",
+                    "digestion": "burning",
+                    "mood": "focused_irritable"
+                }
+            }
+        except Exception as e:
+            logger.error(f"Failed to backfill patient_metadata: {e}")
+    return doc
+
+
 async def get_all_plans_for_doctor(specialization: Optional[str] = None):
     """
     Fetch all plans for doctor to review (most recent first).
@@ -233,6 +382,8 @@ async def get_all_plans_for_doctor(specialization: Optional[str] = None):
             doc["created_at"] = doc["created_at"].isoformat()
         if isinstance(doc.get("reviewed_at"), datetime):
             doc["reviewed_at"] = doc["reviewed_at"].isoformat()
+        # Backfill
+        doc = await _backfill_patient_metadata(doc, db)
         plans.append(doc)
     
     return plans
@@ -266,6 +417,8 @@ async def get_reviewed_plans_for_doctor(specialization: Optional[str] = None):
             doc["created_at"] = doc["created_at"].isoformat()
         if isinstance(doc.get("reviewed_at"), datetime):
             doc["reviewed_at"] = doc["reviewed_at"].isoformat()
+        # Backfill
+        doc = await _backfill_patient_metadata(doc, db)
         plans.append(doc)
     
     return plans
@@ -302,7 +455,7 @@ async def review_plan_by_doctor(plan_id: str, request: PlanReviewRequest, doctor
         update_data["is_doctor_modified"] = True
         # ── SENSITIVE DATA CLEANUP ──
         # Strictly prevent doctor from changing internal system/user IDs
-        forbidden_keys = ["id", "_id", "user_id", "prediction_id", "created_at", "is_doctor_vetted", "is_doctor_modified"]
+        forbidden_keys = ["id", "_id", "user_id", "prediction_id", "created_at", "is_doctor_vetted", "is_doctor_modified", "doctor_notes", "doctor_name", "reviewed_at"]
         for key in forbidden_keys:
             if key in request.modified_plan:
                 del request.modified_plan[key]
