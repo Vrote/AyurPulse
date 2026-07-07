@@ -17,4 +17,3 @@ langchain
 langchain-groq
 langchain-community
 langchain-chroma
-chromadb

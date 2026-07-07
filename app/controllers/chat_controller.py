@@ -14,7 +14,7 @@ from datetime import datetime
 from functools import lru_cache
 from bson import ObjectId
 from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 from app.config.settings import settings
 from app.db.mongodb import get_db
@@ -196,7 +196,7 @@ async def handle_chat_message(
         }
 
     try:
-        from langchain.schema import HumanMessage, SystemMessage, AIMessage
+        from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 
         if chat_mode == "plan" and plan:
             cleaned_plan = serialize_mongo_doc(plan)
