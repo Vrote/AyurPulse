@@ -97,6 +97,7 @@ def main():
                 doc = Document(
                     page_content=plan_text,
                     metadata={
+                        "plan_type": "base_template",
                         "condition": condition,
                         "dosha": dosha_key,
                         "plan_id": plan.get("plan_id", "unknown")

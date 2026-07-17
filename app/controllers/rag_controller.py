@@ -100,22 +100,67 @@ async def generate_rag_plan(
             f"Exercise: {lifestyle_data.get('exercise_frequency', 'unknown')}"
         )
 
-        # --- Step 3: Retrieve top similar plan with metadata filter ---
+        # --- Step 3: Retrieve top similar plan with metadata filter (tiered: doctor_verified first, fallback to base_template) ---
+        retrieved_docs = []
         try:
-            search_kwargs = {
-                "k": 1,
-                "filter": {
+            # Try finding doctor-verified plan first
+            results = vectorstore.similarity_search_with_score(
+                query,
+                k=1,
+                filter={
                     "$and": [
                         {"condition": condition},
-                        {"dosha": dominant_dosha}
+                        {"dosha": dominant_dosha},
+                        {"plan_type": "doctor_verified"}
                     ]
                 }
-            }
-            retriever = vectorstore.as_retriever(search_kwargs=search_kwargs)
-            retrieved_docs = retriever.invoke(query)
+            )
+            if results:
+                doc, score = results[0]
+                # Chroma distance metric (L2). Lower is closer/better.
+                # Threshold of 1.0 represents a close match for dynamic templates (L2 distance < 1.0 corresponds to cosine similarity > 0.5).
+                logger.info(f"Doctor-verified plan found. Distance score: {score:.4f}")
+                if score < 1.0:
+                    retrieved_docs = [doc]
+                    logger.info("Using doctor-verified plan as reference context")
+                else:
+                    logger.info("Doctor-verified plan distance score too high (>= 1.0). Falling back to base template.")
         except Exception as e:
-            logger.error(f"ChromaDB retrieval failed: {e}")
-            return None
+            logger.error(f"Doctor-verified similarity search failed: {e}")
+
+        # If no doctor-verified plan was retrieved or matched threshold, fallback to base template
+        if not retrieved_docs:
+            try:
+                retrieved_docs = vectorstore.similarity_search(
+                    query,
+                    k=1,
+                    filter={
+                        "$and": [
+                            {"condition": condition},
+                            {"dosha": dominant_dosha},
+                            {"plan_type": "base_template"}
+                        ]
+                    }
+                )
+                if retrieved_docs:
+                    logger.info("Using standard base template plan as reference context")
+                else:
+                    # In case of older/un-migrated database, run fallback query without plan_type
+                    retrieved_docs = vectorstore.similarity_search(
+                        query,
+                        k=1,
+                        filter={
+                            "$and": [
+                                {"condition": condition},
+                                {"dosha": dominant_dosha}
+                            ]
+                        }
+                    )
+                    if retrieved_docs:
+                        logger.info("Using unfiltered fallback template as reference context")
+            except Exception as e:
+                logger.error(f"Base template ChromaDB retrieval failed: {e}")
+                return None
 
         if not retrieved_docs:
             logger.warning(f"No documents retrieved from ChromaDB for condition={condition}, dosha={dominant_dosha}")
@@ -241,3 +286,116 @@ Personalize each day based on lifestyle data. Use authentic Ayurvedic ingredient
     except Exception as e:
         logger.error(f"Unexpected RAG error: {e}")
         return None
+
+
+async def add_verified_plan_to_vectorstore(plan_data: dict) -> bool:
+    """
+    Dynamically embed and add a doctor-verified plan to the ChromaDB vector store.
+    Uses the unique plan ID to upsert so duplicates are handled cleanly.
+    """
+    try:
+        vectorstore = get_vectorstore()
+        if vectorstore is None:
+            logger.error("Failed to load vectorstore for adding doctor-verified plan.")
+            return False
+
+        # Extract metadata
+        plan_id = plan_data.get("id") or str(plan_data.get("_id", "unknown"))
+        if plan_id == "unknown":
+            logger.error("Cannot add plan to vectorstore: no valid ID found.")
+            return False
+
+        # Extract condition from plan_id or metadata
+        metadata = plan_data.get("patient_metadata", {})
+        condition = "acne"
+        plan_id_str = plan_data.get("plan_id", "").upper()
+        if "ACNE" in plan_id_str:
+            condition = "acne"
+        elif "BLACKHEAD" in plan_id_str:
+            condition = "blackheads"
+        elif "DARK_SPOTS" in plan_id_str or "DARKSPOTS" in plan_id_str or "DARK SPOTS" in plan_id_str:
+            condition = "dark_spots"
+        elif "PORES" in plan_id_str:
+            condition = "pores"
+        elif "WRINKLES" in plan_id_str:
+            condition = "wrinkles"
+
+        # Dosha focus normalization
+        dosha = plan_data.get("dosha_focus", "").lower()
+        if not dosha.endswith("_dominant"):
+            dosha = f"{dosha}_dominant"
+
+        # Format text representation for vector indexing
+        plan_text = (
+            f"Plan Type: Doctor-Verified Plan\n"
+            f"Condition: {condition}\n"
+            f"Dosha: {dosha}\n"
+            f"Plan ID: {plan_data.get('plan_id', 'unknown')}\n"
+            f"Title: {plan_data.get('title', '')}\n"
+            f"Overview: {plan_data.get('overview', '')}\n"
+            f"Doctor Notes: {plan_data.get('doctor_notes') or ''}\n"
+            f"Doctor Name: {plan_data.get('doctor_name', 'Unknown Doctor')}\n"
+            f"Patient Age Group: {metadata.get('age_group', 'unknown')}\n"
+            f"Patient Skin Type: {metadata.get('skin_type', 'unknown')}\n"
+            f"Patient Lifestyle: {', '.join(metadata.get('lifestyle', []))}\n\n"
+        )
+
+        for day in plan_data.get("days", []):
+            plan_text += f"--- Day {day.get('day', '?')} ---\n"
+            plan_text += f"Theme: {day.get('theme', '')}\n"
+            
+            # Morning
+            morning = day.get("morning", {})
+            plan_text += f"Morning ({morning.get('time', '')}):\n"
+            for step in morning.get("routine", []):
+                plan_text += f"  - {step}\n"
+            plan_text += f"  Ingredients: {', '.join(morning.get('ingredients', []))}\n"
+
+            # Diet
+            diet = day.get("diet", {})
+            plan_text += f"Diet:\n"
+            plan_text += f"  Breakfast: {diet.get('breakfast', '')}\n"
+            plan_text += f"  Lunch: {diet.get('lunch', '')}\n"
+            plan_text += f"  Dinner: {diet.get('dinner', '')}\n"
+            plan_text += f"  Drinks: {', '.join(diet.get('drinks', []))}\n"
+            plan_text += f"  Avoid: {', '.join(diet.get('avoid', []))}\n"
+
+            # Evening
+            evening = day.get("evening", {})
+            plan_text += f"Evening ({evening.get('time', '')}):\n"
+            for step in evening.get("routine", []):
+                plan_text += f"  - {step}\n"
+            plan_text += f"  Ingredients: {', '.join(evening.get('ingredients', []))}\n"
+
+            plan_text += f"Yoga: {day.get('yoga', '')}\n"
+            plan_text += f"Tip: {day.get('tip', '')}\n\n"
+
+        # Weekly summary
+        ws = plan_data.get("weekly_summary", {})
+        plan_text += "Weekly Summary:\n"
+        plan_text += f"  Key Ingredients: {', '.join(ws.get('key_ingredients', []))}\n"
+        plan_text += f"  Key Diet Changes: {', '.join(ws.get('key_diet_changes', []))}\n"
+        plan_text += f"  Expected Results: {ws.get('expected_results', '')}\n"
+        plan_text += f"  Continue After 7 Days: {ws.get('continue_after_7_days', '')}\n"
+
+        # Add to ChromaDB
+        from langchain_core.documents import Document
+        doc = Document(
+            page_content=plan_text,
+            metadata={
+                "plan_type": "doctor_verified",
+                "condition": condition,
+                "dosha": dosha,
+                "plan_id": plan_data.get("plan_id", "unknown"),
+                "age_group": metadata.get("age_group", "unknown"),
+                "skin_type": metadata.get("skin_type", "unknown")
+            }
+        )
+
+        vectorstore.add_documents([doc], ids=[plan_id])
+        logger.info(f"Doctor-verified plan '{plan_id}' successfully added/updated in vectorstore.")
+        return True
+
+    except Exception as e:
+        logger.error(f"Failed to add doctor-verified plan to vectorstore: {e}")
+        return False

@@ -474,6 +474,17 @@ async def review_plan_by_doctor(plan_id: str, request: PlanReviewRequest, doctor
 
     # Return updated document
     updated_doc = await db["user_plans"].find_one({"_id": obj_id})
+
+    # 4. If doctor-vetted, dynamically index in vector store for RAG
+    if updated_doc.get("is_doctor_vetted"):
+        try:
+            from app.controllers.rag_controller import add_verified_plan_to_vectorstore
+            # Backfill metadata if missing (for legacy records)
+            full_doc_for_rag = await _backfill_patient_metadata(dict(updated_doc), db)
+            await add_verified_plan_to_vectorstore(full_doc_for_rag)
+        except Exception as ve:
+            logger.error(f"Failed to dynamically index doctor-vetted plan {plan_id} in ChromaDB: {ve}")
+
     updated_doc["id"] = str(updated_doc["_id"])
     del updated_doc["_id"]
 
